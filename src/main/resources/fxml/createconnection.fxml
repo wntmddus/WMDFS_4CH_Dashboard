@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="550.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.CreateConnectionController">
+    <children>
+        <Pane prefHeight="550.0" prefWidth="700.0">
+            <children>
+                <Label layoutX="41.0" layoutY="27.0" text="Create Connection">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Label>
+                <Label fx:id="deviceConnNum0" layoutX="26.0" layoutY="106.0" text="#0" />
+                <TextField fx:id="inputAdd0" layoutX="51.0" layoutY="101.0" />
+                <Label layoutX="109.0" layoutY="72.0" text="Address" />
+                <TextField fx:id="inputPort0" layoutX="223.0" layoutY="101.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label layoutX="243.0" layoutY="72.0" text="Port" />
+                <Label layoutX="445.0" layoutY="72.0" text="Address" />
+                <Label layoutX="579.0" layoutY="72.0" text="Port" />
+                <Label fx:id="deviceConnNum1" layoutX="367.0" layoutY="106.0" text="#1" />
+                <TextField fx:id="inputAdd1" layoutX="392.0" layoutY="101.0" />
+                <TextField fx:id="inputPort1" layoutX="564.0" layoutY="101.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum2" layoutX="26.0" layoutY="140.0" text="#2" />
+                <TextField fx:id="inputAdd2" layoutX="51.0" layoutY="135.0" />
+                <TextField fx:id="inputPort2" layoutX="223.0" layoutY="135.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum3" layoutX="367.0" layoutY="140.0" text="#3" />
+                <TextField fx:id="inputAdd3" layoutX="392.0" layoutY="135.0" />
+                <TextField fx:id="inputPort3" layoutX="564.0" layoutY="135.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum4" layoutX="26.0" layoutY="174.0" text="#4" />
+                <TextField fx:id="inputAdd4" layoutX="51.0" layoutY="169.0" />
+                <TextField fx:id="inputPort4" layoutX="223.0" layoutY="169.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum5" layoutX="367.0" layoutY="174.0" text="#5" />
+                <TextField fx:id="inputAdd5" layoutX="392.0" layoutY="169.0" />
+                <TextField fx:id="inputPort5" layoutX="564.0" layoutY="169.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum6" layoutX="26.0" layoutY="208.0" text="#6" />
+                <TextField fx:id="inputAdd6" layoutX="51.0" layoutY="203.0" />
+                <TextField fx:id="inputPort6" layoutX="223.0" layoutY="203.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum7" layoutX="367.0" layoutY="208.0" text="#7" />
+                <TextField fx:id="inputAdd7" layoutX="392.0" layoutY="203.0" />
+                <TextField fx:id="inputPort7" layoutX="564.0" layoutY="203.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum8" layoutX="26.0" layoutY="243.0" text="#8" />
+                <TextField fx:id="inputAdd8" layoutX="51.0" layoutY="238.0" />
+                <TextField fx:id="inputPort8" layoutX="223.0" layoutY="238.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum9" layoutX="367.0" layoutY="243.0" text="#9" />
+                <TextField fx:id="inputAdd9" layoutX="392.0" layoutY="238.0" />
+                <TextField fx:id="inputPort9" layoutX="564.0" layoutY="238.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum10" layoutX="23.0" layoutY="277.0" text="#10" />
+                <TextField fx:id="inputAdd10" layoutX="51.0" layoutY="272.0" />
+                <TextField fx:id="inputPort10" layoutX="223.0" layoutY="272.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum11" layoutX="364.0" layoutY="277.0" text="#11" />
+                <TextField fx:id="inputAdd11" layoutX="392.0" layoutY="272.0" />
+                <TextField fx:id="inputPort11" layoutX="564.0" layoutY="272.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum12" layoutX="23.0" layoutY="311.0" text="#12" />
+                <TextField fx:id="inputAdd12" layoutX="51.0" layoutY="306.0" />
+                <TextField fx:id="inputPort12" layoutX="223.0" layoutY="306.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum13" layoutX="363.0" layoutY="311.0" text="#13" />
+                <TextField fx:id="inputAdd13" layoutX="392.0" layoutY="306.0" />
+                <TextField fx:id="inputPort13" layoutX="564.0" layoutY="306.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum14" layoutX="22.0" layoutY="345.0" text="#14" />
+                <TextField fx:id="inputAdd14" layoutX="51.0" layoutY="340.0" />
+                <TextField fx:id="inputPort14" layoutX="223.0" layoutY="340.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum15" layoutX="363.0" layoutY="345.0" text="#15" />
+                <TextField fx:id="inputAdd15" layoutX="392.0" layoutY="340.0" />
+                <TextField fx:id="inputPort15" layoutX="564.0" layoutY="340.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum16" layoutX="22.0" layoutY="379.0" text="#16" />
+                <TextField fx:id="inputAdd16" layoutX="51.0" layoutY="374.0" />
+                <TextField fx:id="inputPort16" layoutX="223.0" layoutY="374.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum17" layoutX="363.0" layoutY="379.0" text="#17" />
+                <TextField fx:id="inputAdd17" layoutX="392.0" layoutY="374.0" />
+                <TextField fx:id="inputPort17" layoutX="564.0" layoutY="374.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum18" layoutX="22.0" layoutY="413.0" text="#18" />
+                <TextField fx:id="inputAdd18" layoutX="51.0" layoutY="408.0" />
+                <TextField fx:id="inputPort18" layoutX="223.0" layoutY="408.0" prefHeight="27.0" prefWidth="63.0" />
+                <Label fx:id="deviceConnNum19" layoutX="363.0" layoutY="413.0" text="#19" />
+                <TextField fx:id="inputAdd19" layoutX="392.0" layoutY="408.0" />
+                <TextField fx:id="inputPort19" layoutX="564.0" layoutY="408.0" prefHeight="27.0" prefWidth="63.0" />
+                <Button fx:id="connectBtn" layoutX="509.0" layoutY="502.0" mnemonicParsing="false" onAction="#handleOnConnect" text="Connect" />
+                <Button fx:id="connectionCloseBtn" layoutX="590.0" layoutY="502.0" mnemonicParsing="false" onAction="#onClose" text="Close" />
+                <Button fx:id="disconnect0" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="104.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect2" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="138.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect4" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="172.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect6" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="206.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect8" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="241.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect10" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="275.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect12" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="309.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect14" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="343.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect16" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="377.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect18" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="411.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect1"  onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="104.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect3" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="138.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect5" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="172.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect7" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="206.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect9" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="241.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect11" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="275.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect13" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="309.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect15" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="343.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect17" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="377.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Button fx:id="disconnect19" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="411.0" mnemonicParsing="false" text="Disconnect">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+    </children>
+</VBox>
