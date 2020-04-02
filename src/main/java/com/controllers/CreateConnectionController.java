@@ -183,9 +183,6 @@ public class CreateConnectionController extends DashboardController implements I
     @FXML
     Label deviceConnNum19;
 
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         connAddTextFieldMap.put(0, inputAdd0);
@@ -278,6 +275,12 @@ public class CreateConnectionController extends DashboardController implements I
                 });
             }
         }
+        for(Map.Entry<Integer, String> entry : addresses.entrySet()) {
+            Platform.runLater(() -> {
+                connAddTextFieldMap.get(entry.getKey()).setText(addresses.get(entry.getKey()));
+                connPortTextFieldMap.get(entry.getKey()).setText((ports.get(entry.getKey())));
+            });
+        }
     }
 
     private Stage stage;
@@ -332,7 +335,15 @@ public class CreateConnectionController extends DashboardController implements I
     private void connectValidAddressesToTCP() {
         addresses.forEach((i, value) -> {
             if(!clientConn.containsKey(i)) {
+                PrintWriter f0 = null;
+                String path = "../output.txt";
+                try {
+                    f0 = new PrintWriter(new FileWriter(path, true), true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 // create a socket with a timeout
+                PrintWriter finalF = f0;
                 Runnable task = () -> {
                     try {
                         // create and store Socket
@@ -343,7 +354,6 @@ public class CreateConnectionController extends DashboardController implements I
                             try {
                                 System.out.println("Connected " + sock);
                                 clientConn.put(i, sock);
-                                System.out.println("Assigning Input Output Stream");
                                 outputList.put(i, new DataOutputStream(sock.getOutputStream()));
                                 inputList.put(i, new DataInputStream(sock.getInputStream()));
                                 deviceData.put(i, new ArrayList<>());
@@ -374,6 +384,10 @@ public class CreateConnectionController extends DashboardController implements I
                                         System.err.println("Timed out waiting for the socket in input ReadLine" + i);
                                         sock = reconnectOnSocketFailure(i, sock);
                                     }
+                                    if (recCheckboxArray.get(i).isSelected()) {
+                                        assert finalF != null;
+                                        finalF.println(line);
+                                    }
                                     List<String> arr = Arrays.asList(line.split("\\s+"));
                                     if (deviceData.get(i).size() > 3600) deviceData.get(i).remove(0);
                                     deviceData.get(i).add(arr);
@@ -398,6 +412,10 @@ public class CreateConnectionController extends DashboardController implements I
                                 ports.remove(i);
                                 deviceData.get(i).clear();
                                 chartConfigMap.remove(i);
+                                recCheckboxArray.get(i).setSelected(false);
+                                recCheckboxArray.get(i).setText("Not Recording");
+                                recCheckboxArray.get(i).setTextFill(Color.BLACK);
+                                finalF.close();
                                 Platform.runLater(() -> {
                                     removeChartData(i);
                                 });
@@ -538,20 +556,6 @@ public class CreateConnectionController extends DashboardController implements I
             lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
             lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
         }
-//        lineCharts.get(index).getXAxis().setLabel("Time(dd:hh:mm:ss)");
-
-//        chartDataMap.get(index).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
-//        chartDataMap.get(index).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
-//        chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
-//        chartDataMap.get(index).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
-//        chartDataMap.get(index).get("vib2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
-//        chartDataMap.get(index).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
-//        chartDataMap.get(index).get("rpm1").getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
-//        chartDataMap.get(index).get("rpm2").getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
-//        chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
-//        chartDataMap.get(index).get("vib1").getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
-//        chartDataMap.get(index).get("vib2").getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
-//        chartDataMap.get(index).get("vib3").getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
     }
 
     private void extractInformationFromTextField() {
@@ -640,7 +644,4 @@ public class CreateConnectionController extends DashboardController implements I
             ports.put(19, inputPort19.getText());
         }
     }
-
-
-
 }

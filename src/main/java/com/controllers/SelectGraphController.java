@@ -312,18 +312,14 @@ public class SelectGraphController extends DashboardController implements Initia
             });
             Integer deviceNumber = entry.getValue().getSelectionModel().getSelectedItem();
             if (deviceNumber != null) {
-                System.out.println("ChartAllo111111" + chartAllocation);
                 modifyGraphWithGivenConfig(deviceNumber, chartNumber);
                 chartAllocation.put(deviceNumber, chartNumber);
-                System.out.println("ChartAllo222222" + chartAllocation);
             }
             if (deviceNumber == null) {
                 for (Map.Entry<Integer, Integer> e : chartAllocation.entrySet()) {
                     if (e.getValue() == chartNumber) {
                         deviceNumber = e.getKey();
-                        System.out.println("DeviceData" + deviceNumber);
                         chartAllocation.remove(deviceNumber);
-                        System.out.println("ChartData" + chartAllocation);
                         break;
                     }
                 }
@@ -399,7 +395,6 @@ public class SelectGraphController extends DashboardController implements Initia
     public void handleComboboxAction(ActionEvent actionEvent) {
         ComboBox comboBox = ((ComboBox)(actionEvent.getSource()));
         String comboBoxId = comboBox.getId();
-        System.out.println(comboBoxId);
         int comboBoxIndex = Character.getNumericValue(comboBoxId.charAt(comboBoxId.length() - 1));
         if (((ComboBox)(actionEvent.getSource())).getValue() == null) {
             Platform.runLater(() -> {

@@ -26,6 +26,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.prefs.BackingStoreException;
 
 public class DashboardController extends SharedStorage implements Initializable {
 
@@ -470,6 +471,12 @@ public class DashboardController extends SharedStorage implements Initializable 
     @FXML
     public Line line7;
 
+    @FXML
+    public Button save;
+
+    @FXML
+    public Button reset;
+
     private CreateConnectionController createConnectionController;
 
     private double rectangleStart;
@@ -644,14 +651,16 @@ public class DashboardController extends SharedStorage implements Initializable 
         lineMap.put(5, line5);
         lineMap.put(6, line6);
         lineMap.put(7, line7);
+        for(int i = 0; i < 20; i++) {
+            if (!pref.get("address" + i, "root").equals("root") && !pref.get("port" + i, "root").equals("root")) {
+                addresses.put(i, pref.get("address" + i, "root"));
+                ports.put(i, pref.get("port" + i, "root"));
+            }
+        }
     }
 
     public void setStage(Stage stage) {
         mainStage = stage;
-    }
-
-    public Stage getStage() {
-        return mainStage;
     }
 
     @FXML
@@ -684,6 +693,41 @@ public class DashboardController extends SharedStorage implements Initializable 
             lineMap.get(chartIndex).setVisible(false);
         }
     }
+
+    @FXML
+    private void handleOnSave() throws IOException {
+        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
+            pref.put("address" + entry.getKey(), entry.getValue());
+            pref.put("port" + entry.getKey(), ports.get(entry.getKey()));
+        }
+        FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
+        VBox vbox = saveSettingLoader.load();
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("Setting Saved");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleOnReset() throws IOException {
+        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
+            pref.remove("address" + entry.getKey());
+            pref.remove("port" + entry.getKey());
+        }
+        FXMLLoader resetSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingreset.fxml"));
+        VBox vbox = resetSettingLoader.load();
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("Setting Reset");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void createLine(int index, int startX, int startY, int endX, int endY) {
         lineMap.get(index).setStartX(startX);
         lineMap.get(index).setStartY(startY);
@@ -782,7 +826,6 @@ public class DashboardController extends SharedStorage implements Initializable 
                 dataIndex = entry.getKey();
             }
         }
-        System.out.println(dataIndex);
         if (dataIndex == -1) {
             return;
         }
@@ -819,113 +862,10 @@ public class DashboardController extends SharedStorage implements Initializable 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setTitle("Create Connection");
         stage.setScene(scene);
-        displayExistingAddressesAndPorts();
         createConnectionController.setStage(stage);
         stage.show();
     }
 
-    public void displayExistingAddressesAndPorts() {
-        if (addresses.containsKey(0)) {
-            createConnectionController.inputAdd0.setText(addresses.get(0));
-            createConnectionController.inputPort0.setText((ports.get(0)));
-            createConnectionController.disconnect0.setDisable(false);
-        }
-        if (addresses.containsKey(1)) {
-            createConnectionController.inputAdd1.setText(addresses.get(1));
-            createConnectionController.inputPort1.setText((ports.get(1)));
-            createConnectionController.disconnect1.setDisable(false);
-        }
-        if (addresses.containsKey(2)) {
-            createConnectionController.inputAdd2.setText(addresses.get(2));
-            createConnectionController.inputPort2.setText((ports.get(2)));
-            createConnectionController.disconnect2.setDisable(false);
-        }
-        if (addresses.containsKey(3)) {
-            createConnectionController.inputAdd3.setText(addresses.get(3));
-            createConnectionController.inputPort3.setText((ports.get(3)));
-            createConnectionController.disconnect3.setDisable(false);
-        }
-        if (addresses.containsKey(4)) {
-            createConnectionController.inputAdd4.setText(addresses.get(4));
-            createConnectionController.inputPort4.setText((ports.get(4)));
-            createConnectionController.disconnect4.setDisable(false);
-        }
-        if (addresses.containsKey(5)) {
-            createConnectionController.inputAdd5.setText(addresses.get(5));
-            createConnectionController.inputPort5.setText((ports.get(5)));
-            createConnectionController.disconnect5.setDisable(false);
-        }
-        if (addresses.containsKey(6)) {
-            createConnectionController.inputAdd6.setText(addresses.get(6));
-            createConnectionController.inputPort6.setText((ports.get(6)));
-            createConnectionController.disconnect6.setDisable(false);
-        }
-        if (addresses.containsKey(7)) {
-            createConnectionController.inputAdd7.setText(addresses.get(7));
-            createConnectionController.inputPort7.setText((ports.get(7)));
-            createConnectionController.disconnect7.setDisable(false);
-        }
-        if (addresses.containsKey(8)) {
-            createConnectionController.inputAdd8.setText(addresses.get(8));
-            createConnectionController.inputPort8.setText((ports.get(8)));
-            createConnectionController.disconnect8.setDisable(false);
-        }
-        if (addresses.containsKey(9)) {
-            createConnectionController.inputAdd9.setText(addresses.get(9));
-            createConnectionController.inputPort9.setText((ports.get(9)));
-            createConnectionController.disconnect9.setDisable(false);
-        }
-        if (addresses.containsKey(10)) {
-            createConnectionController.inputAdd10.setText(addresses.get(10));
-            createConnectionController.inputPort10.setText((ports.get(10)));
-            createConnectionController.disconnect10.setDisable(false);
-        }
-        if (addresses.containsKey(11)) {
-            createConnectionController.inputAdd11.setText(addresses.get(11));
-            createConnectionController.inputPort11.setText((ports.get(11)));
-            createConnectionController.disconnect11.setDisable(false);
-        }
-        if (addresses.containsKey(12)) {
-            createConnectionController.inputAdd12.setText(addresses.get(12));
-            createConnectionController.inputPort12.setText((ports.get(12)));
-            createConnectionController.disconnect12.setDisable(false);
-        }
-        if (addresses.containsKey(13)) {
-            createConnectionController.inputAdd13.setText(addresses.get(13));
-            createConnectionController.inputPort13.setText((ports.get(13)));
-            createConnectionController.disconnect13.setDisable(false);
-        }
-        if (addresses.containsKey(14)) {
-            createConnectionController.inputAdd14.setText(addresses.get(14));
-            createConnectionController.inputPort14.setText((ports.get(14)));
-            createConnectionController.disconnect14.setDisable(false);
-        }
-        if (addresses.containsKey(15)) {
-            createConnectionController.inputAdd15.setText(addresses.get(15));
-            createConnectionController.inputPort15.setText((ports.get(15)));
-            createConnectionController.disconnect15.setDisable(false);
-        }
-        if (addresses.containsKey(16)) {
-            createConnectionController.inputAdd16.setText(addresses.get(16));
-            createConnectionController.inputPort16.setText((ports.get(16)));
-            createConnectionController.disconnect16.setDisable(false);
-        }
-        if (addresses.containsKey(17)) {
-            createConnectionController.inputAdd17.setText(addresses.get(17));
-            createConnectionController.inputPort17.setText((ports.get(17)));
-            createConnectionController.disconnect17.setDisable(false);
-        }
-        if (addresses.containsKey(18)) {
-            createConnectionController.inputAdd18.setText(addresses.get(18));
-            createConnectionController.inputPort18.setText((ports.get(18)));
-            createConnectionController.disconnect18.setDisable(false);
-        }
-        if (addresses.containsKey(19)) {
-            createConnectionController.inputAdd19.setText(addresses.get(19));
-            createConnectionController.inputPort19.setText((ports.get(19)));
-            createConnectionController.disconnect19.setDisable(false);
-        }
-    }
 
     @FXML
     public void handleOnClickGraphBtn(ActionEvent event) throws IOException {

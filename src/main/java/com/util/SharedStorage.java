@@ -11,9 +11,11 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.*;
+import java.util.prefs.Preferences;
 
 public class SharedStorage {
     public static Stage mainStage;
+    public static Preferences pref = Preferences.userNodeForPackage(SharedStorage.class);
     public static Map<Integer, Socket> clientConn = new HashMap<>();
     public static Map<Integer, String> addresses = new HashMap<>();
     public static Map<Integer, String> ports = new HashMap<>();

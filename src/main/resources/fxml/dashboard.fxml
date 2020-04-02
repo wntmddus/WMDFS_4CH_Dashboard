@@ -15,10 +15,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.shape.Line?>
 <VBox fx:id="vbox" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
@@ -35,6 +35,8 @@
                 <Button fx:id="devConfigBtn" layoutX="1591.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleOnClickDevConfigBtn" text="Dev Config" />
                 <Button fx:id="graphBtn" layoutX="1532.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleOnClickGraphBtn" text="Graph" />
                 <Button fx:id="closeBtn" layoutX="1820.0" layoutY="9.0" mnemonicParsing="false" onAction="#closeAction" text="Close" />
+                <Button fx:id="save" onAction="#handleOnSave" layoutX="1707.0" layoutY="9.0" mnemonicParsing="false" text="Save" />
+            <Button fx:id="reset" onAction="#handleOnReset" layoutX="1763.0" layoutY="9.0" mnemonicParsing="false" text="Reset" />
             </children>
         </Pane>
         <GridPane gridLinesVisible="true" minHeight="200.0" minWidth="1920.0" prefHeight="200.0" prefWidth="1920.0">
