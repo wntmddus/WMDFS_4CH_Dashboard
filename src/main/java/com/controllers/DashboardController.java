@@ -1,20 +1,16 @@
-package com.controllers;
+package main.java.com.controllers;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -23,16 +19,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import com.util.SharedStorage;
+import main.java.com.util.SharedStorage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import com.controllers.CreateConnectionController;
-import com.controllers.SelectGraphController;
 
 public class DashboardController extends SharedStorage implements Initializable {
 
@@ -479,13 +472,9 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     private CreateConnectionController createConnectionController;
 
-    private SelectGraphController selectGraphController;
-
     private double rectangleStart;
 
     private int startIndexOnGraph;
-
-    final private double RECTANGLE_HEIGHT = 105;
 
     final private double CHART_Y_START_COORDINATE = 15;
 
@@ -494,10 +483,6 @@ public class DashboardController extends SharedStorage implements Initializable 
     final private double CHART_X_START_COORDINATE = 65;
 
     final private double CHART_X_END_COORDINATE = 460;
-
-
-    public DashboardController() {
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -597,16 +582,6 @@ public class DashboardController extends SharedStorage implements Initializable 
         realTimeData.get(7).add(ch1RpmValue7);
         realTimeData.get(7).add(ch2RpmValue7);
         realTimeData.get(7).add(ch3RpmValue7);
-//        Platform.runLater(() -> {
-//            rectangle0.setStyle("chart-selection-rectangle");
-//            rectangle1.setStyle("chart-selection-rectangle");
-//            rectangle2.setStyle("chart-selection-rectangle");
-//            rectangle3.setStyle("chart-selection-rectangle");
-//            rectangle4.setStyle("chart-selection-rectangle");
-//            rectangle5.setStyle("chart-selection-rectangle");
-//            rectangle6.setStyle("chart-selection-rectangle");
-//            rectangle7.setStyle("chart-selection-rectangle");
-//        });
         chartRectangleMap.add(rectangle0);
         chartRectangleMap.add(rectangle1);
         chartRectangleMap.add(rectangle2);
@@ -797,23 +772,6 @@ public class DashboardController extends SharedStorage implements Initializable 
 
 
     @FXML
-    private void handleOnMouseClick(MouseEvent event) {
-//        System.out.println("On Mouse Click");
-//        if (event.isSecondaryButtonDown()) {
-//            return;
-//        }
-//        LineChart chart = ((LineChart) (event.getSource()));
-//        String chartId = chart.getId();
-//        int chartIndex = Character.getNumericValue(chartId.charAt(chartId.length() - 1));
-//
-//        System.out.println("Visible? " + chartRectangleMap.get(chartIndex).isVisible());
-//        if (chartRectangleMap.get(chartIndex).isVisible()) {
-//            chartRectangleMap.get(chartIndex).setVisible(false);
-//            return;
-//        }
-    }
-
-    @FXML
     private void handleOnMousePressed(MouseEvent event) {
         LineChart chart = ((LineChart)(event.getSource()));
         String chartId = chart.getId();
@@ -852,7 +810,7 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public void handleOnClickDevConfigBtn(ActionEvent event) throws IOException {
-        FXMLLoader createConnectionLoader = new FXMLLoader(getClass().getResource("/fxml/createconnection.fxml"));
+        FXMLLoader createConnectionLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/createconnection.fxml"));
         VBox vbox = createConnectionLoader.load();
         createConnectionController = createConnectionLoader.getController();
         Stage stage = new Stage();
@@ -970,15 +928,10 @@ public class DashboardController extends SharedStorage implements Initializable 
     }
 
     @FXML
-    void stopPolling(ActionEvent event) throws Exception {
-        clientConn.get(0).close();
-    }
-
-    @FXML
     public void handleOnClickGraphBtn(ActionEvent event) throws IOException {
-        FXMLLoader selectGraphLoader = new FXMLLoader(getClass().getResource("/fxml/selectgraph.fxml"));
+        FXMLLoader selectGraphLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/selectgraph.fxml"));
         VBox vbox = selectGraphLoader.load();
-        selectGraphController = selectGraphLoader.getController();
+        SelectGraphController selectGraphController = selectGraphLoader.getController();
         Stage stage = new Stage();
         stage.initOwner(mainStage);
         Scene scene = new Scene(vbox);

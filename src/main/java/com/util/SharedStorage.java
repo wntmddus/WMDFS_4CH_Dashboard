@@ -1,26 +1,16 @@
-package com.util;
+package main.java.com.util;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import com.controllers.DashboardController;
-
-import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URL;
+import java.util.*;
 
 public class SharedStorage {
     public static Stage mainStage;
@@ -36,12 +26,25 @@ public class SharedStorage {
     public static List<Label> deviceNames = new ArrayList<>();
     public static Map<Integer, List<List<String>>> deviceData = new HashMap<>();
     public static Map<Integer, Label> graphLabels = new HashMap<>();
-    public static Map<Integer, Integer> chartAllocation = new HashMap<Integer, Integer>() {
-        {
-        }
-    };
+    public static Map<Integer, Integer> chartAllocation = new HashMap<>();
+    public static Map<Integer, Integer> tempChartAllocation = new HashMap<>();
     public static Map<Integer, Label> deviceConnNumMap = new HashMap<>();
     public static Map<Integer, Map<String, XYChart.Series<String, Number>>> chartDataMap = new HashMap<>();
+    public static Map<Integer, ComboBox<Integer>> deviceNumPickerMap = new HashMap<>();
+    public static Map<Integer, Map<String, CheckBox>> graphSelectCheckboxMap = new HashMap<Integer, Map<String, CheckBox>>(){
+        {
+            put(0, new HashMap<>());
+            put(1, new HashMap<>());
+            put(2, new HashMap<>());
+            put(3, new HashMap<>());
+            put(4, new HashMap<>());
+            put(5, new HashMap<>());
+            put(6, new HashMap<>());
+            put(7, new HashMap<>());
+
+        }
+    };
+    public static Map<Integer, List<Boolean>> chartConfigMap = new HashMap<>();
     public static Map<Integer, Map<Integer, Label>> chartLabelMap = new HashMap<Integer, Map<Integer, Label>>() {
         {
             put(0, new HashMap<>());
@@ -56,7 +59,6 @@ public class SharedStorage {
     };
     public static List<Rectangle> chartRectangleMap = new ArrayList<>();
     public static Map<Integer, Line> lineMap = new HashMap<>();
-    //    public static List<LineChart<String, Number>> lineCharts = new ArrayList<>();
     public static Map<Integer, LineChart<String, Number>> lineCharts = new HashMap<>();
 
     public static List<List<Label>> realTimeData = new ArrayList<List<Label>>() {
@@ -74,7 +76,7 @@ public class SharedStorage {
     };
 
 
-    public void initialize() {
+    public void initialize(URL url, ResourceBundle rb) {
 
     }
 }

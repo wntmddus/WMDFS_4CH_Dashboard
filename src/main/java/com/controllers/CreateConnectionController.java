@@ -1,29 +1,18 @@
-package com.controllers;
+package main.java.com.controllers;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import com.Main;
-import com.util.SharedStorage;
-
-import javax.sound.sampled.Line;
 import java.io.*;
 import java.net.*;
-import java.nio.Buffer;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -289,9 +278,6 @@ public class CreateConnectionController extends DashboardController implements I
                 });
             }
         }
-
-        System.out.println(disconnectBtnMap.size());
-
     }
 
     private Stage stage;
@@ -310,7 +296,6 @@ public class CreateConnectionController extends DashboardController implements I
     void handleOnConnect(ActionEvent event) {
         extractInformationFromTextField();
         connectValidAddressesToTCP();
-        System.out.println(clientConn);
         stage.close();
     }
 
@@ -331,81 +316,6 @@ public class CreateConnectionController extends DashboardController implements I
             e.printStackTrace();
         }
 
-    }
-
-    void executeFetching(int i, Socket sock) {
-        Runnable task = () -> {
-            try {
-                int counter = 0;
-                while (sock.isConnected()) {
-                    outputList.get(i).writeChars("REC");
-                    String line = "";
-                    try {
-                        line = inputList.get(i).readLine();
-                    } catch (IOException e) {
-                        System.err.println("Timed out waiting for the socket in input ReadLine" + i);
-                        Thread.sleep(10000);
-                        Socket newSock = new Socket();
-                        newSock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
-                        newSock.setSoTimeout(3000);
-                        if (newSock.isConnected()) {
-                            System.out.println("Connected " + newSock);
-                            clientConn.put(i, newSock);
-                            System.out.println("Assigning Input Output Stream");
-                            outputList.put(i, new DataOutputStream(newSock.getOutputStream()));
-                            inputList.put(i, new DataInputStream(newSock.getInputStream()));
-                        }
-                    }
-
-
-                    List<String> arr = Arrays.asList(line.split("\\s+"));
-                    if (deviceData.get(i).size() > 3600) {
-                        deviceData.get(i).remove(0);
-                    }
-                    deviceData.get(i).add(arr);
-                    int finalCounter = counter;
-                    Platform.runLater(() -> {
-                        if (!arr.isEmpty()) {
-                            System.out.println(arr);
-                            updateRealtimeDataUpdatePanel(arr, chartAllocation.get(i));
-                            if (chartAllocation.containsKey(i) && finalCounter % 6 == 0) {
-                                if (chartDataMap.get(i).get("rpm1").getData().size() > 600) {
-                                    chartDataMap.get(i).get("rpm1").getData().remove(0);
-                                    chartDataMap.get(i).get("rpm2").getData().remove(0);
-                                    chartDataMap.get(i).get("rpm3").getData().remove(0);
-                                    chartDataMap.get(i).get("vib1").getData().remove(0);
-                                    chartDataMap.get(i).get("vib2").getData().remove(0);
-                                    chartDataMap.get(i).get("vib3").getData().remove(0);
-                                }
-                                chartDataMap.get(i).get("rpm1").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Integer.parseInt(arr.get(1))));
-                                chartDataMap.get(i).get("rpm2").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Integer.parseInt(arr.get(3))));
-                                chartDataMap.get(i).get("rpm3").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Integer.parseInt(arr.get(5))));
-                                chartDataMap.get(i).get("vib1").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Float.valueOf(arr.get(2))));
-                                chartDataMap.get(i).get("vib2").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Float.valueOf(arr.get(4))));
-                                chartDataMap.get(i).get("vib3").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Float.valueOf(arr.get(6))));
-                            }
-                        }
-                    });
-                    counter++;
-                    TimeUnit.MILLISECONDS.sleep(600);
-                }
-            } catch (IOException | InterruptedException e) {
-                System.err.println("Timed out waiting for the socket while in Execute Thread");
-                e.printStackTrace();
-                clientConn.remove(i);
-                addresses.remove(i);
-                ports.remove(i);
-                deviceData.get(i).clear();
-                Platform.runLater(() -> {
-                    deviceNames.get(i).setText("Disconnected");
-                    deviceNames.get(i).setTextFill(Color.RED);
-                });
-            }
-        };
-
-        Thread backgroundThread = new Thread(task);
-        backgroundThread.setDaemon(true);
-        backgroundThread.start();
     }
 
     void updateRealtimeDataUpdatePanel(List<String> realTimeLine, int dataPanelLocationIndex) {
@@ -441,6 +351,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     for (int j = 0; j < 8; j++) {
                                         if (!chartAllocation.containsValue(j)) {
                                             chartAllocation.put(i, j);
+                                            tempChartAllocation.put(i, j);
                                             break;
                                         }
                                     }
@@ -450,6 +361,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     deviceNames.get(i).setTextFill(Color.GREEN);
                                     disconnectBtnMap.get(i).setDisable(false);
                                     deviceConnNumMap.get(i).setTextFill(Color.BLACK);
+                                    setGraphConfiguration(i);
                                     initializeChartData(i);
                                 });
                                 int counter = 0;
@@ -466,16 +378,17 @@ public class CreateConnectionController extends DashboardController implements I
                                     if (deviceData.get(i).size() > 3600) deviceData.get(i).remove(0);
                                     deviceData.get(i).add(arr);
                                     int finalCounter = counter;
-                                    System.out.println(!arr.isEmpty());
+
                                     if (arr.size() == 7) {
-                                        System.out.println(arr);
                                         Platform.runLater(() -> {
-                                            updateRealtimeDataUpdatePanel(arr, chartAllocation.get(i));
+                                            if(chartAllocation.containsKey(i)) {
+                                                updateRealtimeDataUpdatePanel(arr, chartAllocation.get(i));
+                                            }
                                             sliceChartData(arr, i, finalCounter);
                                         });
                                     }
-                                    counter++;
                                     TimeUnit.MILLISECONDS.sleep(600);
+                                    counter++;
                                 }
                             } catch (IOException | InterruptedException e) {
                                 System.err.println("Timed out waiting for the socket while in Execute Thread");
@@ -484,6 +397,7 @@ public class CreateConnectionController extends DashboardController implements I
                                 addresses.remove(i);
                                 ports.remove(i);
                                 deviceData.get(i).clear();
+                                chartConfigMap.remove(i);
                                 Platform.runLater(() -> {
                                     removeChartData(i);
                                 });
@@ -509,10 +423,22 @@ public class CreateConnectionController extends DashboardController implements I
         });
     }
 
+    private void setGraphConfiguration(int index) {
+        chartConfigMap.put(index, new ArrayList<Boolean>() {
+            {
+                add(true);
+                add(true);
+                add(true);
+                add(true);
+                add(true);
+                add(true);
+            }
+        });
+    }
+
     private Socket reconnectOnSocketFailure(int i, Socket sock) throws IOException, InterruptedException {
         if(!disconnectBtnMap.get(i).isDisable()) {
             Thread.sleep(10000);
-            System.out.println("DisableBtn: " + disconnectBtnMap.get(i).isDisable());
             Socket newSock = new Socket();
             newSock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
             newSock.setSoTimeout(2000);
@@ -528,7 +454,7 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     private void sliceChartData(List<String> arr, int i, int counter) {
-        if (chartAllocation.containsKey(i) && counter % 6 == 0) {
+        if (counter % 6 == 0) {
             if (chartDataMap.get(i).get("rpm1").getData().size() > 600) {
                 chartDataMap.get(i).get("rpm1").getData().remove(0);
                 chartDataMap.get(i).get("rpm2").getData().remove(0);
@@ -537,12 +463,12 @@ public class CreateConnectionController extends DashboardController implements I
                 chartDataMap.get(i).get("vib2").getData().remove(0);
                 chartDataMap.get(i).get("vib3").getData().remove(0);
             }
-            chartDataMap.get(i).get("rpm1").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Integer.parseInt(arr.get(1))));
-            chartDataMap.get(i).get("rpm2").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Integer.parseInt(arr.get(3))));
-            chartDataMap.get(i).get("rpm3").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Integer.parseInt(arr.get(5))));
-            chartDataMap.get(i).get("vib1").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Float.valueOf(arr.get(2))));
-            chartDataMap.get(i).get("vib2").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Float.valueOf(arr.get(4))));
-            chartDataMap.get(i).get("vib3").getData().add(new XYChart.Data<>(arr.get(0).substring(3), Float.valueOf(arr.get(6))));
+            chartDataMap.get(i).get("rpm1").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Integer.parseInt(arr.get(1))));
+            chartDataMap.get(i).get("rpm2").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Integer.parseInt(arr.get(3))));
+            chartDataMap.get(i).get("rpm3").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Integer.parseInt(arr.get(5))));
+            chartDataMap.get(i).get("vib1").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Float.valueOf(arr.get(2))));
+            chartDataMap.get(i).get("vib2").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Float.valueOf(arr.get(4))));
+            chartDataMap.get(i).get("vib3").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Float.valueOf(arr.get(6))));
         }
     }
 
@@ -579,6 +505,7 @@ public class CreateConnectionController extends DashboardController implements I
         chartRectangleMap.get(chartIndex).setVisible(false);
         lineCharts.get(chartIndex).getData().clear();
         chartAllocation.remove(i);
+        tempChartAllocation.remove(i);
     }
 
     private String rgbFormatter(Color color) {
@@ -611,6 +538,8 @@ public class CreateConnectionController extends DashboardController implements I
             lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
             lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
         }
+//        lineCharts.get(index).getXAxis().setLabel("Time(dd:hh:mm:ss)");
+
 //        chartDataMap.get(index).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
 //        chartDataMap.get(index).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
 //        chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");

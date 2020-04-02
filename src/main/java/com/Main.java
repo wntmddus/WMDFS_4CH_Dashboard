@@ -1,13 +1,11 @@
-package com;
+package main.java.com;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-//import main.java.com.controllers.DashboardController;
-//import main.java.com.controllers.CreateConnectionController;
-import com.controllers.DashboardController;
+import main.java.com.controllers.DashboardController;
 
 public class Main extends Application {
 
@@ -19,13 +17,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        System.out.println(getClass().getResource("/resources/dashboard.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/fxml/dashboard.fxml"));
         VBox vbox = loader.load();
         Scene scene = new Scene(vbox);
         DashboardController controller = loader.getController();
         controller.setStage(primaryStage);
-        scene.getStylesheets().add(getClass().getResource("/css/ChartStyle.css").toString());
+        scene.getStylesheets().add(getClass().getResource("/main/resources/css/ChartStyle.css").toString());
         primaryStage.setTitle("SV Dashboard Application");
         primaryStage.setScene(scene);
         primaryStage.show();

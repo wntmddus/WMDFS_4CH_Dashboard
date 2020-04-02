@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.shape.Line?>
-<VBox fx:id="vbox" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.DashboardController">
+<VBox fx:id="vbox" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -513,7 +513,7 @@
             <children>
                 <Pane fx:id="graphPane0" prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <LineChart fx:id="graph0" layoutX="-3.0" layoutY="32.0" onMouseClicked="#handleOnMouseClick" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graph0" layoutX="-3.0" layoutY="32.0" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="481.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -531,7 +531,7 @@
                 </Pane>
                 <Pane fx:id="graphPane1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                     <children>
-                        <LineChart fx:id="graph1" layoutX="-3.0" layoutY="32.0" onMouseClicked="#handleOnMouseHover" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graph1" layoutX="-3.0" layoutY="32.0" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -549,7 +549,7 @@
                 </Pane>
                 <Pane fx:id="graphPane2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                     <children>
-                        <LineChart fx:id="graph2" layoutX="-3.0" layoutY="32.0" onMouseClicked="#handleOnMouseHover" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graph2" layoutX="-3.0" layoutY="32.0" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -567,7 +567,7 @@
                 </Pane>
                 <Pane fx:id="graphPane3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                     <children>
-                        <LineChart fx:id="graph3" layoutX="-3.0" layoutY="32.0" onMouseClicked="#handleOnMouseHover" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graph3" layoutX="-3.0" layoutY="32.0" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -585,7 +585,7 @@
                 </Pane>
                 <Pane fx:id="graphPane4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graph4" layoutX="-3.0" layoutY="32.0" onMouseClicked="#handleOnMouseHover" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graph4" layoutX="-3.0" layoutY="32.0" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -603,7 +603,7 @@
                 </Pane>
                 <Pane fx:id="graphPane5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graph5" layoutX="-3.0" layoutY="32.0" onMouseClicked="#handleOnMouseHover" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graph5" layoutX="-3.0" layoutY="32.0" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -621,7 +621,7 @@
                 </Pane>
                 <Pane fx:id="graphPane6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graph6" layoutX="-3.0" layoutY="32.0" onMouseClicked="#handleOnMouseHover" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graph6" layoutX="-3.0" layoutY="32.0" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
@@ -639,7 +639,7 @@
                 </Pane>
                 <Pane fx:id="graphPane7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graph7" layoutX="-3.0" layoutY="32.0" onMouseClicked="#handleOnMouseHover" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graph7" layoutX="-3.0" layoutY="32.0" onMouseDragEntered="#handleOnMouseDragEntered" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
