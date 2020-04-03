@@ -8,12 +8,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileWriter;
 import java.net.Socket;
 import java.net.URL;
 import java.util.*;
 import java.util.prefs.Preferences;
 
 public class SharedStorage {
+    public final int MAX_DEVICE_NUMBER = 20;
+    public final int MAX_GRAPH_NUMBER = 20;
     public static Stage mainStage;
     public static Preferences pref = Preferences.userNodeForPackage(SharedStorage.class);
     public static Map<Integer, Socket> clientConn = new HashMap<>();
@@ -26,11 +29,14 @@ public class SharedStorage {
     public static Map<Integer, Button> disconnectBtnMap = new HashMap<>();
     public static List<CheckBox> recCheckboxArray = new ArrayList<>();
     public static List<Label> deviceNames = new ArrayList<>();
+    public static Map<Integer, FileWriter> fileWriters = new HashMap<>();
+    public static Map<Integer, Label> addressLabels = new HashMap<>();
     public static Map<Integer, List<List<String>>> deviceData = new HashMap<>();
     public static Map<Integer, Label> graphLabels = new HashMap<>();
     public static Map<Integer, Integer> chartAllocation = new HashMap<>();
     public static Map<Integer, Integer> tempChartAllocation = new HashMap<>();
     public static Map<Integer, Label> deviceConnNumMap = new HashMap<>();
+    public static Map<Integer, String> dateTimeOnFileNameMap = new HashMap<>();
     public static Map<Integer, Map<String, XYChart.Series<String, Number>>> chartDataMap = new HashMap<>();
     public static Map<Integer, ComboBox<Integer>> deviceNumPickerMap = new HashMap<>();
     public static Map<Integer, Map<String, CheckBox>> graphSelectCheckboxMap = new HashMap<Integer, Map<String, CheckBox>>(){

@@ -35,8 +35,8 @@
                 <Button fx:id="devConfigBtn" layoutX="1591.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleOnClickDevConfigBtn" text="Dev Config" />
                 <Button fx:id="graphBtn" layoutX="1532.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleOnClickGraphBtn" text="Graph" />
                 <Button fx:id="closeBtn" layoutX="1820.0" layoutY="9.0" mnemonicParsing="false" onAction="#closeAction" text="Close" />
-                <Button fx:id="save" onAction="#handleOnSave" layoutX="1707.0" layoutY="9.0" mnemonicParsing="false" text="Save" />
-            <Button fx:id="reset" onAction="#handleOnReset" layoutX="1763.0" layoutY="9.0" mnemonicParsing="false" text="Reset" />
+                <Button fx:id="save" layoutX="1707.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleOnSave" text="Save" />
+            <Button fx:id="reset" layoutX="1763.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleOnReset" text="Reset" />
             </children>
         </Pane>
         <GridPane gridLinesVisible="true" minHeight="200.0" minWidth="1920.0" prefHeight="200.0" prefWidth="1920.0">
@@ -71,6 +71,7 @@
                         </CheckBox>
                         <Label fx:id="deviceName0" text="Not Connected" GridPane.halignment="CENTER" />
                         <Label text=" #0" />
+                        <Label fx:id="addLabel0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="1">
@@ -87,6 +88,7 @@
                         </CheckBox>
                         <Label text=" #1" />
                         <Label fx:id="deviceName1" text="Not Connected" GridPane.halignment="CENTER" />
+                        <Label fx:id="addLabel1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="2">
@@ -106,6 +108,7 @@
                         </CheckBox>
                         <Label fx:id="deviceName2" text="Not Connected" GridPane.halignment="CENTER" />
                         <Label text="#2" />
+                        <Label fx:id="addLabel2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane alignment="CENTER" gridLinesVisible="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
@@ -129,6 +132,7 @@
                             </GridPane.margin>
                         </CheckBox>
                         <Label text="#3" />
+                        <Label fx:id="addLabel3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="4" GridPane.halignment="CENTER">
@@ -152,6 +156,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </CheckBox>
+                        <Label fx:id="addLabel4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="5" GridPane.halignment="CENTER">
@@ -175,6 +180,7 @@
                             </GridPane.margin>
                         </CheckBox>
                         <Label text="#5" />
+                        <Label fx:id="addLabel5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="6" GridPane.halignment="CENTER">
@@ -198,6 +204,7 @@
                             </GridPane.margin>
                         </CheckBox>
                         <Label text="#6" />
+                        <Label fx:id="addLabel6" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="7" GridPane.halignment="CENTER">
@@ -221,6 +228,7 @@
                             </GridPane.margin>
                         </CheckBox>
                         <Label text="#7" />
+                        <Label fx:id="addLabel7" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="8" GridPane.halignment="CENTER">
@@ -244,6 +252,7 @@
                             </GridPane.margin>
                         </CheckBox>
                         <Label text="#8" />
+                        <Label fx:id="addLabel8" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="9" GridPane.halignment="CENTER">
@@ -267,6 +276,7 @@
                             </GridPane.margin>
                         </CheckBox>
                         <Label text="#9" />
+                        <Label fx:id="addLabel9" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -290,6 +300,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#10" />
+                        <Label fx:id="addLabel10" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -313,6 +324,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#11" />
+                        <Label fx:id="addLabel11" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -336,6 +348,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#12" />
+                        <Label fx:id="addLabel12" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -359,6 +372,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#13" />
+                        <Label fx:id="addLabel13" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -382,6 +396,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#14" />
+                        <Label fx:id="addLabel14" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -405,6 +420,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#15" />
+                        <Label fx:id="addLabel15" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -428,6 +444,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#16" />
+                        <Label fx:id="addLabel16" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane alignment="CENTER" gridLinesVisible="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -451,6 +468,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#17" />
+                        <Label fx:id="addLabel17" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -474,6 +492,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#18" />
+                        <Label fx:id="addLabel18" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane gridLinesVisible="true" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -497,6 +516,7 @@
                             </GridPane.margin>
                         </Label>
                         <Label text="#19" />
+                        <Label fx:id="addLabel19" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
             </children>

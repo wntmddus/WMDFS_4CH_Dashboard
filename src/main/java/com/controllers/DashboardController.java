@@ -21,12 +21,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.com.util.SharedStorage;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.prefs.BackingStoreException;
 
 public class DashboardController extends SharedStorage implements Initializable {
 
@@ -477,7 +480,65 @@ public class DashboardController extends SharedStorage implements Initializable 
     @FXML
     public Button reset;
 
-    private CreateConnectionController createConnectionController;
+    @FXML
+    public Label addLabel0;
+
+    @FXML
+    public Label addLabel1;
+
+    @FXML
+    public Label addLabel2;
+
+    @FXML
+    public Label addLabel3;
+
+    @FXML
+    public Label addLabel4;
+
+    @FXML
+    public Label addLabel5;
+
+    @FXML
+    public Label addLabel6;
+
+    @FXML
+    public Label addLabel7;
+
+    @FXML
+    public Label addLabel8;
+
+    @FXML
+    public Label addLabel9;
+
+    @FXML
+    public Label addLabel10;
+
+    @FXML
+    public Label addLabel11;
+
+    @FXML
+    public Label addLabel12;
+
+    @FXML
+    public Label addLabel13;
+
+    @FXML
+    public Label addLabel14;
+
+    @FXML
+    public Label addLabel15;
+
+    @FXML
+    public Label addLabel16;
+
+    @FXML
+    public Label addLabel17;
+
+    @FXML
+    public Label addLabel18;
+
+    @FXML
+    public Label addLabel19;
 
     private double rectangleStart;
 
@@ -651,7 +712,27 @@ public class DashboardController extends SharedStorage implements Initializable 
         lineMap.put(5, line5);
         lineMap.put(6, line6);
         lineMap.put(7, line7);
-        for(int i = 0; i < 20; i++) {
+        addressLabels.put(0, addLabel0);
+        addressLabels.put(1, addLabel1);
+        addressLabels.put(2, addLabel2);
+        addressLabels.put(3, addLabel3);
+        addressLabels.put(4, addLabel4);
+        addressLabels.put(5, addLabel5);
+        addressLabels.put(6, addLabel6);
+        addressLabels.put(7, addLabel7);
+        addressLabels.put(8, addLabel8);
+        addressLabels.put(9, addLabel9);
+        addressLabels.put(10, addLabel10);
+        addressLabels.put(11, addLabel11);
+        addressLabels.put(12, addLabel12);
+        addressLabels.put(13, addLabel13);
+        addressLabels.put(14, addLabel14);
+        addressLabels.put(15, addLabel15);
+        addressLabels.put(16, addLabel16);
+        addressLabels.put(17, addLabel17);
+        addressLabels.put(18, addLabel18);
+        addressLabels.put(19, addLabel19);
+        for(int i = 0; i < MAX_DEVICE_NUMBER; i++) {
             if (!pref.get("address" + i, "root").equals("root") && !pref.get("port" + i, "root").equals("root")) {
                 addresses.put(i, pref.get("address" + i, "root"));
                 ports.put(i, pref.get("port" + i, "root"));
@@ -740,7 +821,7 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     private void handleOnMouseDragEntered(MouseEvent event) {
-        System.out.println("Drag Entered" + event.getScreenX());
+
     }
 
     @FXML
@@ -829,7 +910,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         if (dataIndex == -1) {
             return;
         }
-        startIndexOnGraph = (int) Math.floor(deviceData.get(dataIndex).size() * ((event.getX() - 65) / 395));
+        startIndexOnGraph = (int) Math.floor(deviceData.get(dataIndex).size() * ((event.getX() - CHART_X_START_COORDINATE) / (CHART_X_END_COORDINATE - CHART_X_START_COORDINATE)));
         if (event.isSecondaryButtonDown()) {
             return;
         }
@@ -842,7 +923,6 @@ public class DashboardController extends SharedStorage implements Initializable 
     }
     @FXML
     private void handleOnMouseReleased(MouseEvent event) {
-        System.out.println("MouseReleased");
     }
 
 
@@ -855,7 +935,7 @@ public class DashboardController extends SharedStorage implements Initializable 
     public void handleOnClickDevConfigBtn(ActionEvent event) throws IOException {
         FXMLLoader createConnectionLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/createconnection.fxml"));
         VBox vbox = createConnectionLoader.load();
-        createConnectionController = createConnectionLoader.getController();
+        CreateConnectionController createConnectionController = createConnectionLoader.getController();
         Stage stage = new Stage();
         stage.initOwner(mainStage);
         Scene scene = new Scene(vbox);
@@ -884,27 +964,78 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public void handleOnClickRecordAllBtn(ActionEvent event) {
-        for (int i = 0; i < 20; i++) {
-            recCheckboxArray.get(i).setSelected(!recCheckboxArray.get(i).isSelected());
-            if (recCheckboxArray.get(i).isSelected()) {
-                recCheckboxArray.get(i).setText("Recording");
-                recCheckboxArray.get(i).setTextFill(Color.RED);
-            } else {
-                recCheckboxArray.get(i).setText("Not Recording");
-                recCheckboxArray.get(i).setTextFill(Color.BLACK);
+        Platform.runLater(() -> {
+            for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+                if (addresses.containsKey(i)) {
+                    recCheckboxArray.get(i).setSelected(!recCheckboxArray.get(i).isSelected());
+                    if (recCheckboxArray.get(i).isSelected()) {
+                        try {
+                            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        recCheckboxArray.get(i).setText("Recording");
+                        recCheckboxArray.get(i).setTextFill(Color.RED);
+                    } else {
+                        recCheckboxArray.get(i).setText("Not Recording");
+                        recCheckboxArray.get(i).setTextFill(Color.BLACK);
+                    }
+                }
             }
-        }
+        });
+    }
+    public String getCurrentDateTime(String pattern) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
+
+
+    public void createNewFileWriter(int index, String currentDate) throws IOException {
+        dateTimeOnFileNameMap.put(index, getCurrentDateTime("yyyy/MM/dd"));
+        String path = "../SavedData/" + deviceNames.get(index).getText() + "-" + addresses.get(index) + "-" + ports.get(index) + "/" + deviceNames.get(index).getText() + "-" + currentDate + ".txt";
+        File file = new File(path);
+        file.getParentFile().mkdirs();
+        fileWriters.put(index, new FileWriter(file));
+        fileWriters.get(index).write("Date: " + getCurrentDateTime("yyyy/MM/dd") + "\n");
+        fileWriters.get(index).write("Time: " + getCurrentDateTime("HH:mm:ss") + "\n");
+        fileWriters.get(index).write("\n");
+        fileWriters.get(index).write("Vibration:  Disp.Peak  (mm)\n");
+        fileWriters.get(index).write("\n");
+        fileWriters.get(index).write("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3\n");
+        fileWriters.get(index).flush();
     }
 
     @FXML
     public void handleOnClickRecordBtn(ActionEvent event) {
-        if (((CheckBox)(event.getSource())).isSelected()) {
-            ((CheckBox)(event.getSource())).setText("Recording");
-            ((CheckBox)(event.getSource())).setTextFill(Color.RED);
+        String currentDate = getCurrentDateTime("yyyy-MM-dd-HH.mm.ss");
+        CheckBox checkBox = ((CheckBox)(event.getSource()));
+        String checkBoxId = checkBox.getId();
+        int index;
+        if (checkBoxId.length() == 12) {
+            index = Character.getNumericValue(checkBoxId.charAt(checkBoxId.length() - 1));
         } else {
-            ((CheckBox)(event.getSource())).setText("Not Recording");
-            ((CheckBox)(event.getSource())).setTextFill(Color.BLACK);
+            index = Integer.parseInt(checkBoxId.substring(checkBoxId.length() - 2));
         }
+
+        Platform.runLater(() -> {
+            if (!clientConn.containsKey(index)) {
+                checkBox.setSelected(false);
+                return;
+            }
+            if (((CheckBox)(event.getSource())).isSelected()) {
+                try {
+                    createNewFileWriter(index, currentDate);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ((CheckBox)(event.getSource())).setText("Recording");
+                ((CheckBox)(event.getSource())).setTextFill(Color.RED);
+            } else {
+                ((CheckBox)(event.getSource())).setText("Not Recording");
+                ((CheckBox)(event.getSource())).setTextFill(Color.BLACK);
+            }
+        });
     }
 
 }

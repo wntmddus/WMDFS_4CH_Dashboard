@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.*;
@@ -314,6 +313,8 @@ public class CreateConnectionController extends DashboardController implements I
         }
         btn.setDisable(true);
         try {
+            outputList.get(index).writeChars("STOP");
+            outputList.get(index).writeChars("NO CARRIER");
             clientConn.get(index).close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -335,30 +336,20 @@ public class CreateConnectionController extends DashboardController implements I
     private void connectValidAddressesToTCP() {
         addresses.forEach((i, value) -> {
             if(!clientConn.containsKey(i)) {
-                PrintWriter f0 = null;
-                String path = "../output.txt";
-                try {
-                    f0 = new PrintWriter(new FileWriter(path, true), true);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                // create a socket with a timeout
-                PrintWriter finalF = f0;
                 Runnable task = () -> {
                     try {
                         // create and store Socket
                         Socket sock = new Socket();
-                        sock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 2000);
-                        sock.setSoTimeout(3000);
+                        sock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 5000);
+                        sock.setSoTimeout(5000);
                         if (sock.isConnected()) {
                             try {
-                                System.out.println("Connected " + sock);
                                 clientConn.put(i, sock);
                                 outputList.put(i, new DataOutputStream(sock.getOutputStream()));
                                 inputList.put(i, new DataInputStream(sock.getInputStream()));
                                 deviceData.put(i, new ArrayList<>());
-                                if (chartAllocation.size() <= 8) {
-                                    for (int j = 0; j < 8; j++) {
+                                if (chartAllocation.size() <= MAX_GRAPH_NUMBER) {
+                                    for (int j = 0; j < MAX_GRAPH_NUMBER; j++) {
                                         if (!chartAllocation.containsValue(j)) {
                                             chartAllocation.put(i, j);
                                             tempChartAllocation.put(i, j);
@@ -366,8 +357,12 @@ public class CreateConnectionController extends DashboardController implements I
                                         }
                                     }
                                 }
+                                outputList.get(i).writeChars("GET DEVNAME");
+                                String devName = readDeviceData(sock);
+                                outputList.get(i).writeChars("REC");
                                 Platform.runLater(() -> {
-                                    deviceNames.get(i).setText("Connected");
+                                    addressLabels.get(i).setText(addresses.get(i) + ":" + ports.get(i));
+                                    deviceNames.get(i).setText(devName);
                                     deviceNames.get(i).setTextFill(Color.GREEN);
                                     disconnectBtnMap.get(i).setDisable(false);
                                     deviceConnNumMap.get(i).setTextFill(Color.BLACK);
@@ -376,7 +371,6 @@ public class CreateConnectionController extends DashboardController implements I
                                 });
                                 int counter = 0;
                                 while (sock.isConnected()) {
-                                    outputList.get(i).writeChars("REC");
                                     String line = "";
                                     try {
                                         line = inputList.get(i).readLine();
@@ -385,8 +379,11 @@ public class CreateConnectionController extends DashboardController implements I
                                         sock = reconnectOnSocketFailure(i, sock);
                                     }
                                     if (recCheckboxArray.get(i).isSelected()) {
-                                        assert finalF != null;
-                                        finalF.println(line);
+                                        if (!dateTimeOnFileNameMap.get(i).equals(getCurrentDateTime("yyyy/MM/dd"))) {
+                                            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"));
+                                        }
+                                        fileWriters.get(i).write(line + "\n");
+                                        fileWriters.get(i).flush();
                                     }
                                     List<String> arr = Arrays.asList(line.split("\\s+"));
                                     if (deviceData.get(i).size() > 3600) deviceData.get(i).remove(0);
@@ -401,6 +398,7 @@ public class CreateConnectionController extends DashboardController implements I
                                             sliceChartData(arr, i, finalCounter);
                                         });
                                     }
+                                    outputList.get(i).writeChars("1");
                                     TimeUnit.MILLISECONDS.sleep(600);
                                     counter++;
                                 }
@@ -412,11 +410,12 @@ public class CreateConnectionController extends DashboardController implements I
                                 ports.remove(i);
                                 deviceData.get(i).clear();
                                 chartConfigMap.remove(i);
-                                recCheckboxArray.get(i).setSelected(false);
-                                recCheckboxArray.get(i).setText("Not Recording");
-                                recCheckboxArray.get(i).setTextFill(Color.BLACK);
-                                finalF.close();
+                                fileWriters.get(i).close();
                                 Platform.runLater(() -> {
+                                    recCheckboxArray.get(i).setSelected(false);
+                                    recCheckboxArray.get(i).setText("Not Recording");
+                                    recCheckboxArray.get(i).setTextFill(Color.BLACK);
+                                    addressLabels.get(i).setText("");
                                     removeChartData(i);
                                 });
                             }
@@ -439,6 +438,17 @@ public class CreateConnectionController extends DashboardController implements I
                 backgroundThread.start();
             }
         });
+    }
+
+    private String readDeviceData(Socket sock) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        String output = "";
+        if ((read = sock.getInputStream().read(buffer)) != -1) {
+            output = new String(buffer, 0, read);
+            output = output.substring(0, output.length() - 1);
+        }
+        return output;
     }
 
     private void setGraphConfiguration(int index) {
@@ -526,13 +536,6 @@ public class CreateConnectionController extends DashboardController implements I
         tempChartAllocation.remove(i);
     }
 
-    private String rgbFormatter(Color color) {
-        return String.format("%d, %d, %d",
-                (int) (color.getRed() * 255),
-                (int) (color.getGreen() * 255),
-                (int) (color.getBlue() * 255));
-    }
-
     private void initializeChartData(int index) {
         chartDataMap.put(index, new HashMap<>());
         chartDataMap.get(index).put("rpm1", new XYChart.Series<>());
@@ -559,89 +562,11 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     private void extractInformationFromTextField() {
-        if (!inputAdd0.getText().isEmpty() && !inputPort0.getText().isEmpty()) {
-            addresses.put(0, inputAdd0.getText());
-            ports.put(0, inputPort0.getText());
-        }
-        if (!inputAdd1.getText().isEmpty() && !inputPort1.getText().isEmpty()) {
-            addresses.put(1, inputAdd1.getText());
-            ports.put(1, inputPort1.getText());
-        }
-        if (!inputAdd2.getText().isEmpty() && !inputPort2.getText().isEmpty()) {
-            addresses.put(2, inputAdd2.getText());
-            ports.put(2, inputPort2.getText());
-        }
-        if (!inputAdd3.getText().isEmpty() && !inputPort3.getText().isEmpty()) {
-            addresses.put(3, inputAdd3.getText());
-            ports.put(3, inputPort3.getText());
-        }
-        if (!inputAdd4.getText().isEmpty() && !inputPort4.getText().isEmpty()) {
-            addresses.put(4, inputAdd4.getText());
-            ports.put(4, inputPort4.getText());
-        }
-        if (!inputAdd5.getText().isEmpty() && !inputPort5.getText().isEmpty()) {
-            addresses.put(5, inputAdd5.getText());
-            ports.put(5, inputPort5.getText());
-        }
-        if (!inputAdd6.getText().isEmpty() && !inputPort6.getText().isEmpty()) {
-            addresses.put(6, inputAdd6.getText());
-            ports.put(6, inputPort6.getText());
-        }
-        if (!inputAdd7.getText().isEmpty() && !inputPort7.getText().isEmpty()) {
-            addresses.put(7, inputAdd7.getText());
-            ports.put(7, inputPort7.getText());
-        }
-        if (!inputAdd8.getText().isEmpty() && !inputPort8.getText().isEmpty()) {
-            addresses.put(8, inputAdd8.getText());
-            ports.put(8, inputPort8.getText());
-        }
-        if (!inputAdd9.getText().isEmpty() && !inputPort9.getText().isEmpty()) {
-            addresses.put(9, inputAdd9.getText());
-            ports.put(9, inputPort9.getText());
-        }
-        if (!inputAdd10.getText().isEmpty() && !inputPort10.getText().isEmpty()) {
-            addresses.put(10, inputAdd10.getText());
-            ports.put(10, inputPort10.getText());
-        }
-        if (!inputAdd11.getText().isEmpty() && !inputPort11.getText().isEmpty()) {
-            addresses.put(11, inputAdd11.getText());
-            ports.put(11, inputPort11.getText());
-        }
-        if (!inputAdd12.getText().isEmpty() && !inputPort12.getText().isEmpty()) {
-            addresses.put(12, inputAdd12.getText());
-            ports.put(12, inputPort12.getText());
-        }
-        if (!inputAdd13.getText().isEmpty() && !inputPort13.getText().isEmpty()) {
-            addresses.put(13, inputAdd13.getText());
-            ports.put(13, inputPort13.getText());
-        }
-        if (!inputAdd14.getText().isEmpty() && !inputPort14.getText().isEmpty()) {
-            addresses.put(14, inputAdd14.getText());
-            ports.put(14, inputPort14.getText());
-        }
-        if (!inputAdd15.getText().isEmpty() && !inputPort15.getText().isEmpty()) {
-            addresses.put(15, inputAdd15.getText());
-            ports.put(15, inputPort15.getText());
-        }
-        if (!inputAdd16.getText().isEmpty() && !inputPort16.getText().isEmpty()) {
-            addresses.put(16, inputAdd16.getText());
-            ports.put(16, inputPort16.getText());
-        }
-        if (!inputAdd17.getText().isEmpty() && !inputPort17.getText().isEmpty()) {
-            addresses.put(17, inputAdd17.getText());
-            ports.put(17, inputPort17.getText());
-        }
-        if (!inputAdd17.getText().isEmpty() && !inputPort17.getText().isEmpty()) {
-            addresses.put(17, inputAdd17.getText());
-            ports.put(17, inputPort17.getText());
-        }
-        if (!inputAdd18.getText().isEmpty() && !inputPort18.getText().isEmpty()) {
-            addresses.put(18, inputAdd18.getText());
-            ports.put(18, inputPort18.getText());
-        }
-        if (!inputAdd19.getText().isEmpty() && !inputPort19.getText().isEmpty()) {
-            addresses.put(19, inputAdd19.getText());
-            ports.put(19, inputPort19.getText());
+        for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+            if (!connAddTextFieldMap.get(i).getText().isEmpty() && !connPortTextFieldMap.get(i).getText().isEmpty()) {
+                addresses.put(0, connAddTextFieldMap.get(i).getText());
+                ports.put(0, connPortTextFieldMap.get(i).getText());
+            }
         }
     }
 }

@@ -3,7 +3,6 @@ package main.java.com.controllers;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -186,12 +185,6 @@ public class SelectGraphController extends DashboardController implements Initia
     @FXML
     public CheckBox ch3RpmChkBox7;
 
-    @FXML
-    private Button selectGraphCloseBtn;
-
-    @FXML
-    private Button selectGraphSubmitBtn;
-
     private List<Integer> comboBoxItems = new ArrayList<>();
 
     private Stage stage;
@@ -260,7 +253,7 @@ public class SelectGraphController extends DashboardController implements Initia
                 comboBoxItems.add(entry.getKey());
             }
         }
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < MAX_GRAPH_NUMBER; i++) {
             int deviceNumber = -1;
             for (Map.Entry<Integer, Integer> entry : chartAllocation.entrySet()) {
                 if (entry.getValue() == i) {
@@ -406,16 +399,5 @@ public class SelectGraphController extends DashboardController implements Initia
                 graphSelectCheckboxMap.get(comboBoxIndex).get("vib3").setSelected(false);
             });
         }
-//        if (((ComboBox)(actionEvent.getSource())).getValue() != null) {
-//            int selectedItem = (Integer) ((ComboBox)(actionEvent.getSource())).getValue();
-//            for (int i = 0; i < 8; i++) {
-//                if (i != comboBoxIndex && selectedItem == deviceNumPickerMap.get(i).getSelectionModel().getSelectedItem()) {
-//                    Platform.runLater(() -> {
-//                        comboBox.getSelectionModel().select(null);
-//                    });
-//                    break;
-//                }
-//            }
-//        }
     }
 }
