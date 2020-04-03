@@ -1005,7 +1005,7 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     public void createNewFileWriter(int index, String currentDate) throws IOException {
         dateTimeOnFileNameMap.put(index, getCurrentDateTime("yyyy/MM/dd"));
-        String path = "../SavedData/" + deviceNames.get(index).getText() + "-" + addresses.get(index) + "-" + ports.get(index) + "/" + deviceNames.get(index).getText() + "-" + currentDate + ".txt";
+        String path = "./SavedData/" + deviceNames.get(index).getText() + "-" + addresses.get(index) + "-" + ports.get(index) + "/" + deviceNames.get(index).getText() + "-" + currentDate + ".txt";
         File file = new File(path);
         file.getParentFile().mkdirs();
         fileWriters.put(index, new FileWriter(file));

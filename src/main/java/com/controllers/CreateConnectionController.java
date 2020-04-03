@@ -358,7 +358,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     }
                                 }
                                 outputList.get(i).writeChars("GET DEVNAME");
-                                String devName = readDeviceData(sock);
+                                String devName = inputList.get(i).readLine();
                                 TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeChars("REC");
                                 Platform.runLater(() -> {
