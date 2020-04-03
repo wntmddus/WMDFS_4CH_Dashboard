@@ -765,7 +765,7 @@ public class DashboardController extends SharedStorage implements Initializable 
             Label ch2Label = chartLabelMap.get(chartIndex).get(1);
             Label ch3Label = chartLabelMap.get(chartIndex).get(2);
             Platform.runLater(() -> {
-                createLine(chartIndex, (int)event.getX(), 47, (int)event.getX(), 187);
+                createLine(chartIndex, (int) event.getX(), 47, (int) event.getX(), 187);
                 ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " mm");
                 ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " mm");
                 ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " mm");
@@ -805,6 +805,19 @@ public class DashboardController extends SharedStorage implements Initializable 
         Scene scene = new Scene(vbox);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setTitle("Setting Reset");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleAbout() throws IOException {
+        FXMLLoader aboutLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/about.fxml"));
+        VBox vbox = aboutLoader.load();
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("About");
         stage.setScene(scene);
         stage.show();
     }
@@ -946,7 +959,6 @@ public class DashboardController extends SharedStorage implements Initializable 
         stage.show();
     }
 
-
     @FXML
     public void handleOnClickGraphBtn(ActionEvent event) throws IOException {
         FXMLLoader selectGraphLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/selectgraph.fxml"));
@@ -966,7 +978,7 @@ public class DashboardController extends SharedStorage implements Initializable 
     public void handleOnClickRecordAllBtn(ActionEvent event) {
         Platform.runLater(() -> {
             for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
-                if (addresses.containsKey(i)) {
+                if (clientConn.containsKey(i)) {
                     recCheckboxArray.get(i).setSelected(!recCheckboxArray.get(i).isSelected());
                     if (recCheckboxArray.get(i).isSelected()) {
                         try {

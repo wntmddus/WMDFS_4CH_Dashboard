@@ -261,6 +261,7 @@ public class SelectGraphController extends DashboardController implements Initia
                     break;
                 }
             }
+            System.out.println(comboBoxItems);
             deviceNumPickerMap.get(i).getItems().addAll(comboBoxItems);
 
             int finalDeviceNumber = deviceNumber;

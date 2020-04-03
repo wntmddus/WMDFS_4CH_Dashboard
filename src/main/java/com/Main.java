@@ -23,7 +23,7 @@ public class Main extends Application {
         DashboardController controller = loader.getController();
         controller.setStage(primaryStage);
         scene.getStylesheets().add(getClass().getResource("/main/resources/css/ChartStyle.css").toString());
-        primaryStage.setTitle("SV Dashboard Application");
+        primaryStage.setTitle("WMDFS_Dashboard");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

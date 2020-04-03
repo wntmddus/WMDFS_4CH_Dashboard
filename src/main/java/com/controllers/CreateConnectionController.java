@@ -359,6 +359,7 @@ public class CreateConnectionController extends DashboardController implements I
                                 }
                                 outputList.get(i).writeChars("GET DEVNAME");
                                 String devName = readDeviceData(sock);
+                                TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeChars("REC");
                                 Platform.runLater(() -> {
                                     addressLabels.get(i).setText(addresses.get(i) + ":" + ports.get(i));
@@ -404,13 +405,14 @@ public class CreateConnectionController extends DashboardController implements I
                                 }
                             } catch (IOException | InterruptedException e) {
                                 System.err.println("Timed out waiting for the socket while in Execute Thread");
-                                e.printStackTrace();
                                 clientConn.remove(i);
                                 addresses.remove(i);
                                 ports.remove(i);
                                 deviceData.get(i).clear();
                                 chartConfigMap.remove(i);
-                                fileWriters.get(i).close();
+                                if (fileWriters.containsKey(i)) {
+                                    fileWriters.get(i).close();
+                                }
                                 Platform.runLater(() -> {
                                     recCheckboxArray.get(i).setSelected(false);
                                     recCheckboxArray.get(i).setText("Not Recording");
@@ -418,6 +420,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     addressLabels.get(i).setText("");
                                     removeChartData(i);
                                 });
+                                e.printStackTrace();
                             }
                         }
                     } catch (IOException e) {
@@ -564,8 +567,8 @@ public class CreateConnectionController extends DashboardController implements I
     private void extractInformationFromTextField() {
         for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
             if (!connAddTextFieldMap.get(i).getText().isEmpty() && !connPortTextFieldMap.get(i).getText().isEmpty()) {
-                addresses.put(0, connAddTextFieldMap.get(i).getText());
-                ports.put(0, connPortTextFieldMap.get(i).getText());
+                addresses.put(i, connAddTextFieldMap.get(i).getText());
+                ports.put(i, connPortTextFieldMap.get(i).getText());
             }
         }
     }

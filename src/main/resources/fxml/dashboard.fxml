@@ -25,7 +25,7 @@
             <menus>
                 <Menu mnemonicParsing="false" text="About">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About SVDashboard" />
+                        <MenuItem onAction="#handleAbout" mnemonicParsing="false" text="About WMDFS_Dashboard" />
                     </items>
                 </Menu>
             </menus>
