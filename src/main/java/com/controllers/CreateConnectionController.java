@@ -357,10 +357,16 @@ public class CreateConnectionController extends DashboardController implements I
                                         }
                                     }
                                 }
-                                outputList.get(i).writeChars("GET DEVNAME");
+                                outputList.get(i).writeBytes("GET DEVNAME\0");
                                 String devName = inputList.get(i).readLine();
+                                outputList.get(i).writeBytes("GET STATE\0");
+                                String devState = inputList.get(i).readLine();
+                                if (devState.equals("SD")) {
+                                    addressLabels.get(i).setText("Device Not in SRV");
+                                    throw new IOException("Device is not in SRV Status");
+                                }
                                 TimeUnit.MILLISECONDS.sleep(100);
-                                outputList.get(i).writeChars("REC");
+                                outputList.get(i).writeBytes("REC\0");
                                 Platform.runLater(() -> {
                                     addressLabels.get(i).setText(addresses.get(i) + ":" + ports.get(i));
                                     deviceNames.get(i).setText(devName);
@@ -399,7 +405,7 @@ public class CreateConnectionController extends DashboardController implements I
                                             sliceChartData(arr, i, finalCounter);
                                         });
                                     }
-                                    outputList.get(i).writeChars("1");
+                                    outputList.get(i).writeBytes("1\0");
                                     TimeUnit.MILLISECONDS.sleep(600);
                                     counter++;
                                 }
@@ -417,7 +423,9 @@ public class CreateConnectionController extends DashboardController implements I
                                     recCheckboxArray.get(i).setSelected(false);
                                     recCheckboxArray.get(i).setText("Not Recording");
                                     recCheckboxArray.get(i).setTextFill(Color.BLACK);
-                                    addressLabels.get(i).setText("");
+                                    if (!addressLabels.get(i).getText().equals("Device Not in SRV")) {
+                                        addressLabels.get(i).setText("");
+                                    }
                                     removeChartData(i);
                                 });
                                 e.printStackTrace();
