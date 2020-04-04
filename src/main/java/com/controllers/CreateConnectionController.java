@@ -313,8 +313,8 @@ public class CreateConnectionController extends DashboardController implements I
         }
         btn.setDisable(true);
         try {
-            outputList.get(index).writeChars("STOP\0");
-            outputList.get(index).writeChars("NO CARRIER\0");
+            outputList.get(index).writeBytes("STOP\0");
+            outputList.get(index).writeBytes("NO CARRIER\0");
             clientConn.get(index).close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -383,7 +383,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     try {
                                         line = inputList.get(i).readLine();
                                     } catch (IOException e) {
-                                        System.err.println("Timed outgit waiting for the socket in input ReadLine" + i);
+                                        System.err.println("Timed out waiting for the socket in input ReadLine" + i);
                                         line = reconnectOnSocketFailure(i, sock);
                                     }
                                     if (recCheckboxArray.get(i).isSelected()) {
