@@ -315,6 +315,7 @@ public class CreateConnectionController extends DashboardController implements I
         try {
             outputList.get(index).writeChars("STOP\0");
             outputList.get(index).writeChars("NO CARRIER\0");
+            clientConn.get(index).close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -411,7 +412,9 @@ public class CreateConnectionController extends DashboardController implements I
                                 }
                             } catch (IOException | InterruptedException e) {
                                 System.err.println("Timed out waiting for the socket while in Execute Thread");
-                                clientConn.get(i).close();
+                                if (!disconnectBtnMap.get(i).isDisable()) {
+                                    clientConn.get(i).close();
+                                }
                                 removingDeviceDataOnDisconnect(i);
                                 Platform.runLater(() -> {
                                     if (!addressLabels.get(i).getText().equals("Device Not in SRV")) {
