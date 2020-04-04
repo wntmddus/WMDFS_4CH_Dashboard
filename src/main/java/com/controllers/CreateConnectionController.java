@@ -313,9 +313,8 @@ public class CreateConnectionController extends DashboardController implements I
         }
         btn.setDisable(true);
         try {
-            outputList.get(index).writeChars("STOP");
-            outputList.get(index).writeChars("NO CARRIER");
-            clientConn.get(index).close();
+            outputList.get(index).writeChars("STOP\0");
+            outputList.get(index).writeChars("NO CARRIER\0");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -341,7 +340,7 @@ public class CreateConnectionController extends DashboardController implements I
                         // create and store Socket
                         Socket sock = new Socket();
                         sock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 5000);
-                        sock.setSoTimeout(5000);
+                        sock.setSoTimeout(2000);
                         if (sock.isConnected()) {
                             try {
                                 clientConn.put(i, sock);
@@ -356,7 +355,6 @@ public class CreateConnectionController extends DashboardController implements I
                                     Platform.runLater(() -> {
                                         addressLabels.get(i).setText("Device Not in SRV");
                                     });
-                                    clientConn.get(i).close();
                                     throw new IOException("Device is not in SRV Status");
                                 }
                                 if (chartAllocation.size() <= MAX_GRAPH_NUMBER) {
@@ -379,13 +377,13 @@ public class CreateConnectionController extends DashboardController implements I
                                     initializeChartData(i);
                                 });
                                 int counter = 0;
-                                while (sock.isConnected()) {
+                                while (clientConn.get(i).isConnected()) {
                                     String line = "";
                                     try {
                                         line = inputList.get(i).readLine();
                                     } catch (IOException e) {
-                                        System.err.println("Timed out waiting for the socket in input ReadLine" + i);
-                                        sock = reconnectOnSocketFailure(i, sock);
+                                        System.err.println("Timed outgit waiting for the socket in input ReadLine" + i);
+                                        line = reconnectOnSocketFailure(i, sock);
                                     }
                                     if (recCheckboxArray.get(i).isSelected()) {
                                         if (!dateTimeOnFileNameMap.get(i).equals(getCurrentDateTime("yyyy/MM/dd"))) {
@@ -413,14 +411,8 @@ public class CreateConnectionController extends DashboardController implements I
                                 }
                             } catch (IOException | InterruptedException e) {
                                 System.err.println("Timed out waiting for the socket while in Execute Thread");
-                                clientConn.remove(i);
-                                addresses.remove(i);
-                                ports.remove(i);
-                                deviceData.get(i).clear();
-                                chartConfigMap.remove(i);
-                                if (fileWriters.containsKey(i)) {
-                                    fileWriters.get(i).close();
-                                }
+                                clientConn.get(i).close();
+                                removingDeviceDataOnDisconnect(i);
                                 Platform.runLater(() -> {
                                     if (!addressLabels.get(i).getText().equals("Device Not in SRV")) {
                                         addressLabels.get(i).setText("");
@@ -452,6 +444,16 @@ public class CreateConnectionController extends DashboardController implements I
             }
         });
     }
+    private void removingDeviceDataOnDisconnect(int i) throws IOException {
+        clientConn.remove(i);
+        addresses.remove(i);
+        ports.remove(i);
+        deviceData.get(i).clear();
+        chartConfigMap.remove(i);
+        if (fileWriters.containsKey(i)) {
+            fileWriters.get(i).close();
+        }
+    }
 
     private String readDeviceData(Socket sock) throws IOException {
         byte[] buffer = new byte[1024];
@@ -477,21 +479,27 @@ public class CreateConnectionController extends DashboardController implements I
         });
     }
 
-    private Socket reconnectOnSocketFailure(int i, Socket sock) throws IOException, InterruptedException {
-        if(!disconnectBtnMap.get(i).isDisable()) {
-            Thread.sleep(10000);
-            Socket newSock = new Socket();
-            newSock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
-            newSock.setSoTimeout(2000);
-            if (newSock.isConnected()) {
-                clientConn.put(i, newSock);
-                outputList.put(i, new DataOutputStream(newSock.getOutputStream()));
-                inputList.put(i, new DataInputStream(newSock.getInputStream()));
-                clientConn.put(i, newSock);
-                return newSock;
-            }
+    private String reconnectOnSocketFailure(int i, Socket sock) throws IOException, InterruptedException {
+        String line = "";
+        if (disconnectBtnMap.get(i).isDisable()) {
+            throw new IOException("Device is disconnected by user");
         }
-        return sock;
+        clientConn.get(i).close();
+        Thread.sleep(10000);
+        Socket newSock = new Socket();
+        newSock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
+        newSock.setSoTimeout(2000);
+        if (newSock.isConnected()) {
+            System.out.println(newSock.isConnected());
+            clientConn.put(i, newSock);
+            outputList.put(i, new DataOutputStream(newSock.getOutputStream()));
+            inputList.put(i, new DataInputStream(newSock.getInputStream()));
+            outputList.get(i).writeBytes("REC\0");
+            line = inputList.get(i).readLine();
+            return line;
+        } else {
+            throw new IOException("Device is disconnected after retry");
+        }
     }
 
     private void sliceChartData(List<String> arr, int i, int counter) {
