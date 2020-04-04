@@ -384,11 +384,11 @@ public class CreateConnectionController extends DashboardController implements I
                                         line = inputList.get(i).readLine();
                                     } catch (IOException e) {
                                         System.err.println("Timed out waiting for the socket in input ReadLine" + i);
-                                        line = reconnectOnSocketFailure(i, sock);
+                                        line = reconnectOnSocketFailure(i);
                                     }
                                     if (recCheckboxArray.get(i).isSelected()) {
                                         if (!dateTimeOnFileNameMap.get(i).equals(getCurrentDateTime("yyyy/MM/dd"))) {
-                                            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"));
+                                            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
                                         }
                                         fileWriters.get(i).write(line + "\n");
                                         fileWriters.get(i).flush();
@@ -482,7 +482,7 @@ public class CreateConnectionController extends DashboardController implements I
         });
     }
 
-    private String reconnectOnSocketFailure(int i, Socket sock) throws IOException, InterruptedException {
+    private String reconnectOnSocketFailure(int i) throws IOException, InterruptedException {
         String line = "";
         if (disconnectBtnMap.get(i).isDisable()) {
             throw new IOException("Device is disconnected by user");
@@ -497,6 +497,7 @@ public class CreateConnectionController extends DashboardController implements I
             clientConn.put(i, newSock);
             outputList.put(i, new DataOutputStream(newSock.getOutputStream()));
             inputList.put(i, new DataInputStream(newSock.getInputStream()));
+            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), true);
             outputList.get(i).writeBytes("REC\0");
             line = inputList.get(i).readLine();
             return line;

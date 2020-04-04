@@ -982,7 +982,7 @@ public class DashboardController extends SharedStorage implements Initializable 
                     recCheckboxArray.get(i).setSelected(!recCheckboxArray.get(i).isSelected());
                     if (recCheckboxArray.get(i).isSelected()) {
                         try {
-                            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"));
+                            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -1003,9 +1003,13 @@ public class DashboardController extends SharedStorage implements Initializable 
     }
 
 
-    public void createNewFileWriter(int index, String currentDate) throws IOException {
+    public void createNewFileWriter(int index, String currentDate, boolean isReconnected) throws IOException {
         dateTimeOnFileNameMap.put(index, getCurrentDateTime("yyyy/MM/dd"));
-        String path = "./SavedData/" + deviceNames.get(index).getText() + "-" + addresses.get(index) + "-" + ports.get(index) + "/" + deviceNames.get(index).getText() + "-" + currentDate + ".txt";
+        String reconnected = "";
+        if (isReconnected) {
+            reconnected = "-reconnected";
+        }
+        String path = "./SavedData/" + deviceNames.get(index).getText() + "-" + addresses.get(index) + "-" + ports.get(index) + "/" + deviceNames.get(index).getText() + "-" + currentDate + reconnected + ".txt";
         File file = new File(path);
         file.getParentFile().mkdirs();
         fileWriters.put(index, new FileWriter(file));
@@ -1037,7 +1041,7 @@ public class DashboardController extends SharedStorage implements Initializable 
             }
             if (((CheckBox)(event.getSource())).isSelected()) {
                 try {
-                    createNewFileWriter(index, currentDate);
+                    createNewFileWriter(index, currentDate, false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
