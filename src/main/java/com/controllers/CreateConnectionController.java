@@ -348,22 +348,24 @@ public class CreateConnectionController extends DashboardController implements I
                                 outputList.put(i, new DataOutputStream(sock.getOutputStream()));
                                 inputList.put(i, new DataInputStream(sock.getInputStream()));
                                 deviceData.put(i, new ArrayList<>());
-                                if (chartAllocation.size() <= MAX_GRAPH_NUMBER) {
-                                    for (int j = 0; j < MAX_GRAPH_NUMBER; j++) {
-                                        if (!chartAllocation.containsValue(j)) {
-                                            chartAllocation.put(i, j);
-                                            tempChartAllocation.put(i, j);
-                                            break;
-                                        }
-                                    }
-                                }
                                 outputList.get(i).writeBytes("GET DEVNAME\0");
                                 String devName = inputList.get(i).readLine();
                                 outputList.get(i).writeBytes("GET STATE\0");
                                 String devState = inputList.get(i).readLine();
                                 if (devState.equals("SD")) {
-                                    addressLabels.get(i).setText("Device Not in SRV");
+                                    Platform.runLater(() -> {
+                                        addressLabels.get(i).setText("Device Not in SRV");
+                                    });
+                                    clientConn.get(i).close();
                                     throw new IOException("Device is not in SRV Status");
+                                }
+                                if (chartAllocation.size() <= MAX_GRAPH_NUMBER) {
+                                    for (int j = 0; j < MAX_GRAPH_NUMBER; j++) {
+                                        if (!chartAllocation.containsValue(j)) {
+                                            chartAllocation.put(i, j);
+                                            break;
+                                        }
+                                    }
                                 }
                                 TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeBytes("REC\0");
@@ -420,12 +422,12 @@ public class CreateConnectionController extends DashboardController implements I
                                     fileWriters.get(i).close();
                                 }
                                 Platform.runLater(() -> {
-                                    recCheckboxArray.get(i).setSelected(false);
-                                    recCheckboxArray.get(i).setText("Not Recording");
-                                    recCheckboxArray.get(i).setTextFill(Color.BLACK);
                                     if (!addressLabels.get(i).getText().equals("Device Not in SRV")) {
                                         addressLabels.get(i).setText("");
                                     }
+                                    recCheckboxArray.get(i).setSelected(false);
+                                    recCheckboxArray.get(i).setText("Not Recording");
+                                    recCheckboxArray.get(i).setTextFill(Color.BLACK);
                                     removeChartData(i);
                                 });
                                 e.printStackTrace();
