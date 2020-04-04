@@ -264,22 +264,25 @@ public class CreateConnectionController extends DashboardController implements I
         deviceConnNumMap.put(17, deviceConnNum17);
         deviceConnNumMap.put(18, deviceConnNum18);
         deviceConnNumMap.put(19, deviceConnNum19);
-        clientConn.entrySet().iterator();
-        for(Map.Entry<Integer, Socket> entry : clientConn.entrySet()) {
-            if(entry.getValue().isConnected()) {
-                Platform.runLater(() -> {
+        Platform.runLater(() -> {
+            for(Map.Entry<Integer, Socket> entry : clientConn.entrySet()) {
+                if(entry.getValue().isConnected()) {
                     connAddTextFieldMap.get(entry.getKey()).setDisable(true);
                     connPortTextFieldMap.get(entry.getKey()).setDisable(true);
                     disconnectBtnMap.get(entry.getKey()).setDisable(false);
-                });
+                }
             }
-        }
-        for(Map.Entry<Integer, String> entry : addresses.entrySet()) {
-            Platform.runLater(() -> {
-                connAddTextFieldMap.get(entry.getKey()).setText(addresses.get(entry.getKey()));
-                connPortTextFieldMap.get(entry.getKey()).setText((ports.get(entry.getKey())));
-            });
-        }
+            for(int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+                if (addresses.containsKey(i) && ports.containsKey(i)) {
+                    connAddTextFieldMap.get(i).setText(addresses.get(i));
+                    connPortTextFieldMap.get(i).setText(ports.get(i));
+                }
+                if (!pref.get("address" + i, "root").equals("root") && !pref.get("port" + i, "root").equals("root")) {
+                    connAddTextFieldMap.get(i).setText(pref.get("address" + i, "root"));
+                    connPortTextFieldMap.get(i).setText(pref.get("port" + i, "root"));
+                }
+            }
+        });
     }
 
     private Stage stage;
@@ -295,7 +298,7 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     @FXML
-    void handleOnConnect(ActionEvent event) {
+    void handleOnConnect() {
         extractInformationFromTextField();
         connectValidAddressesToTCP();
         stage.close();
@@ -311,7 +314,9 @@ public class CreateConnectionController extends DashboardController implements I
         } else {
             index = Integer.parseInt(btnId.substring(btnId.length() - 2));
         }
-        btn.setDisable(true);
+        Platform.runLater(() -> {
+            btn.setDisable(true);
+        });
         try {
             outputList.get(index).writeBytes("STOP\0");
             outputList.get(index).writeBytes("NO CARRIER\0");
@@ -341,7 +346,7 @@ public class CreateConnectionController extends DashboardController implements I
                         // create and store Socket
                         Socket sock = new Socket();
                         sock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 5000);
-                        sock.setSoTimeout(2000);
+                        sock.setSoTimeout(5000);
                         if (sock.isConnected()) {
                             try {
                                 clientConn.put(i, sock);
@@ -421,7 +426,7 @@ public class CreateConnectionController extends DashboardController implements I
                                         addressLabels.get(i).setText("");
                                     }
                                     recCheckboxArray.get(i).setSelected(false);
-                                    recCheckboxArray.get(i).setText("Not Recording");
+                                    recCheckboxArray.get(i).setText("Not Saving to File");
                                     recCheckboxArray.get(i).setTextFill(Color.BLACK);
                                     removeChartData(i);
                                 });
@@ -458,17 +463,6 @@ public class CreateConnectionController extends DashboardController implements I
         }
     }
 
-    private String readDeviceData(Socket sock) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        String output = "";
-        if ((read = sock.getInputStream().read(buffer)) != -1) {
-            output = new String(buffer, 0, read);
-            output = output.substring(0, output.length() - 1);
-        }
-        return output;
-    }
-
     private void setGraphConfiguration(int index) {
         chartConfigMap.put(index, new ArrayList<Boolean>() {
             {
@@ -491,15 +485,16 @@ public class CreateConnectionController extends DashboardController implements I
         Thread.sleep(10000);
         Socket newSock = new Socket();
         newSock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
-        newSock.setSoTimeout(2000);
+        newSock.setSoTimeout(5000);
         if (newSock.isConnected()) {
-            System.out.println(newSock.isConnected());
             clientConn.put(i, newSock);
             outputList.put(i, new DataOutputStream(newSock.getOutputStream()));
             inputList.put(i, new DataInputStream(newSock.getInputStream()));
-            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), true);
+            TimeUnit.MILLISECONDS.sleep(500);
             outputList.get(i).writeBytes("REC\0");
+            TimeUnit.MILLISECONDS.sleep(500);
             line = inputList.get(i).readLine();
+            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), true);
             return line;
         } else {
             throw new IOException("Device is disconnected after retry");

@@ -732,12 +732,6 @@ public class DashboardController extends SharedStorage implements Initializable 
         addressLabels.put(17, addLabel17);
         addressLabels.put(18, addLabel18);
         addressLabels.put(19, addLabel19);
-        for(int i = 0; i < MAX_DEVICE_NUMBER; i++) {
-            if (!pref.get("address" + i, "root").equals("root") && !pref.get("port" + i, "root").equals("root")) {
-                addresses.put(i, pref.get("address" + i, "root"));
-                ports.put(i, pref.get("port" + i, "root"));
-            }
-        }
     }
 
     public void setStage(Stage stage) {
@@ -760,16 +754,18 @@ public class DashboardController extends SharedStorage implements Initializable 
         }
         if (event.getX() > CHART_X_START_COORDINATE && event.getX() < CHART_X_END_COORDINATE && event.getY() > CHART_Y_START_COORDINATE && event.getY() < CHART_Y_END_COORDINATE && chartAllocation.containsKey(dataIndex) && !chartRectangleMap.get(chartIndex).isVisible()) {
             int index = (int) Math.floor((deviceData.get(dataIndex).size() - 1) * ((event.getX() - CHART_X_START_COORDINATE) / (CHART_X_END_COORDINATE - CHART_X_START_COORDINATE)));
-            List<String> lineData = deviceData.get(dataIndex).get(index);
-            Label ch1Label = chartLabelMap.get(chartIndex).get(0);
-            Label ch2Label = chartLabelMap.get(chartIndex).get(1);
-            Label ch3Label = chartLabelMap.get(chartIndex).get(2);
-            Platform.runLater(() -> {
-                createLine(chartIndex, (int) event.getX(), 47, (int) event.getX(), 187);
-                ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " mm");
-                ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " mm");
-                ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " mm");
-            });
+            if (index != -1) {
+                List<String> lineData = deviceData.get(dataIndex).get(index);
+                Label ch1Label = chartLabelMap.get(chartIndex).get(0);
+                Label ch2Label = chartLabelMap.get(chartIndex).get(1);
+                Label ch3Label = chartLabelMap.get(chartIndex).get(2);
+                Platform.runLater(() -> {
+                    createLine(chartIndex, (int) event.getX(), 47, (int) event.getX(), 187);
+                    ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " mm");
+                    ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " mm");
+                    ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " mm");
+                });
+            }
         } else {
             lineMap.get(chartIndex).setVisible(false);
         }
@@ -905,7 +901,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         rect.setWidth(width);
         rect.setHeight(height);
         rect.setFill(Color.LIGHTGREY);
-        rect.setOpacity(0.5);
+        rect.setOpacity(0.8);
     }
 
 
@@ -927,12 +923,14 @@ public class DashboardController extends SharedStorage implements Initializable 
         if (event.isSecondaryButtonDown()) {
             return;
         }
-        if (chartRectangleMap.get(chartIndex).isVisible()) {
-            chartRectangleMap.get(chartIndex).setVisible(false);
-            return;
-        }
-        rectangleStart = event.getX();
-        lineMap.get(chartIndex).setVisible(false);
+        Platform.runLater(() -> {
+            if (chartRectangleMap.get(chartIndex).isVisible()) {
+                chartRectangleMap.get(chartIndex).setVisible(false);
+                return;
+            }
+            rectangleStart = event.getX();
+            lineMap.get(chartIndex).setVisible(false);
+        });
     }
     @FXML
     private void handleOnMouseReleased(MouseEvent event) {
@@ -986,10 +984,10 @@ public class DashboardController extends SharedStorage implements Initializable 
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        recCheckboxArray.get(i).setText("Recording");
+                        recCheckboxArray.get(i).setText("Saving to File");
                         recCheckboxArray.get(i).setTextFill(Color.RED);
                     } else {
-                        recCheckboxArray.get(i).setText("Not Recording");
+                        recCheckboxArray.get(i).setText("Not Saving to File");
                         recCheckboxArray.get(i).setTextFill(Color.BLACK);
                     }
                 }
@@ -1045,10 +1043,10 @@ public class DashboardController extends SharedStorage implements Initializable 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                ((CheckBox)(event.getSource())).setText("Recording");
+                ((CheckBox)(event.getSource())).setText("Saving to File");
                 ((CheckBox)(event.getSource())).setTextFill(Color.RED);
             } else {
-                ((CheckBox)(event.getSource())).setText("Not Recording");
+                ((CheckBox)(event.getSource())).setText("Not Saving to File");
                 ((CheckBox)(event.getSource())).setTextFill(Color.BLACK);
             }
         });
