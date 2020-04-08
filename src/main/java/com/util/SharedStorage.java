@@ -19,6 +19,7 @@ public class SharedStorage {
     public final int MAX_GRAPH_NUMBER = 8;
     public static Stage mainStage;
     public static Preferences pref = Preferences.userNodeForPackage(SharedStorage.class);
+    public static Map<Integer, Rectangle> boxes = new HashMap<>();
     public static Map<Integer, Socket> clientConn = new HashMap<>();
     public static Map<Integer, String> addresses = new HashMap<>();
     public static Map<Integer, String> ports = new HashMap<>();
@@ -34,7 +35,6 @@ public class SharedStorage {
     public static Map<Integer, List<List<String>>> deviceData = new HashMap<>();
     public static Map<Integer, Label> graphLabels = new HashMap<>();
     public static Map<Integer, Integer> chartAllocation = new HashMap<>();
-    public static Map<Integer, Integer> tempChartAllocation = new HashMap<>();
     public static Map<Integer, Label> deviceConnNumMap = new HashMap<>();
     public static Map<Integer, String> dateTimeOnFileNameMap = new HashMap<>();
     public static Map<Integer, Map<String, XYChart.Series<String, Number>>> chartDataMap = new HashMap<>();
@@ -52,6 +52,7 @@ public class SharedStorage {
 
         }
     };
+    public static boolean isSwitching = false;
     public static Map<Integer, List<Boolean>> chartConfigMap = new HashMap<>();
     public static Map<Integer, Map<Integer, Label>> chartLabelMap = new HashMap<Integer, Map<Integer, Label>>() {
         {

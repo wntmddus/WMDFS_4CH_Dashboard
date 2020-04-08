@@ -1,14 +1,21 @@
 package main.java.com.controllers;
 
+import com.sun.javafx.charts.Legend;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.*;
@@ -375,10 +382,12 @@ public class CreateConnectionController extends DashboardController implements I
                                 outputList.get(i).writeBytes("REC\0");
                                 Platform.runLater(() -> {
                                     addressLabels.get(i).setText(addresses.get(i) + ":" + ports.get(i));
-                                    deviceNames.get(i).setText(devName);
-                                    deviceNames.get(i).setTextFill(Color.GREEN);
+//                                    deviceNames.get(i).setTextFill(Color.GREEN);
                                     disconnectBtnMap.get(i).setDisable(false);
                                     deviceConnNumMap.get(i).setTextFill(Color.BLACK);
+                                    boxes.get(i).setFill(Color.GREEN);
+                                    boxes.get(i).setOpacity(0.4);
+                                    deviceNames.get(i).setText(devName);
                                     setGraphConfiguration(i);
                                     initializeChartData(i);
                                 });
@@ -391,7 +400,7 @@ public class CreateConnectionController extends DashboardController implements I
                                         System.err.println("Timed out waiting for the socket in input ReadLine" + i);
                                         line = reconnectOnSocketFailure(i);
                                     }
-                                    if (recCheckboxArray.get(i).isSelected()) {
+                                    if (fileWriters.containsKey(i) && recCheckboxArray.get(i).isSelected()) {
                                         if (!dateTimeOnFileNameMap.get(i).equals(getCurrentDateTime("yyyy/MM/dd"))) {
                                             createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
                                         }
@@ -426,7 +435,7 @@ public class CreateConnectionController extends DashboardController implements I
                                         addressLabels.get(i).setText("");
                                     }
                                     recCheckboxArray.get(i).setSelected(false);
-                                    recCheckboxArray.get(i).setText("Not Saving to File");
+                                    recCheckboxArray.get(i).setText("Not Recording");
                                     recCheckboxArray.get(i).setTextFill(Color.BLACK);
                                     removeChartData(i);
                                 });
@@ -438,10 +447,12 @@ public class CreateConnectionController extends DashboardController implements I
                         addresses.remove(i);
                         ports.remove(i);
                         Platform.runLater(() -> {
+                            boxes.get(i).setFill(Color.RED);
+                            boxes.get(i).setOpacity(0.3);
                             deviceConnNumMap.get(i).setTextFill(Color.RED);
-                            deviceNames.get(i).setTextFill(Color.RED);
+//                            deviceNames.get(i).setTextFill(Color.RED);
                             deviceNames.get(i).setText("Not Connected");
-
+                            deviceNames.get(i).setFocusTraversable(true);
                         });
                         e.printStackTrace();
                     }
@@ -452,15 +463,50 @@ public class CreateConnectionController extends DashboardController implements I
             }
         });
     }
+    @FXML
+    private void handleOnSave() throws IOException {
+        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
+            pref.put("address" + entry.getKey(), entry.getValue());
+            pref.put("port" + entry.getKey(), ports.get(entry.getKey()));
+        }
+        FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
+        VBox vbox = saveSettingLoader.load();
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("Setting Saved");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleOnReset() throws IOException {
+        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
+            pref.remove("address" + entry.getKey());
+            pref.remove("port" + entry.getKey());
+        }
+        FXMLLoader resetSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingreset.fxml"));
+        VBox vbox = resetSettingLoader.load();
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("Setting Reset");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void removingDeviceDataOnDisconnect(int i) throws IOException {
         clientConn.remove(i);
         addresses.remove(i);
         ports.remove(i);
         deviceData.get(i).clear();
         chartConfigMap.remove(i);
-        if (fileWriters.containsKey(i)) {
-            fileWriters.get(i).close();
-        }
+//        if (fileWriters.containsKey(i)) {
+//            fileWriters.get(i).close();
+//            fileWriters.remove(i);
+//        }
     }
 
     private void setGraphConfiguration(int index) {
@@ -502,7 +548,7 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     private void sliceChartData(List<String> arr, int i, int counter) {
-        if (counter % 6 == 0) {
+        if (counter % 6  == 0) {
             if (chartDataMap.get(i).get("rpm1").getData().size() > 600) {
                 chartDataMap.get(i).get("rpm1").getData().remove(0);
                 chartDataMap.get(i).get("rpm2").getData().remove(0);
@@ -523,11 +569,15 @@ public class CreateConnectionController extends DashboardController implements I
     private void removeChartData(int i) {
         int chartIndex = chartAllocation.get(i);
         if (!disconnectBtnMap.get(i).isDisable()) {
+            boxes.get(i).setOpacity(0.3);
+            boxes.get(i).setFill(Color.RED);
             deviceNames.get(i).setText("Disconnected");
-            deviceNames.get(i).setTextFill(Color.RED);
+            deviceNames.get(i).setFocusTraversable(true);
         } else {
+            boxes.get(i).setOpacity(0.3);
+            boxes.get(i).setFill(Color.GREY);
             deviceNames.get(i).setText("Not Connected");
-            deviceNames.get(i).setTextFill(Color.BLACK);
+            deviceNames.get(i).setFocusTraversable(true);
         }
         chartDataMap.get(i).remove("rpm1");
         chartDataMap.get(i).remove("rpm2");
@@ -553,7 +603,6 @@ public class CreateConnectionController extends DashboardController implements I
         chartRectangleMap.get(chartIndex).setVisible(false);
         lineCharts.get(chartIndex).getData().clear();
         chartAllocation.remove(i);
-        tempChartAllocation.remove(i);
     }
 
     private void initializeChartData(int index) {
@@ -579,6 +628,32 @@ public class CreateConnectionController extends DashboardController implements I
             lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
             lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
         }
+        chartDataMap.get(index).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
+        chartDataMap.get(index).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
+        chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
+        chartDataMap.get(index).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
+        chartDataMap.get(index).get("vib2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
+        chartDataMap.get(index).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
+        chartDataMap.get(index).get("rpm1").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
+        chartDataMap.get(index).get("rpm2").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
+        chartDataMap.get(index).get("rpm3").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
+        chartDataMap.get(index).get("vib1").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
+        chartDataMap.get(index).get("vib2").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
+        chartDataMap.get(index).get("vib3").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
+        chartDataMap.get(index).get("rpm1").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
+        chartDataMap.get(index).get("rpm2").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
+        chartDataMap.get(index).get("rpm3").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
+        chartDataMap.get(index).get("vib1").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
+        chartDataMap.get(index).get("vib2").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
+        chartDataMap.get(index).get("vib3").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
+        for(Node n : lineCharts.get(index).getChildrenUnmodifiable()){
+            if(n instanceof Legend){
+                for(Legend.LegendItem legendItem : ((Legend)n).getItems()){
+                    legendItem.getSymbol().setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
+                }
+            }
+        }
+
     }
 
     private void extractInformationFromTextField() {

@@ -23,6 +23,7 @@
 }
 
 .chart-legend-item-symbol {
+    /*-fx-background-color: rgba(0, 0, 0, 0.8);*/
 }
 
 .chart-line-symbol {

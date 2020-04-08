@@ -82,106 +82,108 @@
                 <TextField fx:id="inputPort19" layoutX="564.0" layoutY="408.0" prefHeight="27.0" prefWidth="63.0" />
                 <Button fx:id="connectBtn" layoutX="509.0" layoutY="502.0" mnemonicParsing="false" onAction="#handleOnConnect" text="Connect" />
                 <Button fx:id="connectionCloseBtn" layoutX="590.0" layoutY="502.0" mnemonicParsing="false" onAction="#onClose" text="Close" />
-                <Button fx:id="disconnect0" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="104.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect0" disable="true" layoutX="298.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect2" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="138.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect2" disable="true" layoutX="298.0" layoutY="138.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect4" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="172.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect4" disable="true" layoutX="298.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect6" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="206.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect6" disable="true" layoutX="298.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect8" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="241.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect8" disable="true" layoutX="298.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect10" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="275.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect10" disable="true" layoutX="298.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect12" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="309.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect12" disable="true" layoutX="298.0" layoutY="309.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect14" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="343.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect14" disable="true" layoutX="298.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect16" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="377.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect16" disable="true" layoutX="298.0" layoutY="377.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect18" onAction="#handleOnDisconnect" disable="true" layoutX="298.0" layoutY="411.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect18" disable="true" layoutX="298.0" layoutY="411.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect1"  onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="104.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect1" disable="true" layoutX="634.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect3" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="138.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect3" disable="true" layoutX="634.0" layoutY="138.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect5" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="172.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect5" disable="true" layoutX="634.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect7" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="206.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect7" disable="true" layoutX="634.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect9" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="241.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect9" disable="true" layoutX="634.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect11" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="275.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect11" disable="true" layoutX="634.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect13" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="309.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect13" disable="true" layoutX="634.0" layoutY="309.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect15" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="343.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect15" disable="true" layoutX="634.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect17" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="377.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect17" disable="true" layoutX="634.0" layoutY="377.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
-                <Button fx:id="disconnect19" onAction="#handleOnDisconnect" disable="true" layoutX="634.0" layoutY="411.0" mnemonicParsing="false" text="Disconnect">
+                <Button fx:id="disconnect19" disable="true" layoutX="634.0" layoutY="411.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
                     <font>
                         <Font size="10.0" />
                     </font>
                 </Button>
+            <Button onAction="#handleOnSave" layoutX="551.0" layoutY="28.0" mnemonicParsing="false" text="Save" />
+            <Button onAction="#handleOnReset" layoutX="607.0" layoutY="28.0" mnemonicParsing="false" text="Reset" />
             </children>
         </Pane>
     </children>

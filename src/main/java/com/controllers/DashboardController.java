@@ -5,12 +5,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -540,13 +544,73 @@ public class DashboardController extends SharedStorage implements Initializable 
     @FXML
     public Label addLabel19;
 
+    @FXML
+    public Rectangle box0;
+
+    @FXML
+    public Rectangle box1;
+
+    @FXML
+    public Rectangle box2;
+
+    @FXML
+    public Rectangle box3;
+
+    @FXML
+    public Rectangle box4;
+
+    @FXML
+    public Rectangle box5;
+
+    @FXML
+    public Rectangle box6;
+
+    @FXML
+    public Rectangle box7;
+
+    @FXML
+    public Rectangle box8;
+
+    @FXML
+    public Rectangle box9;
+
+    @FXML
+    public Rectangle box10;
+
+    @FXML
+    public Rectangle box11;
+
+    @FXML
+    public Rectangle box12;
+
+    @FXML
+    public Rectangle box13;
+
+    @FXML
+    public Rectangle box14;
+
+    @FXML
+    public Rectangle box15;
+
+    @FXML
+    public Rectangle box16;
+
+    @FXML
+    public Rectangle box17;
+
+    @FXML
+    public Rectangle box18;
+
+    @FXML
+    public Rectangle box19;
+
     private double rectangleStart;
 
     private int startIndexOnGraph;
 
     final private double CHART_Y_START_COORDINATE = 15;
 
-    final private double CHART_Y_END_COORDINATE = 120;
+    final private double CHART_Y_END_COORDINATE = 155;
 
     final private double CHART_X_START_COORDINATE = 65;
 
@@ -666,10 +730,12 @@ public class DashboardController extends SharedStorage implements Initializable 
                 lineCharts.get(i).setAnimated(false);
                 lineCharts.get(i).getXAxis().setAnimated(false);
                 lineCharts.get(i).getXAxis().setTickLabelsVisible(false);
+
                 lineCharts.get(i).getYAxis().setAnimated(false);
                 lineCharts.get(i).getXAxis().setTickLabelFont(Font.font(9));
-                lineCharts.get(i).getXAxis().setTickMarkVisible(false);
-                lineCharts.get(i).getYAxis().setLabel("RPM");
+                lineCharts.get(i).getXAxis().setTickMarkVisible(true);
+                lineCharts.get(i).getYAxis().setLabel("RPM / Vib (mm)");
+                lineCharts.get(i).setLegendVisible(false);
             }
         });
         chartLabelMap.get(0).put(0, graph0Label0);
@@ -732,6 +798,26 @@ public class DashboardController extends SharedStorage implements Initializable 
         addressLabels.put(17, addLabel17);
         addressLabels.put(18, addLabel18);
         addressLabels.put(19, addLabel19);
+        boxes.put(0, box0);
+        boxes.put(1, box1);
+        boxes.put(2, box2);
+        boxes.put(3, box3);
+        boxes.put(4, box4);
+        boxes.put(5, box5);
+        boxes.put(6, box6);
+        boxes.put(7, box7);
+        boxes.put(8, box8);
+        boxes.put(9, box9);
+        boxes.put(10, box10);
+        boxes.put(11, box11);
+        boxes.put(12, box12);
+        boxes.put(13, box13);
+        boxes.put(14, box14);
+        boxes.put(15, box15);
+        boxes.put(16, box16);
+        boxes.put(17, box17);
+        boxes.put(18, box18);
+        boxes.put(19, box19);
     }
 
     public void setStage(Stage stage) {
@@ -760,7 +846,7 @@ public class DashboardController extends SharedStorage implements Initializable 
                 Label ch2Label = chartLabelMap.get(chartIndex).get(1);
                 Label ch3Label = chartLabelMap.get(chartIndex).get(2);
                 Platform.runLater(() -> {
-                    createLine(chartIndex, (int) event.getX(), 47, (int) event.getX(), 187);
+                    createLine(chartIndex, (int) event.getX(), 54, (int) event.getX(), 216);
                     ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " mm");
                     ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " mm");
                     ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " mm");
@@ -769,40 +855,6 @@ public class DashboardController extends SharedStorage implements Initializable 
         } else {
             lineMap.get(chartIndex).setVisible(false);
         }
-    }
-
-    @FXML
-    private void handleOnSave() throws IOException {
-        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
-            pref.put("address" + entry.getKey(), entry.getValue());
-            pref.put("port" + entry.getKey(), ports.get(entry.getKey()));
-        }
-        FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
-        VBox vbox = saveSettingLoader.load();
-        Stage stage = new Stage();
-        stage.initOwner(mainStage);
-        Scene scene = new Scene(vbox);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Setting Saved");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    private void handleOnReset() throws IOException {
-        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
-            pref.remove("address" + entry.getKey());
-            pref.remove("port" + entry.getKey());
-        }
-        FXMLLoader resetSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingreset.fxml"));
-        VBox vbox = resetSettingLoader.load();
-        Stage stage = new Stage();
-        stage.initOwner(mainStage);
-        Scene scene = new Scene(vbox);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Setting Reset");
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML
@@ -829,8 +881,77 @@ public class DashboardController extends SharedStorage implements Initializable 
     }
 
     @FXML
-    private void handleOnMouseDragEntered(MouseEvent event) {
+    private void handleDragDetected(MouseEvent event) {
+//        System.out.println("Detected");
+//        int index = Integer.parseInt(((GridPane)(event.getSource())).getId());
+//        if (clientConn.containsKey(index)) {
+//            System.out.println(((GridPane) (event.getSource())).getId());
+//            Dragboard db = ((GridPane) (event.getSource())).startDragAndDrop(TransferMode.ANY);
+//            db.setDragView(createSnapshot((GridPane) (event.getSource())));
+//            ClipboardContent content = new ClipboardContent();
+//            content.putString(((GridPane) (event.getSource())).getId());
+//            db.setContent(content);
+//            event.consume();
+//        }
+    }
 
+    @FXML
+    private void handleDragDropped(DragEvent event) {
+        System.out.println("Dropped");
+        int fromIndex = Integer.parseInt(event.getDragboard().getString());
+        int toIndex = Integer.parseInt(((GridPane)(event.getSource())).getId());
+        if (!clientConn.containsKey(fromIndex) && !clientConn.containsKey(toIndex)) return;
+        if (!clientConn.containsKey(toIndex) && clientConn.containsKey(fromIndex)) {
+            moveDataFromIndexToEmptyIndex(fromIndex, toIndex);
+        } // when both devices are connected and available
+
+
+        event.consume();
+    }
+
+    private void moveDataFromIndexToEmptyIndex(int fromIndex, int toIndex) {
+        clientConn.put(toIndex, clientConn.get(fromIndex));
+        addresses.put(toIndex, addresses.get(fromIndex));
+        ports.put(toIndex, ports.get(fromIndex));
+        outputList.put(toIndex, outputList.get(fromIndex));
+        inputList.put(toIndex, inputList.get(fromIndex));
+        chartDataMap.put(toIndex, chartDataMap.get(fromIndex));
+        chartConfigMap.put(toIndex, chartConfigMap.get(fromIndex));
+        if (chartAllocation.containsKey(fromIndex)) chartAllocation.put(toIndex, chartAllocation.get(fromIndex));
+        if (recCheckboxArray.get(fromIndex).isSelected()) {
+            dateTimeOnFileNameMap.put(toIndex, dateTimeOnFileNameMap.get(fromIndex));
+            fileWriters.put(toIndex, fileWriters.get(fromIndex));
+        }
+        clientConn.remove(fromIndex);
+        addresses.remove(fromIndex);
+        ports.remove(fromIndex);
+        outputList.remove(fromIndex);
+        inputList.remove(fromIndex);
+        chartAllocation.remove(fromIndex);
+        dateTimeOnFileNameMap.remove(fromIndex);
+        fileWriters.remove(fromIndex);
+        chartDataMap.remove(fromIndex);
+        chartConfigMap.remove(fromIndex);
+        deviceNames.get(toIndex).setText(deviceNames.get(fromIndex).getText());
+        deviceNames.get(toIndex).setTextFill(Color.GREEN);
+        addressLabels.get(toIndex).setText(addressLabels.get(fromIndex).getText());
+        recCheckboxArray.get(toIndex).setSelected(recCheckboxArray.get(fromIndex).isSelected());
+        if (recCheckboxArray.get(fromIndex).isSelected()) {
+            recCheckboxArray.get(toIndex).setText(recCheckboxArray.get(fromIndex).getText());
+            recCheckboxArray.get(toIndex).setTextFill(recCheckboxArray.get(fromIndex).getTextFill());
+        }
+        deviceNames.get(fromIndex).setText("Not Connected");
+        deviceNames.get(fromIndex).setTextFill(Color.BLACK);
+        addressLabels.get(fromIndex).setText("");
+        recCheckboxArray.get(fromIndex).setSelected(false);
+        recCheckboxArray.get(fromIndex).setText("Not Recording");
+        recCheckboxArray.get(fromIndex).setTextFill(Color.BLACK);
+    }
+
+    @FXML
+    private void handleDragOver(DragEvent event) {
+        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        event.consume();
     }
 
     @FXML
@@ -865,9 +986,9 @@ public class DashboardController extends SharedStorage implements Initializable 
         }
         if (event.getX() > CHART_X_START_COORDINATE && event.getX() < CHART_X_END_COORDINATE && event.getY() > CHART_Y_START_COORDINATE && event.getY() < CHART_Y_END_COORDINATE && chartAllocation.containsKey(dataIndex)) {
             double x = Math.min(event.getX(), rectangleStart);
-            double y = 47;
+            double y = 54;
             double width = Math.abs(event.getX() - rectangleStart);
-            double height = Math.abs(140);
+            double height = Math.abs(162);
             int start = Math.min(startIndexOnGraph, currentIndex);
             int end = Math.max(startIndexOnGraph, currentIndex);
             for (int i = start; i < end; i++) {
@@ -904,7 +1025,6 @@ public class DashboardController extends SharedStorage implements Initializable 
         rect.setOpacity(0.8);
     }
 
-
     @FXML
     private void handleOnMousePressed(MouseEvent event) {
         LineChart chart = ((LineChart)(event.getSource()));
@@ -919,10 +1039,10 @@ public class DashboardController extends SharedStorage implements Initializable 
         if (dataIndex == -1) {
             return;
         }
-        startIndexOnGraph = (int) Math.floor(deviceData.get(dataIndex).size() * ((event.getX() - CHART_X_START_COORDINATE) / (CHART_X_END_COORDINATE - CHART_X_START_COORDINATE)));
         if (event.isSecondaryButtonDown()) {
             return;
         }
+        startIndexOnGraph = (int) Math.floor(deviceData.get(dataIndex).size() * ((event.getX() - CHART_X_START_COORDINATE) / (CHART_X_END_COORDINATE - CHART_X_START_COORDINATE)));
         Platform.runLater(() -> {
             if (chartRectangleMap.get(chartIndex).isVisible()) {
                 chartRectangleMap.get(chartIndex).setVisible(false);
@@ -934,12 +1054,6 @@ public class DashboardController extends SharedStorage implements Initializable 
     }
     @FXML
     private void handleOnMouseReleased(MouseEvent event) {
-    }
-
-
-    @FXML
-    void closeAction(ActionEvent event) {
-        mainStage.close();
     }
 
     @FXML
@@ -955,6 +1069,12 @@ public class DashboardController extends SharedStorage implements Initializable 
         stage.setScene(scene);
         createConnectionController.setStage(stage);
         stage.show();
+    }
+    public String rgbFormatter(Color color) {
+        return String.format("%d, %d, %d",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
     }
 
     @FXML
@@ -973,26 +1093,31 @@ public class DashboardController extends SharedStorage implements Initializable 
     }
 
     @FXML
-    public void handleOnClickRecordAllBtn(ActionEvent event) {
-        Platform.runLater(() -> {
-            for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
-                if (clientConn.containsKey(i)) {
-                    recCheckboxArray.get(i).setSelected(!recCheckboxArray.get(i).isSelected());
-                    if (recCheckboxArray.get(i).isSelected()) {
-                        try {
-                            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+    public void handleOnClickRecordAllBtn(ActionEvent event) throws IOException {
+        if (((Button) (event.getSource())).getText().equals("Record All")) {
+            Platform.runLater(() -> {
+                for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+                    if (clientConn.containsKey(i)) {
+                        if (recCheckboxArray.get(i).isSelected()) {
+                            try {
+                                createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                        recCheckboxArray.get(i).setText("Saving to File");
-                        recCheckboxArray.get(i).setTextFill(Color.RED);
-                    } else {
-                        recCheckboxArray.get(i).setText("Not Saving to File");
-                        recCheckboxArray.get(i).setTextFill(Color.BLACK);
                     }
                 }
+                ((Button) (event.getSource())).setText("Stop");
+            });
+        } else {
+            for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+                if (clientConn.containsKey(i)) {
+                    fileWriters.get(i).close();
+                    fileWriters.remove(i);
+                }
             }
-        });
+            ((Button) (event.getSource())).setText("Record All");
+        }
     }
     public String getCurrentDateTime(String pattern) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
@@ -1005,7 +1130,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         dateTimeOnFileNameMap.put(index, getCurrentDateTime("yyyy/MM/dd"));
         String reconnected = "";
         if (isReconnected) {
-            reconnected = "-reconnected";
+            reconnected = "-Reconnected";
         }
         String path = "./SavedData/" + deviceNames.get(index).getText() + "-" + addresses.get(index) + "-" + ports.get(index) + "/" + deviceNames.get(index).getText() + "-" + currentDate + reconnected + ".txt";
         File file = new File(path);
@@ -1022,31 +1147,26 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public void handleOnClickRecordBtn(ActionEvent event) {
-        String currentDate = getCurrentDateTime("yyyy-MM-dd-HH.mm.ss");
-        CheckBox checkBox = ((CheckBox)(event.getSource()));
-        String checkBoxId = checkBox.getId();
-        int index;
-        if (checkBoxId.length() == 12) {
-            index = Character.getNumericValue(checkBoxId.charAt(checkBoxId.length() - 1));
-        } else {
-            index = Integer.parseInt(checkBoxId.substring(checkBoxId.length() - 2));
-        }
-
+//        String currentDate = getCurrentDateTime("yyyy-MM-dd-HH.mm.ss");
+//        CheckBox checkBox = ((CheckBox)(event.getSource()));
+//        String checkBoxId = checkBox.getId();
+//        int index;
+//        if (checkBoxId.length() == 12) {
+//            index = Character.getNumericValue(checkBoxId.charAt(checkBoxId.length() - 1));
+//        } else {
+//            index = Integer.parseInt(checkBoxId.substring(checkBoxId.length() - 2));
+//        }
+//        try {
+//            createNewFileWriter(index, currentDate, false);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         Platform.runLater(() -> {
-            if (!clientConn.containsKey(index)) {
-                checkBox.setSelected(false);
-                return;
-            }
             if (((CheckBox)(event.getSource())).isSelected()) {
-                try {
-                    createNewFileWriter(index, currentDate, false);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                ((CheckBox)(event.getSource())).setText("Saving to File");
+                ((CheckBox)(event.getSource())).setText("Recording");
                 ((CheckBox)(event.getSource())).setTextFill(Color.RED);
             } else {
-                ((CheckBox)(event.getSource())).setText("Not Saving to File");
+                ((CheckBox)(event.getSource())).setText("Not Recording");
                 ((CheckBox)(event.getSource())).setTextFill(Color.BLACK);
             }
         });
