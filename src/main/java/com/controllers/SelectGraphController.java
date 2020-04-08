@@ -2,13 +2,19 @@ package main.java.com.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
+
+import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
@@ -321,6 +327,46 @@ public class SelectGraphController extends DashboardController implements Initia
         }
         stage.close();
     }
+    @FXML
+    private void handleOnSave() throws IOException {
+        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
+            pref.put("address" + entry.getKey(), entry.getValue());
+            pref.put("port" + entry.getKey(), ports.get(entry.getKey()));
+            StringBuilder config = new StringBuilder();
+            for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
+                if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
+                else config.append("0");
+            }
+            pref.put("chartConfig" + entry.getKey(), config.toString());
+        }
+        FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
+        VBox vbox = saveSettingLoader.load();
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("Setting Saved");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleOnReset() throws IOException {
+        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
+            pref.remove("address" + entry.getKey());
+            pref.remove("port" + entry.getKey());
+            pref.remove("chartConfig" + entry.getKey());
+        }
+        FXMLLoader resetSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingreset.fxml"));
+        VBox vbox = resetSettingLoader.load();
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("Setting Reset");
+        stage.setScene(scene);
+        stage.show();
+    }
 
     private void modifyGraphWithGivenConfig(Integer deviceNumber, int chartNumber) {
         Platform.runLater(() -> {
@@ -336,7 +382,7 @@ public class SelectGraphController extends DashboardController implements Initia
             chartConfigMap.get(deviceNumber).set(3, vib1);
             chartConfigMap.get(deviceNumber).set(4, vib2);
             chartConfigMap.get(deviceNumber).set(5, vib3);
-            graphLabels.get(chartNumber).setText("Dev#" + deviceNumber);
+            graphLabels.get(chartNumber).setText(deviceNames.get(deviceNumber).getText());
             if (!chartConfigMap.get(deviceNumber).get(0)) {
                 lineCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("rpm1"));
             } else if (chartConfigMap.get(deviceNumber).get(0) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("rpm1"))) {
@@ -374,7 +420,7 @@ public class SelectGraphController extends DashboardController implements Initia
                 lineCharts.get(chartNumber).getYAxis().setLabel("Rpm");
             }
             if ((chartConfigMap.get(deviceNumber).get(0) || chartConfigMap.get(deviceNumber).get(1) || chartConfigMap.get(deviceNumber).get(2)) && (chartConfigMap.get(deviceNumber).get(3) || chartConfigMap.get(deviceNumber).get(4) || chartConfigMap.get(deviceNumber).get(5))) {
-                lineCharts.get(chartNumber).getYAxis().setLabel("Rpm / Vib (mm)");
+                lineCharts.get(chartNumber).getYAxis().setLabel("Rpm & Vib (mm)");
             }
             chartDataMap.get(deviceNumber).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
             chartDataMap.get(deviceNumber).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");

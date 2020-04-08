@@ -12,6 +12,7 @@ import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
@@ -31,9 +32,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class DashboardController extends SharedStorage implements Initializable {
 
@@ -604,13 +607,22 @@ public class DashboardController extends SharedStorage implements Initializable 
     @FXML
     public Rectangle box19;
 
+    @FXML
+    public Button graphBtn;
+
+    @FXML
+    public ImageView recordDot;
+
+    @FXML
+    public Button recordAllBtn;
+
     private double rectangleStart;
 
     private int startIndexOnGraph;
 
     final private double CHART_Y_START_COORDINATE = 15;
 
-    final private double CHART_Y_END_COORDINATE = 155;
+    final private double CHART_Y_END_COORDINATE = 178;
 
     final private double CHART_X_START_COORDINATE = 65;
 
@@ -730,11 +742,10 @@ public class DashboardController extends SharedStorage implements Initializable 
                 lineCharts.get(i).setAnimated(false);
                 lineCharts.get(i).getXAxis().setAnimated(false);
                 lineCharts.get(i).getXAxis().setTickLabelsVisible(false);
-
                 lineCharts.get(i).getYAxis().setAnimated(false);
                 lineCharts.get(i).getXAxis().setTickLabelFont(Font.font(9));
-                lineCharts.get(i).getXAxis().setTickMarkVisible(true);
-                lineCharts.get(i).getYAxis().setLabel("RPM / Vib (mm)");
+                lineCharts.get(i).getXAxis().setTickMarkVisible(false);
+                lineCharts.get(i).getYAxis().setLabel("RPM & Vib (mm)");
                 lineCharts.get(i).setLegendVisible(false);
             }
         });
@@ -818,6 +829,19 @@ public class DashboardController extends SharedStorage implements Initializable 
         boxes.put(17, box17);
         boxes.put(18, box18);
         boxes.put(19, box19);
+        for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+            if (!pref.get("chartConfig" + i, "root").equals("root")) {
+                String config = pref.get("chartConfig" + i, "root");
+                chartConfigMap.put(i, new ArrayList<>());
+                for (int j = 0; j < config.length(); j++) {
+                    if (config.charAt(j) == '1') {
+                        chartConfigMap.get(i).add(true);
+                    } else {
+                        chartConfigMap.get(i).add(false);
+                    }
+                }
+            }
+        }
     }
 
     public void setStage(Stage stage) {
@@ -846,7 +870,7 @@ public class DashboardController extends SharedStorage implements Initializable 
                 Label ch2Label = chartLabelMap.get(chartIndex).get(1);
                 Label ch3Label = chartLabelMap.get(chartIndex).get(2);
                 Platform.runLater(() -> {
-                    createLine(chartIndex, (int) event.getX(), 54, (int) event.getX(), 216);
+                    createLine(chartIndex, (int) event.getX(), 54, (int) event.getX(), 224);
                     ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " mm");
                     ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " mm");
                     ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " mm");
@@ -974,12 +998,13 @@ public class DashboardController extends SharedStorage implements Initializable 
         Label ch1Label = chartLabelMap.get(chartIndex).get(0);
         Label ch2Label = chartLabelMap.get(chartIndex).get(1);
         Label ch3Label = chartLabelMap.get(chartIndex).get(2);
-        double maxRpm1 = 0;
-        double maxRpm2 = 0;
-        double maxRpm3 = 0;
+        double rpm1 = 0;
+        double rpm2 = 0;
+        double rpm3 = 0;
         double maxVib1 = 0;
         double maxVib2 = 0;
         double maxVib3 = 0;
+
         // Y start 15 end 120
         if (event.isSecondaryButtonDown()) {
             return;
@@ -988,28 +1013,34 @@ public class DashboardController extends SharedStorage implements Initializable 
             double x = Math.min(event.getX(), rectangleStart);
             double y = 54;
             double width = Math.abs(event.getX() - rectangleStart);
-            double height = Math.abs(162);
+            double height = Math.abs(172);
             int start = Math.min(startIndexOnGraph, currentIndex);
             int end = Math.max(startIndexOnGraph, currentIndex);
             for (int i = start; i < end; i++) {
-                maxRpm1 = Math.max(Double.parseDouble(currentDeviceData.get(i).get(1)), maxRpm1);
-                maxRpm2 = Math.max(Double.parseDouble(currentDeviceData.get(i).get(3)), maxRpm2);
-                maxRpm3 = Math.max(Double.parseDouble(currentDeviceData.get(i).get(5)), maxRpm3);
-                maxVib1 = Math.max(Double.parseDouble(currentDeviceData.get(i).get(2)), maxVib1);
-                maxVib2 = Math.max(Double.parseDouble(currentDeviceData.get(i).get(4)), maxVib2);
-                maxVib3 = Math.max(Double.parseDouble(currentDeviceData.get(i).get(6)), maxVib3);
+                if (Double.parseDouble(currentDeviceData.get(i).get(2)) > maxVib1) {
+                    maxVib1 = Double.parseDouble(currentDeviceData.get(i).get(2));
+                    rpm1 = Double.parseDouble(currentDeviceData.get(i).get(1));
+                }
+                if (Double.parseDouble(currentDeviceData.get(i).get(4)) > maxVib2) {
+                    maxVib2 = Double.parseDouble(currentDeviceData.get(i).get(4));
+                    rpm2 = Double.parseDouble(currentDeviceData.get(i).get(3));
+                }
+                if (Double.parseDouble(currentDeviceData.get(i).get(6)) > maxVib3) {
+                    maxVib3 = Double.parseDouble(currentDeviceData.get(i).get(6));
+                    rpm3 = Double.parseDouble(currentDeviceData.get(i).get(5));
+                }
             }
-            double finalMaxRpm = maxRpm1;
-            double finalMaxRpm1 = maxRpm2;
-            double finalMaxRpm2 = maxRpm3;
+            double finalRpm = rpm1;
+            double finalRpm1 = rpm2;
+            double finalRpm2 = rpm3;
             double finalMaxVib = maxVib1;
             double finalMaxVib1 = maxVib2;
             double finalMaxVib2 = maxVib3;
             Platform.runLater(() -> {
                 createRectangle(chartRectangleMap.get(chartIndex), x, y, width, height);
-                ch1Label.setText("CH1 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max RPM: " + finalMaxRpm + ", Max Vib: " + finalMaxVib + " mm");
-                ch2Label.setText("CH2 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max RPM: " + finalMaxRpm1 + ", Max Vib: " + finalMaxVib1 + " mm");
-                ch3Label.setText("CH3 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max RPM: " + finalMaxRpm2 + ", Max Vib: " + finalMaxVib2 + " mm");
+                ch1Label.setText("CH1 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib + " mm" + ", RPM: " + finalRpm);
+                ch2Label.setText("CH2 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib1 + " mm" + ", RPM: " + finalRpm1);
+                ch3Label.setText("CH3 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib2 + " mm" + ", RPM: " + finalRpm2);
             });
         }
 
@@ -1097,26 +1128,37 @@ public class DashboardController extends SharedStorage implements Initializable 
         if (((Button) (event.getSource())).getText().equals("Record All")) {
             Platform.runLater(() -> {
                 for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
-                    if (clientConn.containsKey(i)) {
-                        if (recCheckboxArray.get(i).isSelected()) {
-                            try {
-                                createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                    if (clientConn.containsKey(i) && recCheckboxArray.get(i).isSelected()) {
+                        boxes.get(i).setFill(Color.RED);
+                        boxes.get(i).setOpacity(0.3);
                     }
                 }
                 ((Button) (event.getSource())).setText("Stop");
+                isRecordingAll = true;
+                graphBtn.setDisable(true);
+                devConfigBtn.setDisable(true);
+                recordDot.setVisible(false);
             });
         } else {
-            for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
-                if (clientConn.containsKey(i)) {
-                    fileWriters.get(i).close();
-                    fileWriters.remove(i);
+            Platform.runLater(() -> {
+                for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+                    if (clientConn.containsKey(i)) {
+                        try {
+                            fileWriters.get(i).close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        fileWriters.remove(i);
+
+                        boxes.get(i).setFill(Color.GREEN);
+                        boxes.get(i).setOpacity(0.3);
+                    }
                 }
-            }
-            ((Button) (event.getSource())).setText("Record All");
+                recordDot.setVisible(true);
+                ((Button) (event.getSource())).setText("Record All");
+                graphBtn.setDisable(false);
+                devConfigBtn.setDisable(false);
+            });
         }
     }
     public String getCurrentDateTime(String pattern) {
@@ -1136,12 +1178,12 @@ public class DashboardController extends SharedStorage implements Initializable 
         File file = new File(path);
         file.getParentFile().mkdirs();
         fileWriters.put(index, new FileWriter(file));
-        fileWriters.get(index).write("Date: " + getCurrentDateTime("yyyy/MM/dd") + "\n");
-        fileWriters.get(index).write("Time: " + getCurrentDateTime("HH:mm:ss") + "\n");
-        fileWriters.get(index).write("\n");
-        fileWriters.get(index).write("Vibration:  Disp.Peak  (mm)\n");
-        fileWriters.get(index).write("\n");
-        fileWriters.get(index).write("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3\n");
+        fileWriters.get(index).write("Date: " + getCurrentDateTime("yyyy/MM/dd") + "\r\n");
+        fileWriters.get(index).write("Time: " + getCurrentDateTime("HH:mm:ss") + "\r\n");
+        fileWriters.get(index).write("\r\n");
+        fileWriters.get(index).write("Vibration:  Disp.Peak  (mm)\r\n");
+        fileWriters.get(index).write("\r\n");
+        fileWriters.get(index).write("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3\r\n");
         fileWriters.get(index).flush();
     }
 

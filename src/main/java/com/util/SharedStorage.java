@@ -37,6 +37,7 @@ public class SharedStorage {
     public static Map<Integer, Integer> chartAllocation = new HashMap<>();
     public static Map<Integer, Label> deviceConnNumMap = new HashMap<>();
     public static Map<Integer, String> dateTimeOnFileNameMap = new HashMap<>();
+    public static boolean isRecordingAll = false;
     public static Map<Integer, Map<String, XYChart.Series<String, Number>>> chartDataMap = new HashMap<>();
     public static Map<Integer, ComboBox<Integer>> deviceNumPickerMap = new HashMap<>();
     public static Map<Integer, Map<String, CheckBox>> graphSelectCheckboxMap = new HashMap<Integer, Map<String, CheckBox>>(){

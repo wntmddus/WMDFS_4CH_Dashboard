@@ -10,6 +10,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -35,6 +37,11 @@
                 <Button fx:id="devConfigBtn" layoutX="1585.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleOnClickDevConfigBtn" text="Dev Config" />
                 <Button fx:id="graphBtn" layoutX="1525.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleOnClickGraphBtn" text="Graph" />
                 <Button fx:id="recordAllBtn" layoutX="1718.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleOnClickRecordAllBtn" prefHeight="27.0" prefWidth="150.0" text="Record All" />
+                <ImageView fx:id="recordDot" fitHeight="17.0" fitWidth="17.0" layoutX="1734.0" layoutY="13.0" >
+                   <image>
+                      <Image url="@../image/recording-dot-png.png"  />
+                   </image>
+                </ImageView>
             </children>
         </Pane>
         <GridPane gridLinesVisible="true" minHeight="200.0" minWidth="1920.0" prefHeight="200.0" prefWidth="1920.0">
@@ -65,7 +72,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox0" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox0" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                         </CheckBox>
                         <Label fx:id="deviceName0" text="Not Connected" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Label text=" #0" />
@@ -83,7 +90,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox1" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox1" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                         </CheckBox>
                         <Label text=" #1" />
                         <Label fx:id="deviceName1" text="Not Connected" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
@@ -101,7 +108,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox2" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox2" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -127,7 +134,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox3" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox3" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -153,7 +160,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox4" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox4" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -177,7 +184,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox5" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox5" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -202,7 +209,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox6" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox6" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -227,7 +234,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox7" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox7" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -252,7 +259,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox8" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox8" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -277,7 +284,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox9" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox9" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -297,7 +304,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox10" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox10" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -322,7 +329,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox11" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox11" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -347,7 +354,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox12" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox12" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -372,7 +379,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox13" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox13" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -397,7 +404,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox14" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox14" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -422,7 +429,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox15" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox15" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -447,7 +454,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox16" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox16" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -472,7 +479,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox17" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox17" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -497,7 +504,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox18" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox18" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -522,7 +529,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox19" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox19" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" selected="true" text="Recording" textFill="red" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -566,7 +573,7 @@
                         <Label fx:id="graph0Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                         <Rectangle fx:id="rectangle0" managed="false" mouseTransparent="true" visible="false" />
                         <Line fx:id="line0" visible="false" />
-                        <Label fx:id="graphLabel0" layoutX="430.0" layoutY="18.0" text="Empty" />
+                        <Label fx:id="graphLabel0" layoutX="408.0" layoutY="18.0" text="Empty" />
                     </children>
                 </Pane>
                 <Pane fx:id="graphPane1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
@@ -584,7 +591,7 @@
                         <Label fx:id="graph1Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                         <Rectangle fx:id="rectangle1" managed="false" mouseTransparent="true" visible="false" />
                         <Line fx:id="line1" visible="false" />
-                        <Label fx:id="graphLabel1" layoutX="430.0" layoutY="11.0" text="Empty" />
+                        <Label fx:id="graphLabel1" layoutX="408.0" layoutY="18.0" text="Empty" />
                     </children>
                 </Pane>
                 <Pane fx:id="graphPane2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
@@ -602,7 +609,7 @@
                         <Label fx:id="graph2Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                         <Rectangle fx:id="rectangle2" managed="false" mouseTransparent="true" visible="false" />
                         <Line fx:id="line2" visible="false" />
-                        <Label fx:id="graphLabel2" layoutX="430.0" layoutY="11.0" text="Empty" />
+                        <Label fx:id="graphLabel2" layoutX="408.0" layoutY="18.0" text="Empty" />
                     </children>
                 </Pane>
                 <Pane fx:id="graphPane3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
@@ -620,7 +627,7 @@
                         <Label fx:id="graph3Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                         <Rectangle fx:id="rectangle3" managed="false" mouseTransparent="true" visible="false" />
                         <Line fx:id="line3" visible="false" />
-                        <Label fx:id="graphLabel3" layoutX="430.0" layoutY="13.0" text="Empty" />
+                        <Label fx:id="graphLabel3" layoutX="408.0" layoutY="18.0" text="Empty" />
                     </children>
                 </Pane>
                 <Pane fx:id="graphPane4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -638,7 +645,7 @@
                         <Label fx:id="graph4Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                         <Rectangle fx:id="rectangle4" managed="false" mouseTransparent="true" visible="false" />
                         <Line fx:id="line4" visible="false" />
-                        <Label fx:id="graphLabel4" layoutX="430.0" layoutY="13.0" text="Empty" />
+                        <Label fx:id="graphLabel4" layoutX="408.0" layoutY="18.0" text="Empty" />
                     </children>
                 </Pane>
                 <Pane fx:id="graphPane5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -656,7 +663,7 @@
                         <Label fx:id="graph5Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                         <Rectangle fx:id="rectangle5" managed="false" mouseTransparent="true" visible="false" />
                         <Line fx:id="line5" visible="false" />
-                        <Label fx:id="graphLabel5" layoutX="434.0" layoutY="12.0" text="Empty" />
+                        <Label fx:id="graphLabel5" layoutX="408.0" layoutY="18.0" text="Empty" />
                     </children>
                 </Pane>
                 <Pane fx:id="graphPane6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -674,7 +681,7 @@
                         <Label fx:id="graph6Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                         <Rectangle fx:id="rectangle6" managed="false" mouseTransparent="true" visible="false" />
                         <Line fx:id="line6" visible="false" />
-                        <Label fx:id="graphLabel6" layoutX="432.0" layoutY="11.0" text="Empty" />
+                        <Label fx:id="graphLabel6" layoutX="408.0" layoutY="18.0" text="Empty" />
                     </children>
                 </Pane>
                 <Pane fx:id="graphPane7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
@@ -692,7 +699,7 @@
                         <Label fx:id="graph7Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                         <Rectangle fx:id="rectangle7" managed="false" mouseTransparent="true" visible="false" />
                         <Line fx:id="line7" visible="false" />
-                        <Label fx:id="graphLabel7" layoutX="432.0" layoutY="10.0" text="Empty" />
+                        <Label fx:id="graphLabel7" layoutX="408.0" layoutY="18.0" text="Empty" />
                     </children>
                 </Pane>
             </children>

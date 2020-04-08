@@ -388,7 +388,9 @@ public class CreateConnectionController extends DashboardController implements I
                                     boxes.get(i).setFill(Color.GREEN);
                                     boxes.get(i).setOpacity(0.4);
                                     deviceNames.get(i).setText(devName);
-                                    setGraphConfiguration(i);
+                                    if (pref.get("chartConfig" + i, "root").equals("root")) {
+                                        setGraphConfiguration(i);
+                                    }
                                     initializeChartData(i);
                                 });
                                 int counter = 0;
@@ -404,7 +406,7 @@ public class CreateConnectionController extends DashboardController implements I
                                         if (!dateTimeOnFileNameMap.get(i).equals(getCurrentDateTime("yyyy/MM/dd"))) {
                                             createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
                                         }
-                                        fileWriters.get(i).write(line + "\n");
+                                        fileWriters.get(i).write(line + "\r\n");
                                         fileWriters.get(i).flush();
                                     }
                                     List<String> arr = Arrays.asList(line.split("\\s+"));
@@ -420,7 +422,26 @@ public class CreateConnectionController extends DashboardController implements I
                                             sliceChartData(arr, i, finalCounter);
                                         });
                                     }
-                                    outputList.get(i).writeBytes("1\0");
+                                    if (isRecordingAll) {
+                                        createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
+                                        chartDataMap.get(i).remove("rpm1");
+                                        chartDataMap.get(i).remove("rpm2");
+                                        chartDataMap.get(i).remove("rpm3");
+                                        chartDataMap.get(i).remove("vib1");
+                                        chartDataMap.get(i).remove("vib2");
+                                        chartDataMap.get(i).remove("vib3");
+                                        deviceData.get(i).clear();
+                                        Platform.runLater(() -> {
+                                            lineCharts.get(chartAllocation.get(i)).getData().clear();
+                                            initializeChartData(i);
+                                        });
+                                        outputList.get(i).writeBytes("STOP\0");
+                                        TimeUnit.MILLISECONDS.sleep(500);
+                                        outputList.get(i).writeBytes("REC\0");
+                                        isRecordingAll = false;
+                                    } else {
+                                        outputList.get(i).writeBytes("1\0");
+                                    }
                                     TimeUnit.MILLISECONDS.sleep(600);
                                     counter++;
                                 }
@@ -434,6 +455,8 @@ public class CreateConnectionController extends DashboardController implements I
                                     if (!addressLabels.get(i).getText().equals("Device Not in SRV")) {
                                         addressLabels.get(i).setText("");
                                     }
+                                    boxes.get(i).setFill(Color.GRAY);
+                                    boxes.get(i).setOpacity(0.3);
                                     recCheckboxArray.get(i).setSelected(false);
                                     recCheckboxArray.get(i).setText("Not Recording");
                                     recCheckboxArray.get(i).setTextFill(Color.BLACK);
@@ -468,6 +491,14 @@ public class CreateConnectionController extends DashboardController implements I
         for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
             pref.put("address" + entry.getKey(), entry.getValue());
             pref.put("port" + entry.getKey(), ports.get(entry.getKey()));
+            StringBuilder config = new StringBuilder();
+            for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
+                if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
+                else config.append("0");
+            }
+            System.out.println(chartConfigMap.get(entry.getKey()));
+            System.out.println(config.toString());
+            pref.put("chartConfig" + entry.getKey(), config.toString());
         }
         FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
         VBox vbox = saveSettingLoader.load();
@@ -485,6 +516,7 @@ public class CreateConnectionController extends DashboardController implements I
         for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
             pref.remove("address" + entry.getKey());
             pref.remove("port" + entry.getKey());
+            pref.remove("chartConfig" + entry.getKey());
         }
         FXMLLoader resetSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingreset.fxml"));
         VBox vbox = resetSettingLoader.load();
@@ -619,41 +651,33 @@ public class CreateConnectionController extends DashboardController implements I
         chartDataMap.get(index).get("vib1").setName("vib1");
         chartDataMap.get(index).get("vib2").setName("vib2");
         chartDataMap.get(index).get("vib3").setName("vib3");
-        graphLabels.get(chartAllocation.get(index)).setText("Dev# " + index);
+        graphLabels.get(chartAllocation.get(index)).setText(deviceNames.get(index).getText());
         if (chartAllocation.containsKey(index)) {
-            lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm1"));
-            lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm2"));
-            lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm3"));
-            lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib1"));
-            lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
-            lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
-        }
-        chartDataMap.get(index).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
-        chartDataMap.get(index).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
-        chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
-        chartDataMap.get(index).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
-        chartDataMap.get(index).get("vib2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
-        chartDataMap.get(index).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
-        chartDataMap.get(index).get("rpm1").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
-        chartDataMap.get(index).get("rpm2").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
-        chartDataMap.get(index).get("rpm3").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
-        chartDataMap.get(index).get("vib1").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
-        chartDataMap.get(index).get("vib2").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
-        chartDataMap.get(index).get("vib3").getNode().lookup(".default-color0.chart-legend-item-symbol").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
-        chartDataMap.get(index).get("rpm1").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
-        chartDataMap.get(index).get("rpm2").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
-        chartDataMap.get(index).get("rpm3").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
-        chartDataMap.get(index).get("vib1").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
-        chartDataMap.get(index).get("vib2").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
-        chartDataMap.get(index).get("vib3").getNode().lookup(".default-color0.chart-legend").setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
-        for(Node n : lineCharts.get(index).getChildrenUnmodifiable()){
-            if(n instanceof Legend){
-                for(Legend.LegendItem legendItem : ((Legend)n).getItems()){
-                    legendItem.getSymbol().setStyle("-fx-background-color: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
-                }
+            if (chartConfigMap.get(index).get(0)) {
+                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm1"));
+                chartDataMap.get(index).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
+            }
+            if (chartConfigMap.get(index).get(1)) {
+                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm2"));
+                chartDataMap.get(index).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
+            }
+            if (chartConfigMap.get(index).get(2)) {
+                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm3"));
+                chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
+            }
+            if (chartConfigMap.get(index).get(3)) {
+                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib1"));
+                chartDataMap.get(index).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
+            }
+            if (chartConfigMap.get(index).get(4)) {
+                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
+                chartDataMap.get(index).get("vib2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
+            }
+            if (chartConfigMap.get(index).get(5)) {
+                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
+                chartDataMap.get(index).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
             }
         }
-
     }
 
     private void extractInformationFromTextField() {
