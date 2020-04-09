@@ -364,6 +364,9 @@ public class CreateConnectionController extends DashboardController implements I
                                 String devName = inputList.get(i).readLine();
                                 outputList.get(i).writeBytes("GET STATE\0");
                                 String devState = inputList.get(i).readLine();
+                                outputList.get(i).writeBytes("GET SETTING\0");
+                                String vibSetting = inputList.get(i).readLine();
+                                vibUnitMap.put(i, vibSetting.substring(12));
                                 if (devState.equals("SD")) {
                                     Platform.runLater(() -> {
                                         addressLabels.get(i).setText("Device Not in SRV");
@@ -381,16 +384,14 @@ public class CreateConnectionController extends DashboardController implements I
                                 TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeBytes("REC\0");
                                 Platform.runLater(() -> {
+                                    vibUnitLabelMap.get(chartAllocation.get(i)).setText(vibUnitMap.get(i));
                                     addressLabels.get(i).setText(addresses.get(i) + ":" + ports.get(i));
-//                                    deviceNames.get(i).setTextFill(Color.GREEN);
                                     disconnectBtnMap.get(i).setDisable(false);
                                     deviceConnNumMap.get(i).setTextFill(Color.BLACK);
                                     boxes.get(i).setFill(Color.GREEN);
                                     boxes.get(i).setOpacity(0.4);
                                     deviceNames.get(i).setText(devName);
-                                    if (pref.get("chartConfig" + i, "root").equals("root")) {
-                                        setGraphConfiguration(i);
-                                    }
+                                    setGraphConfiguration(i);
                                     initializeChartData(i);
                                 });
                                 int counter = 0;
@@ -403,7 +404,7 @@ public class CreateConnectionController extends DashboardController implements I
                                         line = reconnectOnSocketFailure(i);
                                     }
                                     if (fileWriters.containsKey(i) && recCheckboxArray.get(i).isSelected()) {
-                                        if (!dateTimeOnFileNameMap.get(i).equals(getCurrentDateTime("yyyy/MM/dd"))) {
+                                        if (line.contains(":24:00:00")) {
                                             createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
                                         }
                                         fileWriters.get(i).write(line + "\r\n");
@@ -422,7 +423,7 @@ public class CreateConnectionController extends DashboardController implements I
                                             sliceChartData(arr, i, finalCounter);
                                         });
                                     }
-                                    if (isRecordingAll) {
+                                    if (isRecordingAll.get(i)) {
                                         createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
                                         chartDataMap.get(i).remove("rpm1");
                                         chartDataMap.get(i).remove("rpm2");
@@ -436,9 +437,10 @@ public class CreateConnectionController extends DashboardController implements I
                                             initializeChartData(i);
                                         });
                                         outputList.get(i).writeBytes("STOP\0");
-                                        TimeUnit.MILLISECONDS.sleep(500);
+                                        TimeUnit.MILLISECONDS.sleep(300);
                                         outputList.get(i).writeBytes("REC\0");
-                                        isRecordingAll = false;
+                                        TimeUnit.MILLISECONDS.sleep(300);
+                                        isRecordingAll.put(i, false);
                                     } else {
                                         outputList.get(i).writeBytes("1\0");
                                     }
@@ -457,9 +459,6 @@ public class CreateConnectionController extends DashboardController implements I
                                     }
                                     boxes.get(i).setFill(Color.GRAY);
                                     boxes.get(i).setOpacity(0.3);
-                                    recCheckboxArray.get(i).setSelected(false);
-                                    recCheckboxArray.get(i).setText("Not Recording");
-                                    recCheckboxArray.get(i).setTextFill(Color.BLACK);
                                     removeChartData(i);
                                 });
                                 e.printStackTrace();
@@ -470,10 +469,9 @@ public class CreateConnectionController extends DashboardController implements I
                         addresses.remove(i);
                         ports.remove(i);
                         Platform.runLater(() -> {
-                            boxes.get(i).setFill(Color.RED);
+                            boxes.get(i).setFill(Color.GREY);
                             boxes.get(i).setOpacity(0.3);
                             deviceConnNumMap.get(i).setTextFill(Color.RED);
-//                            deviceNames.get(i).setTextFill(Color.RED);
                             deviceNames.get(i).setText("Not Connected");
                             deviceNames.get(i).setFocusTraversable(true);
                         });
@@ -534,6 +532,7 @@ public class CreateConnectionController extends DashboardController implements I
         addresses.remove(i);
         ports.remove(i);
         deviceData.get(i).clear();
+        vibUnitMap.remove(i);
         chartConfigMap.remove(i);
 //        if (fileWriters.containsKey(i)) {
 //            fileWriters.get(i).close();
@@ -542,16 +541,28 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     private void setGraphConfiguration(int index) {
-        chartConfigMap.put(index, new ArrayList<Boolean>() {
-            {
-                add(true);
-                add(true);
-                add(true);
-                add(true);
-                add(true);
-                add(true);
+        if (!pref.get("chartConfig" + index, "root").equals("root")) {
+            String config = pref.get("chartConfig" + index, "root");
+            chartConfigMap.put(index, new ArrayList<>());
+            for (int j = 0; j < config.length(); j++) {
+                if (config.charAt(j) == '1') {
+                    chartConfigMap.get(index).add(true);
+                } else {
+                    chartConfigMap.get(index).add(false);
+                }
             }
-        });
+        } else {
+            chartConfigMap.put(index, new ArrayList<Boolean>() {
+                {
+                    add(true);
+                    add(true);
+                    add(true);
+                    add(true);
+                    add(true);
+                    add(true);
+                }
+            });
+        }
     }
 
     private String reconnectOnSocketFailure(int i) throws IOException, InterruptedException {
@@ -602,7 +613,7 @@ public class CreateConnectionController extends DashboardController implements I
         int chartIndex = chartAllocation.get(i);
         if (!disconnectBtnMap.get(i).isDisable()) {
             boxes.get(i).setOpacity(0.3);
-            boxes.get(i).setFill(Color.RED);
+            boxes.get(i).setFill(Color.GREY);
             deviceNames.get(i).setText("Disconnected");
             deviceNames.get(i).setFocusTraversable(true);
         } else {
@@ -623,8 +634,6 @@ public class CreateConnectionController extends DashboardController implements I
         disconnectBtnMap.get(i).setDisable(true);
         connAddTextFieldMap.get(i).setDisable(false);
         connPortTextFieldMap.get(i).setDisable(false);
-        connAddTextFieldMap.get(i).setText("");
-        connPortTextFieldMap.get(i).setText("");
         realTimeData.get(chartIndex).get(0).setText("0");
         realTimeData.get(chartIndex).get(1).setText("0");
         realTimeData.get(chartIndex).get(2).setText("0");
@@ -676,6 +685,15 @@ public class CreateConnectionController extends DashboardController implements I
             if (chartConfigMap.get(index).get(5)) {
                 lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
                 chartDataMap.get(index).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
+            }
+            if (!chartConfigMap.get(index).get(0) && !chartConfigMap.get(index).get(1) && !chartConfigMap.get(index).get(2)) {
+                lineCharts.get(chartAllocation.get(index)).getYAxis().setLabel(vibUnitMap.get(index));
+            }
+            if (!chartConfigMap.get(index).get(3) && !chartConfigMap.get(index).get(4) && !chartConfigMap.get(index).get(5)) {
+                lineCharts.get(chartAllocation.get(index)).getYAxis().setLabel("Rpm");
+            }
+            if ((chartConfigMap.get(index).get(0) || chartConfigMap.get(index).get(1) || chartConfigMap.get(index).get(2)) && (chartConfigMap.get(index).get(3) || chartConfigMap.get(index).get(4) || chartConfigMap.get(index).get(5))) {
+                lineCharts.get(chartAllocation.get(index)).getYAxis().setLabel("Rpm & " + vibUnitMap.get(index));
             }
         }
     }

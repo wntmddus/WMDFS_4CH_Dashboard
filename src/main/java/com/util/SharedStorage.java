@@ -28,6 +28,8 @@ public class SharedStorage {
     public static Map<Integer, TextField> connAddTextFieldMap = new HashMap<>();
     public static Map<Integer, TextField> connPortTextFieldMap = new HashMap<>();
     public static Map<Integer, Button> disconnectBtnMap = new HashMap<>();
+    public static Map<Integer, String> vibUnitMap = new HashMap<>();
+    public static Map<Integer, Label> vibUnitLabelMap = new HashMap<>();
     public static List<CheckBox> recCheckboxArray = new ArrayList<>();
     public static List<Label> deviceNames = new ArrayList<>();
     public static Map<Integer, FileWriter> fileWriters = new HashMap<>();
@@ -37,7 +39,30 @@ public class SharedStorage {
     public static Map<Integer, Integer> chartAllocation = new HashMap<>();
     public static Map<Integer, Label> deviceConnNumMap = new HashMap<>();
     public static Map<Integer, String> dateTimeOnFileNameMap = new HashMap<>();
-    public static boolean isRecordingAll = false;
+    public static Map<Integer, Boolean> isRecordingAll = new HashMap<Integer, Boolean>() {
+        {
+            put(0, false);
+            put(1, false);
+            put(2, false);
+            put(3, false);
+            put(4, false);
+            put(5, false);
+            put(6, false);
+            put(7, false);
+            put(8, false);
+            put(9, false);
+            put(10, false);
+            put(11, false);
+            put(12, false);
+            put(13, false);
+            put(14, false);
+            put(15, false);
+            put(16, false);
+            put(17, false);
+            put(18, false);
+            put(19, false);
+        }
+    };
     public static Map<Integer, Map<String, XYChart.Series<String, Number>>> chartDataMap = new HashMap<>();
     public static Map<Integer, ComboBox<Integer>> deviceNumPickerMap = new HashMap<>();
     public static Map<Integer, Map<String, CheckBox>> graphSelectCheckboxMap = new HashMap<Integer, Map<String, CheckBox>>(){
