@@ -140,7 +140,6 @@
                 <Button fx:id="selectGraphSubmitBtn" layoutX="524.0" layoutY="351.0" mnemonicParsing="false" onAction="#handleOnSubmit" text="Submit" />
                 <Button fx:id="selectGraphCloseBtn" layoutX="598.0" layoutY="350.0" mnemonicParsing="false" onAction="#onClose" text="Close" />
                 <Button onAction="#handleOnSave" layoutX="525.0" layoutY="21.0" mnemonicParsing="false" text="Save" />
-                <Button onAction="#handleOnReset" layoutX="586.0" layoutY="21.0" mnemonicParsing="false" text="Reset" />
             </children>
         </Pane>
     </children>

@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.java.com.controllers.DashboardController;
+import main.java.com.util.SharedStorage;
+
+import static main.java.com.util.SharedStorage.clientConn;
 
 public class Main extends Application {
 
@@ -33,6 +36,7 @@ public class Main extends Application {
     public void stop() throws Exception {
         super.stop();
         System.out.println("Inside stop() method! Destroy resources. Perform Cleanup.");
+//        clientConn.
     }
 
     public static void main(String[] args) {

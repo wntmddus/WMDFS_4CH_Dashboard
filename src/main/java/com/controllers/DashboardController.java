@@ -891,9 +891,15 @@ public class DashboardController extends SharedStorage implements Initializable 
                 int finalDataIndex = dataIndex;
                 Platform.runLater(() -> {
                     createLine(chartIndex, (int) event.getX(), 54, (int) event.getX(), 224);
-                    ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1));
-                    ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1));
-                    ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1));
+                    if (chartConfigMap.get(finalDataIndex).get(0) || chartConfigMap.get(finalDataIndex).get(3)) {
+                        ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1));
+                    }
+                    if (chartConfigMap.get(finalDataIndex).get(1) || chartConfigMap.get(finalDataIndex).get(4)) {
+                        ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1));
+                    }
+                    if (chartConfigMap.get(finalDataIndex).get(2) || chartConfigMap.get(finalDataIndex).get(5)) {
+                        ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1));
+                    }
                 });
             }
         } else {
@@ -1059,9 +1065,15 @@ public class DashboardController extends SharedStorage implements Initializable 
             int finalDataIndex = dataIndex;
             Platform.runLater(() -> {
                 createRectangle(chartRectangleMap.get(chartIndex), x, y, width, height);
-                ch1Label.setText("CH1 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1) + ", RPM: " + finalRpm);
-                ch2Label.setText("CH2 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib1 + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1) + ", RPM: " + finalRpm1);
-                ch3Label.setText("CH3 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib2 + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1) + ", RPM: " + finalRpm2);
+                if (chartConfigMap.get(finalDataIndex).get(0) || chartConfigMap.get(finalDataIndex).get(3)) {
+                    ch1Label.setText("CH1 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1) + ", RPM: " + finalRpm);
+                }
+                if (chartConfigMap.get(finalDataIndex).get(1) || chartConfigMap.get(finalDataIndex).get(4)) {
+                    ch2Label.setText("CH2 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib1 + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1) + ", RPM: " + finalRpm1);
+                }
+                if (chartConfigMap.get(finalDataIndex).get(2) || chartConfigMap.get(finalDataIndex).get(5)) {
+                    ch3Label.setText("CH3 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib2 + " " + vibUnitMap.get(finalDataIndex).substring(12, vibUnitMap.get(finalDataIndex).length() - 1) + ", RPM: " + finalRpm2);
+                }
             });
         }
 
@@ -1145,15 +1157,34 @@ public class DashboardController extends SharedStorage implements Initializable 
     }
 
     @FXML
-    public void handleOnClickRecordAllBtn(ActionEvent event) throws IOException {
+    public void handleOnClickRecordAllBtn(ActionEvent event) {
         if (((Button) (event.getSource())).getText().equals("Record All")) {
             Platform.runLater(() -> {
+                boolean isNothingRecording = false;
                 for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
                     if (clientConn.containsKey(i) && recCheckboxArray.get(i).isSelected()) {
                         boxes.get(i).setFill(Color.RED);
                         boxes.get(i).setOpacity(0.3);
                         isRecordingAll.put(i, true);
+                        isNothingRecording = true;
                     }
+                }
+                if (!isNothingRecording) {
+                    FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/notrecordingwarning.fxml"));
+                    VBox vbox = null;
+                    try {
+                        vbox = saveSettingLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Stage stage = new Stage();
+                    stage.initOwner(mainStage);
+                    Scene scene = new Scene(vbox);
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.setTitle("Warning!");
+                    stage.setScene(scene);
+                    stage.show();
+                    return;
                 }
                 ((Button) (event.getSource())).setText("Stop");
                 graphBtn.setDisable(true);
@@ -1222,8 +1253,11 @@ public class DashboardController extends SharedStorage implements Initializable 
         Platform.runLater(() -> {
             if (((CheckBox)(event.getSource())).isSelected()) {
                 ((CheckBox)(event.getSource())).setText("Recording");
+                ((CheckBox)(event.getSource())).setTextFill(Color.RED);
+
             } else {
                 ((CheckBox)(event.getSource())).setText("Not Recording");
+                ((CheckBox)(event.getSource())).setTextFill(Color.BLACK);
             }
         });
     }

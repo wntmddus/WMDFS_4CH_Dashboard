@@ -361,7 +361,7 @@ public class CreateConnectionController extends DashboardController implements I
                                 inputList.put(i, new DataInputStream(sock.getInputStream()));
                                 deviceData.put(i, new ArrayList<>());
                                 outputList.get(i).writeBytes("GET DEVNAME\0");
-                                String devName = inputList.get(i).readLine();
+                                String devName = inputList.get(i).  readLine();
                                 outputList.get(i).writeBytes("GET STATE\0");
                                 String devState = inputList.get(i).readLine();
                                 outputList.get(i).writeBytes("GET SETTING\0");
@@ -388,6 +388,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     addressLabels.get(i).setText(addresses.get(i) + ":" + ports.get(i));
                                     disconnectBtnMap.get(i).setDisable(false);
                                     deviceConnNumMap.get(i).setTextFill(Color.BLACK);
+                                    recCheckboxArray.get(i).setDisable(false);
                                     boxes.get(i).setFill(Color.GREEN);
                                     boxes.get(i).setOpacity(0.4);
                                     deviceNames.get(i).setText(devName);
@@ -457,6 +458,9 @@ public class CreateConnectionController extends DashboardController implements I
                                     if (!addressLabels.get(i).getText().equals("Device Not in SRV")) {
                                         addressLabels.get(i).setText("");
                                     }
+                                    recCheckboxArray.get(i).setText("Not Recording");
+                                    recCheckboxArray.get(i).setTextFill(Color.BLACK);
+                                    recCheckboxArray.get(i).setDisable(true);
                                     boxes.get(i).setFill(Color.GRAY);
                                     boxes.get(i).setOpacity(0.3);
                                     removeChartData(i);
@@ -486,17 +490,11 @@ public class CreateConnectionController extends DashboardController implements I
     }
     @FXML
     private void handleOnSave() throws IOException {
-        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
-            pref.put("address" + entry.getKey(), entry.getValue());
-            pref.put("port" + entry.getKey(), ports.get(entry.getKey()));
-            StringBuilder config = new StringBuilder();
-            for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
-                if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
-                else config.append("0");
+        for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
+            if (!entry.getValue().getText().equals("")) {
+                pref.put("address" + entry.getKey(), entry.getValue().getText());
+                pref.put("port" + entry.getKey(), connPortTextFieldMap.get(entry.getKey()).getText());
             }
-            System.out.println(chartConfigMap.get(entry.getKey()));
-            System.out.println(config.toString());
-            pref.put("chartConfig" + entry.getKey(), config.toString());
         }
         FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
         VBox vbox = saveSettingLoader.load();
@@ -511,11 +509,32 @@ public class CreateConnectionController extends DashboardController implements I
 
     @FXML
     private void handleOnReset() throws IOException {
-        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
-            pref.remove("address" + entry.getKey());
-            pref.remove("port" + entry.getKey());
-            pref.remove("chartConfig" + entry.getKey());
+        for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
+            if (!entry.getValue().getText().equals("")) {
+                pref.remove("address" + entry.getKey());
+                pref.remove("port" + entry.getKey());
+                pref.remove("chartConfig" + entry.getKey());
+                chartConfigMap.remove(entry.getKey());
+                if (!clientConn.containsKey(entry.getKey())) {
+                    addresses.remove(entry.getKey());
+                    ports.remove(entry.getKey());
+                    connPortTextFieldMap.get(entry.getKey()).setText("");
+                    connAddTextFieldMap.get(entry.getKey()).setText("");
+                }
+            }
         }
+//        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
+//            pref.remove("address" + entry.getKey());
+//            pref.remove("port" + entry.getKey());
+//            if (!clientConn.containsKey(entry.getKey())) {
+//                addresses.remove(entry.getKey());
+//                ports.remove(entry.getKey());
+//                connPortTextFieldMap.get(entry.getKey()).setText("");
+//                connAddTextFieldMap.get(entry.getKey()).setText("");
+//            }
+//            pref.remove("chartConfig" + entry.getKey());
+//            chartConfigMap.remove(entry.getKey());
+//        }
         FXMLLoader resetSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingreset.fxml"));
         VBox vbox = resetSettingLoader.load();
         Stage stage = new Stage();
