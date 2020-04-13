@@ -636,6 +636,12 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     private List<Number> sliceChartData(List<Number> tempArr, List<String> arr, int i, int counter) {
+        tempArr.set(1, Math.max((Integer) tempArr.get(1), Integer.parseInt(arr.get(1))));
+        tempArr.set(2, Math.max((Double) tempArr.get(2), Float.parseFloat(arr.get(2))));
+        tempArr.set(3, Math.max((Integer) tempArr.get(3), Integer.parseInt(arr.get(3))));
+        tempArr.set(4, Math.max((Double) tempArr.get(4), Float.parseFloat(arr.get(4))));
+        tempArr.set(5, Math.max((Integer) tempArr.get(5), Integer.parseInt(arr.get(5))));
+        tempArr.set(6, Math.max((Double) tempArr.get(6), Float.parseFloat(arr.get(6))));
         if (counter != 0 && counter % 6  == 0) {
             if (chartDataMap.get(i).get("rpm1").getData().size() > 600) {
                 chartDataMap.get(i).get("rpm1").getData().remove(0);
@@ -663,17 +669,7 @@ public class CreateConnectionController extends DashboardController implements I
                 }
             };
         } else {
-            return new ArrayList<Number>() {
-                {
-                    add(0);
-                    add(Math.max((Integer) tempArr.get(1), Integer.parseInt(arr.get(1))));
-                    add(Math.max((Double) tempArr.get(2), Float.parseFloat(arr.get(2))));
-                    add(Math.max((Integer) tempArr.get(3), Integer.parseInt(arr.get(3))));
-                    add(Math.max((Double) tempArr.get(4), Float.parseFloat(arr.get(4))));
-                    add(Math.max((Integer) tempArr.get(5), Integer.parseInt(arr.get(5))));
-                    add(Math.max((Double) tempArr.get(6), Float.parseFloat(arr.get(6))));
-                }
-            };
+            return tempArr;
         }
     }
 
