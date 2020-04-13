@@ -345,6 +345,11 @@ public class CreateConnectionController extends DashboardController implements I
 
     private void connectValidAddressesToTCP() {
         addresses.forEach((i, value) -> {
+            try {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             if(!clientConn.containsKey(i)) {
                 Runnable task = () -> {
                     try {

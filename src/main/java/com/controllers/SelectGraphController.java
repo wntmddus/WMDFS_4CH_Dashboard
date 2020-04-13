@@ -307,6 +307,7 @@ public class SelectGraphController extends DashboardController implements Initia
                 chartLabelMap.get(chartNumber).get(0).setText("");
                 chartLabelMap.get(chartNumber).get(1).setText("");
                 chartLabelMap.get(chartNumber).get(2).setText("");
+                vibUnitLabelMap.get(chartNumber).setText("Disp.Peak");
                 lineMap.get(chartNumber).setVisible(false);
                 chartRectangleMap.get(chartNumber).setVisible(false);
             });
@@ -361,6 +362,7 @@ public class SelectGraphController extends DashboardController implements Initia
                     chartLabelMap.get(finalI).get(0).setText("");
                     chartLabelMap.get(finalI).get(1).setText("");
                     chartLabelMap.get(finalI).get(2).setText("");
+                    vibUnitLabelMap.get(finalI).setText("Disp.Peak");
                     lineMap.get(finalI).setVisible(false);
                     chartRectangleMap.get(finalI).setVisible(false);
                 });
@@ -414,6 +416,7 @@ public class SelectGraphController extends DashboardController implements Initia
             chartConfigMap.get(deviceNumber).set(3, vib1);
             chartConfigMap.get(deviceNumber).set(4, vib2);
             chartConfigMap.get(deviceNumber).set(5, vib3);
+            vibUnitLabelMap.get(chartNumber).setText(vibUnitMap.get(deviceNumber));
             graphLabels.get(chartNumber).setText(deviceNames.get(deviceNumber).getText());
             if (!chartConfigMap.get(deviceNumber).get(0)) {
                 lineCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("rpm1"));
