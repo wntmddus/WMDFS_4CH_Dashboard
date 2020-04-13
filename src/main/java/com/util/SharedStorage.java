@@ -29,6 +29,7 @@ public class SharedStorage {
     public static Map<Integer, TextField> connPortTextFieldMap = new HashMap<>();
     public static Map<Integer, Button> disconnectBtnMap = new HashMap<>();
     public static Map<Integer, String> vibUnitMap = new HashMap<>();
+    public static Map<Integer, String> vibUnitDetailedMap = new HashMap<>();
     public static Map<Integer, Label> vibUnitLabelMap = new HashMap<>();
     public static List<CheckBox> recCheckboxArray = new ArrayList<>();
     public static List<Label> deviceNames = new ArrayList<>();

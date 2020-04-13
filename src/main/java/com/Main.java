@@ -9,6 +9,7 @@ import main.java.com.controllers.DashboardController;
 import main.java.com.util.SharedStorage;
 
 import static main.java.com.util.SharedStorage.clientConn;
+import static main.java.com.util.SharedStorage.outputList;
 
 public class Main extends Application {
 
@@ -36,7 +37,15 @@ public class Main extends Application {
     public void stop() throws Exception {
         super.stop();
         System.out.println("Inside stop() method! Destroy resources. Perform Cleanup.");
-//        clientConn.
+        for (int i = 0; i < 20; i++) {
+            if (clientConn.containsKey(i)) {
+                if (clientConn.get(i).isConnected()) {
+                    outputList.get(i).writeBytes("STOP\0");
+                    outputList.get(i).writeBytes("NO CARRIER\0");
+                    clientConn.get(i).close();
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {

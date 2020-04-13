@@ -367,6 +367,7 @@ public class CreateConnectionController extends DashboardController implements I
                                 outputList.get(i).writeBytes("GET SETTING\0");
                                 String vibSetting = inputList.get(i).readLine();
                                 vibUnitMap.put(i, vibSetting.substring(12));
+                                vibUnitDetailedMap.put(i, vibUnitMap.get(i).substring(vibUnitMap.get(i).indexOf('(') + 1, vibUnitMap.get(i).length() - 1));
                                 if (devState.equals("SD")) {
                                     Platform.runLater(() -> {
                                         addressLabels.get(i).setText("Device Not in SRV");
@@ -388,6 +389,9 @@ public class CreateConnectionController extends DashboardController implements I
                                     addressLabels.get(i).setText(addresses.get(i) + ":" + ports.get(i));
                                     disconnectBtnMap.get(i).setDisable(false);
                                     deviceConnNumMap.get(i).setTextFill(Color.BLACK);
+                                    recCheckboxArray.get(i).setTextFill(Color.RED);
+                                    recCheckboxArray.get(i).setText("Recording");
+                                    recCheckboxArray.get(i).setSelected(true);
                                     recCheckboxArray.get(i).setDisable(false);
                                     boxes.get(i).setFill(Color.GREEN);
                                     boxes.get(i).setOpacity(0.4);
@@ -564,6 +568,7 @@ public class CreateConnectionController extends DashboardController implements I
         ports.remove(i);
         deviceData.get(i).clear();
         vibUnitMap.remove(i);
+        vibUnitDetailedMap.remove(i);
         chartConfigMap.remove(i);
 //        if (fileWriters.containsKey(i)) {
 //            fileWriters.get(i).close();
