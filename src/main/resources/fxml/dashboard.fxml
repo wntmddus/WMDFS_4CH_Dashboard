@@ -770,14 +770,11 @@
                             </GridPane.margin>
                         </Label>
                         <Label fx:id="ch1VibValue0" text="0" textFill="BLUE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
                             <font>
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch1RpmValue0" text="0" textFill="AQUA" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="ch1RpmValue0" text="0" textFill="DEEPSKYBLUE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -787,7 +784,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch2RpmValue0" text="0" textFill="PINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label fx:id="ch2RpmValue0" text="0" textFill="DEEPPINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -797,7 +794,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch3RpmValue0" text="0" textFill="GREY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <Label fx:id="ch3RpmValue0" text="0" textFill="SLATEGRAY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -865,7 +862,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch1RpmValue1" text="0" textFill="AQUA" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="ch1RpmValue1" text="0" textFill="DEEPSKYBLUE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -875,7 +872,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch2RpmValue1" text="0" textFill="PINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label fx:id="ch2RpmValue1" text="0" textFill="DEEPPINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -885,7 +882,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch3RpmValue1" text="0" textFill="GREY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <Label fx:id="ch3RpmValue1" text="0" textFill="SLATEGRAY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -953,7 +950,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch1RpmValue2" text="0" textFill="AQUA" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="ch1RpmValue2" text="0" textFill="DEEPSKYBLUE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -963,7 +960,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch2RpmValue2" text="0" textFill="PINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label fx:id="ch2RpmValue2" text="0" textFill="DEEPPINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -973,7 +970,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch3RpmValue2" text="0" textFill="GREY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <Label fx:id="ch3RpmValue2" text="0" textFill="SLATEGRAY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1041,7 +1038,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch1RpmValue3" text="0" textFill="AQUA" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="ch1RpmValue3" text="0" textFill="DEEPSKYBLUE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1051,7 +1048,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch2RpmValue3" text="0" textFill="PINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label fx:id="ch2RpmValue3" text="0" textFill="DEEPPINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1061,7 +1058,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch3RpmValue3" text="0" textFill="GREY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <Label fx:id="ch3RpmValue3" text="0" textFill="SLATEGRAY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1129,7 +1126,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch1RpmValue4" text="0" textFill="AQUA" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="ch1RpmValue4" text="0" textFill="DEEPSKYBLUE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1139,7 +1136,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch2RpmValue4" text="0" textFill="PINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label fx:id="ch2RpmValue4" text="0" textFill="DEEPPINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1149,7 +1146,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch3RpmValue4" text="0" textFill="GREY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <Label fx:id="ch3RpmValue4" text="0" textFill="SLATEGRAY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1217,7 +1214,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch1RpmValue5" text="0" textFill="AQUA" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="ch1RpmValue5" text="0" textFill="DEEPSKYBLUE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1227,7 +1224,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch2RpmValue5" text="0" textFill="PINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label fx:id="ch2RpmValue5" text="0" textFill="DEEPPINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1237,7 +1234,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch3RpmValue5" text="0" textFill="GREY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <Label fx:id="ch3RpmValue5" text="0" textFill="SLATEGRAY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1305,7 +1302,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch1RpmValue6" text="0" textFill="AQUA" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="ch1RpmValue6" text="0" textFill="DEEPSKYBLUE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1315,7 +1312,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch2RpmValue6" text="0" textFill="PINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label fx:id="ch2RpmValue6" text="0" textFill="DEEPPINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1325,7 +1322,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch3RpmValue6" text="0" textFill="GREY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <Label fx:id="ch3RpmValue6" text="0" textFill="SLATEGRAY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1393,7 +1390,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch1RpmValue7" text="0" textFill="AQUA" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="ch1RpmValue7" text="0" textFill="DEEPSKYBLUE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1403,7 +1400,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch2RpmValue7" text="0" textFill="PINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label fx:id="ch2RpmValue7" text="0" textFill="DEEPPINK" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -1413,7 +1410,7 @@
                                 <Font size="30.0" />
                             </font>
                         </Label>
-                        <Label fx:id="ch3RpmValue7" text="0" textFill="GREY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <Label fx:id="ch3RpmValue7" text="0" textFill="SLATEGRAY" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>

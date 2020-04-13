@@ -1045,20 +1045,20 @@ public class DashboardController extends SharedStorage implements Initializable 
             for (int i = start; i < end; i++) {
                 if (Double.parseDouble(currentDeviceData.get(i).get(2)) > maxVib1) {
                     maxVib1 = Double.parseDouble(currentDeviceData.get(i).get(2));
-                    rpm1 = Double.parseDouble(currentDeviceData.get(i).get(1));
+                    rpm1 = Integer.parseInt(currentDeviceData.get(i).get(1));
                 }
                 if (Double.parseDouble(currentDeviceData.get(i).get(4)) > maxVib2) {
                     maxVib2 = Double.parseDouble(currentDeviceData.get(i).get(4));
-                    rpm2 = Double.parseDouble(currentDeviceData.get(i).get(3));
+                    rpm2 = Integer.parseInt(currentDeviceData.get(i).get(3));
                 }
                 if (Double.parseDouble(currentDeviceData.get(i).get(6)) > maxVib3) {
                     maxVib3 = Double.parseDouble(currentDeviceData.get(i).get(6));
-                    rpm3 = Double.parseDouble(currentDeviceData.get(i).get(5));
+                    rpm3 = Integer.parseInt(currentDeviceData.get(i).get(5));
                 }
             }
-            double finalRpm = rpm1;
-            double finalRpm1 = rpm2;
-            double finalRpm2 = rpm3;
+            int finalRpm = (int) rpm1;
+            int finalRpm1 = (int) rpm2;
+            int finalRpm2 = (int) rpm3;
             double finalMaxVib = maxVib1;
             double finalMaxVib1 = maxVib2;
             double finalMaxVib2 = maxVib3;
@@ -1165,6 +1165,7 @@ public class DashboardController extends SharedStorage implements Initializable 
                     if (clientConn.containsKey(i) && recCheckboxArray.get(i).isSelected()) {
                         boxes.get(i).setFill(Color.RED);
                         boxes.get(i).setOpacity(0.3);
+                        recCheckboxArray.get(i).setDisable(true);
                         isRecordingAll.put(i, true);
                         isNothingRecording = true;
                     }
@@ -1196,7 +1197,7 @@ public class DashboardController extends SharedStorage implements Initializable 
                 for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
                     if (clientConn.containsKey(i)) {
                         fileWriters.remove(i);
-
+                        recCheckboxArray.get(i).setDisable(false);
                         boxes.get(i).setFill(Color.GREEN);
                         boxes.get(i).setOpacity(0.3);
                     }

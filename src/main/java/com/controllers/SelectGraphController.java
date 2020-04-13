@@ -400,24 +400,6 @@ public class SelectGraphController extends DashboardController implements Initia
         stage.show();
     }
 
-    @FXML
-    private void handleOnReset() throws IOException {
-        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
-            pref.remove("address" + entry.getKey());
-            pref.remove("port" + entry.getKey());
-            pref.remove("chartConfig" + entry.getKey());
-        }
-        FXMLLoader resetSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingreset.fxml"));
-        VBox vbox = resetSettingLoader.load();
-        Stage stage = new Stage();
-        stage.initOwner(mainStage);
-        Scene scene = new Scene(vbox);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Setting Reset");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     private void modifyGraphWithGivenConfig(Integer deviceNumber, int chartNumber) {
         Platform.runLater(() -> {
             boolean rpm1 = graphSelectCheckboxMap.get(chartNumber).get("rpm1").isSelected();
@@ -437,19 +419,19 @@ public class SelectGraphController extends DashboardController implements Initia
                 lineCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("rpm1"));
             } else if (chartConfigMap.get(deviceNumber).get(0) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("rpm1"))) {
                 lineCharts.get(chartNumber).getData().add(chartDataMap.get(deviceNumber).get("rpm1"));
-                chartDataMap.get(deviceNumber).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
+                chartDataMap.get(deviceNumber).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DEEPSKYBLUE) + ", 1.0);");
             }
             if (!chartConfigMap.get(deviceNumber).get(1)) {
                 lineCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("rpm2"));
             } else if (chartConfigMap.get(deviceNumber).get(1) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("rpm2"))) {
                 lineCharts.get(chartNumber).getData().add(chartDataMap.get(deviceNumber).get("rpm2"));
-                chartDataMap.get(deviceNumber).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
+                chartDataMap.get(deviceNumber).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DEEPPINK) + ", 1.0);");
             }
             if (!chartConfigMap.get(deviceNumber).get(2)) {
                 lineCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("rpm3"));
             } else if (chartConfigMap.get(deviceNumber).get(2) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("rpm3"))) {
                 lineCharts.get(chartNumber).getData().add(chartDataMap.get(deviceNumber).get("rpm3"));
-                chartDataMap.get(deviceNumber).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
+                chartDataMap.get(deviceNumber).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.SLATEGRAY) + ", 1.0);");
             }
             if (!chartConfigMap.get(deviceNumber).get(3)) {
                 lineCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("vib1"));

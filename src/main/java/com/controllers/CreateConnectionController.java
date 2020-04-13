@@ -1,12 +1,10 @@
 package main.java.com.controllers;
 
-import com.sun.javafx.charts.Legend;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -14,13 +12,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static com.sun.tools.internal.xjc.reader.Ring.add;
 
 public class CreateConnectionController extends DashboardController implements Initializable {
 
@@ -396,6 +396,18 @@ public class CreateConnectionController extends DashboardController implements I
                                     initializeChartData(i);
                                 });
                                 int counter = 0;
+                                AtomicReference<List<Number>> tempArr = new AtomicReference<>();
+                                tempArr.set(new ArrayList<Number>(){
+                                    {
+                                        add(0);
+                                        add(0);
+                                        add(0.0);
+                                        add(0);
+                                        add(0.0);
+                                        add(0);
+                                        add(0.0);
+                                    }
+                                });
                                 while (clientConn.get(i).isConnected()) {
                                     String line = "";
                                     try {
@@ -421,7 +433,7 @@ public class CreateConnectionController extends DashboardController implements I
                                             if(chartAllocation.containsKey(i)) {
                                                 updateRealtimeDataUpdatePanel(arr, chartAllocation.get(i));
                                             }
-                                            sliceChartData(arr, i, finalCounter);
+                                            tempArr.set(sliceChartData(tempArr.get(), arr, i, finalCounter));
                                         });
                                     }
                                     if (isRecordingAll.get(i)) {
@@ -620,8 +632,8 @@ public class CreateConnectionController extends DashboardController implements I
         }
     }
 
-    private void sliceChartData(List<String> arr, int i, int counter) {
-        if (counter % 6  == 0) {
+    private List<Number> sliceChartData(List<Number> tempArr, List<String> arr, int i, int counter) {
+        if (counter != 0 && counter % 6  == 0) {
             if (chartDataMap.get(i).get("rpm1").getData().size() > 600) {
                 chartDataMap.get(i).get("rpm1").getData().remove(0);
                 chartDataMap.get(i).get("rpm2").getData().remove(0);
@@ -630,12 +642,35 @@ public class CreateConnectionController extends DashboardController implements I
                 chartDataMap.get(i).get("vib2").getData().remove(0);
                 chartDataMap.get(i).get("vib3").getData().remove(0);
             }
-            chartDataMap.get(i).get("rpm1").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Integer.parseInt(arr.get(1))));
-            chartDataMap.get(i).get("rpm2").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Integer.parseInt(arr.get(3))));
-            chartDataMap.get(i).get("rpm3").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Integer.parseInt(arr.get(5))));
-            chartDataMap.get(i).get("vib1").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Float.valueOf(arr.get(2))));
-            chartDataMap.get(i).get("vib2").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Float.valueOf(arr.get(4))));
-            chartDataMap.get(i).get("vib3").getData().add(new XYChart.Data<>(arr.get(0).substring(6), Float.valueOf(arr.get(6))));
+            chartDataMap.get(i).get("rpm1").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(1)));
+            chartDataMap.get(i).get("rpm2").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(3)));
+            chartDataMap.get(i).get("rpm3").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(5)));
+            chartDataMap.get(i).get("vib1").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(2)));
+            chartDataMap.get(i).get("vib2").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(4)));
+            chartDataMap.get(i).get("vib3").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(6)));
+            return new ArrayList<Number>() {
+                {
+                    add(0);
+                    add(0);
+                    add(0.0);
+                    add(0);
+                    add(0.0);
+                    add(0);
+                    add(0.0);
+                }
+            };
+        } else {
+            return new ArrayList<Number>() {
+                {
+                    add(0);
+                    add(Math.max((Integer) tempArr.get(1), Integer.parseInt(arr.get(1))));
+                    add(Math.max((Double) tempArr.get(2), Float.parseFloat(arr.get(2))));
+                    add(Math.max((Integer) tempArr.get(3), Integer.parseInt(arr.get(3))));
+                    add(Math.max((Double) tempArr.get(4), Float.parseFloat(arr.get(4))));
+                    add(Math.max((Integer) tempArr.get(5), Integer.parseInt(arr.get(5))));
+                    add(Math.max((Double) tempArr.get(6), Float.parseFloat(arr.get(6))));
+                }
+            };
         }
     }
 
@@ -643,7 +678,7 @@ public class CreateConnectionController extends DashboardController implements I
         int chartIndex = chartAllocation.get(i);
         if (!disconnectBtnMap.get(i).isDisable()) {
             boxes.get(i).setOpacity(0.3);
-            boxes.get(i).setFill(Color.GREY);
+            boxes.get(i).setFill(Color.GRAY);
             deviceNames.get(i).setText("Disconnected");
             deviceNames.get(i).setFocusTraversable(true);
         } else {
@@ -694,15 +729,15 @@ public class CreateConnectionController extends DashboardController implements I
         if (chartAllocation.containsKey(index)) {
             if (chartConfigMap.get(index).get(0)) {
                 lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm1"));
-                chartDataMap.get(index).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.CYAN) + ", 1.0);");
+                chartDataMap.get(index).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DEEPSKYBLUE) + ", 1.0);");
             }
             if (chartConfigMap.get(index).get(1)) {
                 lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm2"));
-                chartDataMap.get(index).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.PINK) + ", 1.0);");
+                chartDataMap.get(index).get("rpm2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DEEPPINK) + ", 1.0);");
             }
             if (chartConfigMap.get(index).get(2)) {
                 lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm3"));
-                chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DARKGRAY) + ", 1.0);");
+                chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.SLATEGRAY) + ", 1.0);");
             }
             if (chartConfigMap.get(index).get(3)) {
                 lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib1"));
