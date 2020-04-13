@@ -37,9 +37,9 @@
                 <Button fx:id="devConfigBtn" layoutX="1585.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleOnClickDevConfigBtn" text="Dev Config" />
                 <Button fx:id="graphBtn" layoutX="1525.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleOnClickGraphBtn" text="Graph" />
                 <Button fx:id="recordAllBtn" layoutX="1718.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleOnClickRecordAllBtn" prefHeight="27.0" prefWidth="150.0" text="Record All" />
-                <ImageView fx:id="recordDot" fitHeight="17.0" fitWidth="17.0" layoutX="1734.0" layoutY="13.0" >
+                <ImageView fx:id="recordDot" fitHeight="17.0" fitWidth="17.0" layoutX="1734.0" layoutY="13.0">
                    <image>
-                      <Image url="@../image/recording-dot-png.png"  />
+                      <Image url="@../image/recording-dot-png.png" />
                    </image>
                 </ImageView>
             </children>
@@ -72,7 +72,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox0" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox0" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                         </CheckBox>
                         <Label fx:id="deviceName0" text="Not Connected" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Label text=" #0" />
@@ -90,7 +90,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox1" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox1" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                         </CheckBox>
                         <Label text=" #1" />
                         <Label fx:id="deviceName1" text="Not Connected" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
@@ -108,7 +108,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox2" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox2" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -134,7 +134,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox3" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox3" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -160,7 +160,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox4" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox4" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -184,7 +184,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox5" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox5" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -209,7 +209,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox6" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox6" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -234,7 +234,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox7" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox7" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -259,7 +259,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox8" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox8" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -284,7 +284,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <CheckBox fx:id="recCheckbox9" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox9" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -304,7 +304,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox10" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox10" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -316,7 +316,7 @@
                         </Label>
                         <Label text="#10" />
                         <Label fx:id="addLabel10" GridPane.halignment="CENTER" />
-                  <Rectangle fx:id="box10" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
+                        <Rectangle fx:id="box10" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane fx:id="11" gridLinesVisible="true" onDragDetected="#handleDragDetected" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -329,7 +329,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox11" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox11" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -354,7 +354,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox12" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox12" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -379,7 +379,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox13" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox13" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -404,7 +404,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox14" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox14" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -429,7 +429,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox15" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox15" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -454,7 +454,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox16" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox16" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -479,7 +479,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox17" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox17" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -504,7 +504,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox18" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox18" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -529,7 +529,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <CheckBox fx:id="recCheckbox19" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" disable="true" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <CheckBox fx:id="recCheckbox19" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -560,12 +560,20 @@
             <children>
                 <Pane fx:id="graphPane0" prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <LineChart fx:id="graph0" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graphRight0" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis label="Vib" side="RIGHT" />
+                            </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="graph0" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Rpm" side="LEFT" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph0Label0" layoutX="2.0" textFill="BLUE" />
@@ -578,12 +586,20 @@
                 </Pane>
                 <Pane fx:id="graphPane1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                     <children>
-                        <LineChart fx:id="graph1" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graphRight1" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis label="Vib" side="RIGHT" />
+                            </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="graph1" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Rpm" side="LEFT" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph1Label0" layoutX="2.0" textFill="BLUE" />
@@ -596,12 +612,20 @@
                 </Pane>
                 <Pane fx:id="graphPane2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                     <children>
-                        <LineChart fx:id="graph2" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graphRight2" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis label="Vib" side="RIGHT" />
+                            </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="graph2" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Rpm" side="LEFT" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph2Label0" layoutX="2.0" textFill="BLUE" />
@@ -614,12 +638,20 @@
                 </Pane>
                 <Pane fx:id="graphPane3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                     <children>
-                        <LineChart fx:id="graph3" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graphRight3" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis label="Vib" side="RIGHT" />
+                            </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="graph3" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Rpm" side="LEFT" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph3Label0" layoutX="2.0" textFill="BLUE" />
@@ -632,12 +664,20 @@
                 </Pane>
                 <Pane fx:id="graphPane4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graph4" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graphRight4" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis label="Vib" side="RIGHT" />
+                            </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="graph4" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Rpm" side="LEFT" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph4Label0" layoutX="2.0" textFill="BLUE" />
@@ -650,12 +690,20 @@
                 </Pane>
                 <Pane fx:id="graphPane5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graph5" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graphRight5" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis label="Vib" side="RIGHT" />
+                            </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="graph5" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Rpm" side="LEFT" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph5Label0" layoutX="2.0" textFill="BLUE" />
@@ -668,12 +716,20 @@
                 </Pane>
                 <Pane fx:id="graphPane6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graph6" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graphRight6" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis label="Vib" side="RIGHT" />
+                            </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="graph6" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Rpm" side="LEFT" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph6Label0" layoutX="2.0" textFill="BLUE" />
@@ -686,12 +742,20 @@
                 </Pane>
                 <Pane fx:id="graphPane7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graph7" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" prefHeight="203.0" prefWidth="481.0">
+                        <LineChart fx:id="graphRight7" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis label="Vib" side="RIGHT" />
+                            </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="graph7" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Rpm" side="LEFT" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph7Label0" layoutX="2.0" textFill="BLUE" />

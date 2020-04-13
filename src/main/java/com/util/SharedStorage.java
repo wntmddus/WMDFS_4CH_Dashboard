@@ -96,6 +96,7 @@ public class SharedStorage {
     public static List<Rectangle> chartRectangleMap = new ArrayList<>();
     public static Map<Integer, Line> lineMap = new HashMap<>();
     public static Map<Integer, LineChart<String, Number>> lineCharts = new HashMap<>();
+    public static Map<Integer, LineChart<String, Number>> lineRightCharts = new HashMap<>();
 
     public static List<List<Label>> realTimeData = new ArrayList<List<Label>>() {
         {

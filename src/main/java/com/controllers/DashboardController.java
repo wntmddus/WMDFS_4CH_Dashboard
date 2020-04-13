@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -640,6 +641,30 @@ public class DashboardController extends SharedStorage implements Initializable 
     @FXML
     public Button recordAllBtn;
 
+    @FXML
+    public LineChart<String, Number> graphRight0;
+
+    @FXML
+    public LineChart<String, Number> graphRight1;
+
+    @FXML
+    public LineChart<String, Number> graphRight2;
+
+    @FXML
+    public LineChart<String, Number> graphRight3;
+
+    @FXML
+    public LineChart<String, Number> graphRight4;
+
+    @FXML
+    public LineChart<String, Number> graphRight5;
+
+    @FXML
+    public LineChart<String, Number> graphRight6;
+
+    @FXML
+    public LineChart<String, Number> graphRight7;
+
     private double rectangleStart;
 
     private int startIndexOnGraph;
@@ -650,7 +675,7 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     final private double CHART_X_START_COORDINATE = 67;
 
-    final private double CHART_X_END_COORDINATE = 460;
+    final private double CHART_X_END_COORDINATE = 415;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -758,19 +783,43 @@ public class DashboardController extends SharedStorage implements Initializable 
         chartRectangleMap.add(rectangle5);
         chartRectangleMap.add(rectangle6);
         chartRectangleMap.add(rectangle7);
+        lineRightCharts.put(0, graphRight0);
+        lineRightCharts.put(1, graphRight1);
+        lineRightCharts.put(2, graphRight2);
+        lineRightCharts.put(3, graphRight3);
+        lineRightCharts.put(4, graphRight4);
+        lineRightCharts.put(5, graphRight5);
+        lineRightCharts.put(6, graphRight6);
+        lineRightCharts.put(7, graphRight7);
         Platform.runLater(() -> {
-            for (int i = 0; i < 8; i++) {
-                lineCharts.get(i).setCreateSymbols(false);
+            for (int i = 0; i < MAX_GRAPH_NUMBER; i++) {
                 lineCharts.get(i).setCreateSymbols(false);
                 lineCharts.get(i).getStyleClass().add("thick-chart");
                 lineCharts.get(i).setAnimated(false);
                 lineCharts.get(i).getXAxis().setAnimated(false);
                 lineCharts.get(i).getXAxis().setTickLabelsVisible(false);
                 lineCharts.get(i).getYAxis().setAnimated(false);
+                lineCharts.get(i).setVerticalGridLinesVisible(false);
+                lineCharts.get(i).setAlternativeRowFillVisible(false);
+                lineCharts.get(i).getXAxis().setOpacity(0.0);
+                lineCharts.get(i).getYAxis().setOpacity(1.0);
                 lineCharts.get(i).getXAxis().setTickLabelFont(Font.font(9));
                 lineCharts.get(i).getXAxis().setTickMarkVisible(false);
-                lineCharts.get(i).getYAxis().setLabel("RPM & Vib");
+                lineCharts.get(i).setBackground(Background.EMPTY);
                 lineCharts.get(i).setLegendVisible(false);
+                lineRightCharts.get(i).setCreateSymbols(false);
+                lineRightCharts.get(i).getStyleClass().add("thick-chart");
+                lineRightCharts.get(i).setAnimated(false);
+                lineRightCharts.get(i).getXAxis().setAnimated(false);
+                lineRightCharts.get(i).setVerticalGridLinesVisible(false);
+                lineRightCharts.get(i).setAlternativeRowFillVisible(false);
+                lineRightCharts.get(i).getXAxis().setOpacity(0.0);
+                lineRightCharts.get(i).getXAxis().setTickLabelsVisible(false);
+                lineRightCharts.get(i).getYAxis().setAnimated(false);
+                lineRightCharts.get(i).getXAxis().setTickLabelFont(Font.font(9));
+                lineRightCharts.get(i).getXAxis().setTickMarkVisible(false);
+                lineRightCharts.get(i).setLegendVisible(false);
+                lineRightCharts.get(i).setBackground(Background.EMPTY);
             }
         });
         chartLabelMap.get(0).put(0, graph0Label0);

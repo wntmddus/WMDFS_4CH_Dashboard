@@ -632,6 +632,7 @@ public class CreateConnectionController extends DashboardController implements I
             deviceData.get(i).clear();
             Platform.runLater(() -> {
                 lineCharts.get(chartAllocation.get(i)).getData().clear();
+                lineRightCharts.get(chartAllocation.get(i)).getData().clear();
                 initializeChartData(i);
             });
             return line;
@@ -711,7 +712,10 @@ public class CreateConnectionController extends DashboardController implements I
         realTimeData.get(chartIndex).get(5).setText("0");
         graphLabels.get(chartIndex).setText("Empty");
         chartRectangleMap.get(chartIndex).setVisible(false);
+        vibUnitLabelMap.get(chartIndex).setText("Disp.Peak");
+        lineRightCharts.get(chartIndex).getYAxis().setLabel("Vib");
         lineCharts.get(chartIndex).getData().clear();
+        lineRightCharts.get(chartIndex).getData().clear();
         chartAllocation.remove(i);
     }
 
@@ -743,26 +747,40 @@ public class CreateConnectionController extends DashboardController implements I
                 lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm3"));
                 chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.SLATEGRAY) + ", 1.0);");
             }
+//            if (chartConfigMap.get(index).get(3)) {
+//                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib1"));
+//                chartDataMap.get(index).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
+//            }
+//            if (chartConfigMap.get(index).get(4)) {
+//                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
+//                chartDataMap.get(index).get("vib2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
+//            }
+//            if (chartConfigMap.get(index).get(5)) {
+//                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
+//                chartDataMap.get(index).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
+//            }
             if (chartConfigMap.get(index).get(3)) {
-                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib1"));
+                lineRightCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib1"));
                 chartDataMap.get(index).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
             }
             if (chartConfigMap.get(index).get(4)) {
-                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
+                lineRightCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
                 chartDataMap.get(index).get("vib2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
             }
             if (chartConfigMap.get(index).get(5)) {
-                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
+                lineRightCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
                 chartDataMap.get(index).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
             }
             if (!chartConfigMap.get(index).get(0) && !chartConfigMap.get(index).get(1) && !chartConfigMap.get(index).get(2)) {
-                lineCharts.get(chartAllocation.get(index)).getYAxis().setLabel(vibUnitMap.get(index));
+                lineRightCharts.get(chartAllocation.get(index)).getYAxis().setLabel(vibUnitMap.get(index));
             }
             if (!chartConfigMap.get(index).get(3) && !chartConfigMap.get(index).get(4) && !chartConfigMap.get(index).get(5)) {
                 lineCharts.get(chartAllocation.get(index)).getYAxis().setLabel("Rpm");
             }
             if ((chartConfigMap.get(index).get(0) || chartConfigMap.get(index).get(1) || chartConfigMap.get(index).get(2)) && (chartConfigMap.get(index).get(3) || chartConfigMap.get(index).get(4) || chartConfigMap.get(index).get(5))) {
-                lineCharts.get(chartAllocation.get(index)).getYAxis().setLabel("Rpm & " + vibUnitMap.get(index));
+                lineCharts.get(chartAllocation.get(index)).getYAxis().setLabel("Rpm");
+                lineRightCharts.get(chartAllocation.get(index)).getYAxis().setLabel(vibUnitMap.get(index));
+
             }
         }
     }

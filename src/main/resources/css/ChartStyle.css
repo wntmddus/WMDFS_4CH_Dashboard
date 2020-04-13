@@ -10,13 +10,14 @@
 
 }
 
-.chart-plot-background {
-}
 
 .chart-selection-rectangle {
     -fx-stroke: rgba(135, 206, 250, 0.8);
     -fx-stroke-type: inside;
     -fx-fill: rgba(135, 206, 250, 0.2);
+}
+.chart-plot-background {
+    -fx-background-color: transparent;
 }
 
 .chart-series-line {
