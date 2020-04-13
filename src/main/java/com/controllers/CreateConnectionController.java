@@ -603,6 +603,17 @@ public class CreateConnectionController extends DashboardController implements I
             TimeUnit.MILLISECONDS.sleep(500);
             line = inputList.get(i).readLine();
             createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), true);
+            chartDataMap.get(i).remove("rpm1");
+            chartDataMap.get(i).remove("rpm2");
+            chartDataMap.get(i).remove("rpm3");
+            chartDataMap.get(i).remove("vib1");
+            chartDataMap.get(i).remove("vib2");
+            chartDataMap.get(i).remove("vib3");
+            deviceData.get(i).clear();
+            Platform.runLater(() -> {
+                lineCharts.get(chartAllocation.get(i)).getData().clear();
+                initializeChartData(i);
+            });
             return line;
         } else {
             throw new IOException("Device is disconnected after retry");
