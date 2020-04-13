@@ -20,8 +20,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.sun.tools.internal.xjc.reader.Ring.add;
-
 public class CreateConnectionController extends DashboardController implements Initializable {
 
     @FXML
