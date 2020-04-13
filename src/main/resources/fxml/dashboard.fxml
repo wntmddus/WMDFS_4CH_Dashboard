@@ -731,7 +731,7 @@
                     <children>
                         <Label fx:id="vibUnit0" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -739,7 +739,7 @@
                         </Label>
                         <Label text="RPM" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -747,7 +747,7 @@
                         </Label>
                         <Label text="CH1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -755,7 +755,7 @@
                         </Label>
                         <Label text="CH2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -763,7 +763,7 @@
                         </Label>
                         <Label text="CH3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -816,7 +816,7 @@
                     <children>
                         <Label fx:id="vibUnit1" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -824,7 +824,7 @@
                         </Label>
                         <Label text="RPM" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -832,7 +832,7 @@
                         </Label>
                         <Label text="CH1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -840,7 +840,7 @@
                         </Label>
                         <Label text="CH2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -848,7 +848,7 @@
                         </Label>
                         <Label text="CH3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -904,7 +904,7 @@
                     <children>
                         <Label fx:id="vibUnit2" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -912,7 +912,7 @@
                         </Label>
                         <Label text="RPM" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -920,7 +920,7 @@
                         </Label>
                         <Label text="CH1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -928,7 +928,7 @@
                         </Label>
                         <Label text="CH2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -936,7 +936,7 @@
                         </Label>
                         <Label text="CH3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -992,7 +992,7 @@
                     <children>
                         <Label fx:id="vibUnit3" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1000,7 +1000,7 @@
                         </Label>
                         <Label text="RPM" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1008,7 +1008,7 @@
                         </Label>
                         <Label text="CH1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1016,7 +1016,7 @@
                         </Label>
                         <Label text="CH2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1024,7 +1024,7 @@
                         </Label>
                         <Label text="CH3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1080,7 +1080,7 @@
                     <children>
                         <Label fx:id="vibUnit4" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1088,7 +1088,7 @@
                         </Label>
                         <Label text="RPM" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1096,7 +1096,7 @@
                         </Label>
                         <Label text="CH1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1104,7 +1104,7 @@
                         </Label>
                         <Label text="CH2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1112,7 +1112,7 @@
                         </Label>
                         <Label text="CH3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1168,7 +1168,7 @@
                     <children>
                         <Label fx:id="vibUnit5" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1176,7 +1176,7 @@
                         </Label>
                         <Label text="RPM" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1184,7 +1184,7 @@
                         </Label>
                         <Label text="CH1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1192,7 +1192,7 @@
                         </Label>
                         <Label text="CH2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1200,7 +1200,7 @@
                         </Label>
                         <Label text="CH3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1256,7 +1256,7 @@
                     <children>
                         <Label fx:id="vibUnit6" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1264,7 +1264,7 @@
                         </Label>
                         <Label text="RPM" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1272,7 +1272,7 @@
                         </Label>
                         <Label text="CH1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1280,7 +1280,7 @@
                         </Label>
                         <Label text="CH2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1288,7 +1288,7 @@
                         </Label>
                         <Label text="CH3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1344,7 +1344,7 @@
                     <children>
                         <Label fx:id="vibUnit7" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1352,7 +1352,7 @@
                         </Label>
                         <Label text="RPM" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1360,7 +1360,7 @@
                         </Label>
                         <Label text="CH1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1368,7 +1368,7 @@
                         </Label>
                         <Label text="CH2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -1376,7 +1376,7 @@
                         </Label>
                         <Label text="CH3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
-                                <Font size="23.0" />
+                                <Font size="21.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
