@@ -389,6 +389,7 @@ public class CreateConnectionController extends DashboardController implements I
                                         }
                                     }
                                 }
+                                System.out.println(chartAllocation);
                                 TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeBytes("REC\0");
                                 Platform.runLater(() -> {
@@ -489,6 +490,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     }
                                     recCheckboxArray.get(i).setText("Not Recording");
                                     recCheckboxArray.get(i).setTextFill(Color.BLACK);
+                                    recCheckboxArray.get(i).setSelected(false);
                                     recCheckboxArray.get(i).setDisable(true);
                                     boxes.get(i).setFill(Color.GRAY);
                                     boxes.get(i).setOpacity(0.3);
@@ -542,15 +544,16 @@ public class CreateConnectionController extends DashboardController implements I
             disconnectAllBtn.setDisable(true);
         });
         Thread.sleep(100);
-        for (Map.Entry<Integer, Socket> entry: clientConn.entrySet()){
+        clientConn.entrySet().forEach((entry) -> {
             try {
+                Thread.sleep(100);
                 outputList.get(entry.getKey()).writeBytes("STOP\0");
                 outputList.get(entry.getKey()).writeBytes("NO CARRIER\0");
                 clientConn.get(entry.getKey()).close();
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        });
     }
 
     @FXML

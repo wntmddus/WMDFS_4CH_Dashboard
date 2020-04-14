@@ -257,12 +257,13 @@ public class SelectGraphController extends DashboardController implements Initia
         comboBoxItems.add(null);
         for (Map.Entry<Integer, Socket> entry : clientConn.entrySet()) {
             if(entry.getValue().isConnected()) {
-                comboBoxItems.add(entry.getKey());
+                comboBoxItems.add(entry.getKey() + 1);
             }
         }
         for (int i = 0; i < MAX_GRAPH_NUMBER; i++) {
-            int deviceNumber = -1;
+            int deviceNumber = -2;
             for (Map.Entry<Integer, Integer> entry : chartAllocation.entrySet()) {
+                System.out.println(entry);
                 if (entry.getValue() == i) {
                     deviceNumber = entry.getKey();
                     break;
@@ -272,10 +273,10 @@ public class SelectGraphController extends DashboardController implements Initia
 
             int finalDeviceNumber = deviceNumber;
             int finalI = i;
-            if (deviceNumber > -1) {
+            if (deviceNumber > -2) {
                 Platform.runLater(() -> {
                     if (chartAllocation.containsValue(finalI)) {
-                        deviceNumPickerMap.get(finalI).setValue(finalDeviceNumber);
+                        deviceNumPickerMap.get(finalI).setValue(finalDeviceNumber + 1);
                         List<Boolean> deviceConfig = chartConfigMap.get(finalDeviceNumber);
                         graphSelectCheckboxMap.get(finalI).get("rpm1").setSelected(deviceConfig.get(0));
                         graphSelectCheckboxMap.get(finalI).get("rpm2").setSelected(deviceConfig.get(1));
@@ -314,18 +315,17 @@ public class SelectGraphController extends DashboardController implements Initia
                 chartRectangleMap.get(chartNumber).setVisible(false);
             });
             Integer deviceNumber = entry.getValue().getSelectionModel().getSelectedItem();
-            if (deviceNumber != null) {
-                modifyGraphWithGivenConfig(deviceNumber, chartNumber);
-                chartAllocation.put(deviceNumber, chartNumber);
-            }
             if (deviceNumber == null) {
                 for (Map.Entry<Integer, Integer> e : chartAllocation.entrySet()) {
                     if (e.getValue() == chartNumber) {
-                        deviceNumber = e.getKey();
-                        chartAllocation.remove(deviceNumber);
+                        chartAllocation.remove(e.getKey());
                         break;
                     }
                 }
+            }
+            if (deviceNumber != null) {
+                modifyGraphWithGivenConfig(deviceNumber - 1, chartNumber);
+                chartAllocation.put(deviceNumber - 1, chartNumber);
             }
         }
         stage.close();
@@ -347,7 +347,7 @@ public class SelectGraphController extends DashboardController implements Initia
             if (deviceIndex == null) {
                 for (Map.Entry<Integer, Integer> e : chartAllocation.entrySet()) {
                     if (e.getValue() == i) {
-                        chartAllocation.remove(deviceIndex);
+                        chartAllocation.remove(e.getKey());
                         break;
                     }
                 }
@@ -378,20 +378,20 @@ public class SelectGraphController extends DashboardController implements Initia
                 boolean vib1 = graphSelectCheckboxMap.get(i).get("vib1").isSelected();
                 boolean vib2 = graphSelectCheckboxMap.get(i).get("vib2").isSelected();
                 boolean vib3 = graphSelectCheckboxMap.get(i).get("vib3").isSelected();
-                chartConfigMap.get(deviceIndex).set(0, rpm1);
-                chartConfigMap.get(deviceIndex).set(1, rpm2);
-                chartConfigMap.get(deviceIndex).set(2, rpm3);
-                chartConfigMap.get(deviceIndex).set(3, vib1);
-                chartConfigMap.get(deviceIndex).set(4, vib2);
-                chartConfigMap.get(deviceIndex).set(5, vib3);
+                chartConfigMap.get(deviceIndex - 1).set(0, rpm1);
+                chartConfigMap.get(deviceIndex - 1).set(1, rpm2);
+                chartConfigMap.get(deviceIndex - 1).set(2, rpm3);
+                chartConfigMap.get(deviceIndex - 1).set(3, vib1);
+                chartConfigMap.get(deviceIndex - 1).set(4, vib2);
+                chartConfigMap.get(deviceIndex - 1).set(5, vib3);
                 StringBuilder config = new StringBuilder();
-                for (int j = 0; j < chartConfigMap.get(deviceIndex).size(); j++) {
-                    if (chartConfigMap.get(deviceIndex).get(j)) config.append("1");
+                for (int j = 0; j < chartConfigMap.get(deviceIndex - 1).size(); j++) {
+                    if (chartConfigMap.get(deviceIndex - 1).get(j)) config.append("1");
                     else config.append("0");
                 }
-                pref.put("chartConfig" + deviceIndex, config.toString());
-                modifyGraphWithGivenConfig(deviceIndex, i);
-                chartAllocation.put(deviceIndex, i);
+                pref.put("chartConfig" + (deviceIndex - 1), config.toString());
+                modifyGraphWithGivenConfig(deviceIndex - 1, i);
+                chartAllocation.put(deviceIndex - 1, i);
             }
         }
 

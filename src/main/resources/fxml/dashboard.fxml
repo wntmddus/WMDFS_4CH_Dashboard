@@ -75,7 +75,7 @@
                         <CheckBox fx:id="recCheckbox0" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                         </CheckBox>
                         <Label fx:id="deviceName0" text="Not Connected" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Label text=" #0" />
+                        <Label text=" #1" />
                         <Label fx:id="addLabel0" GridPane.halignment="CENTER" />
                         <Rectangle fx:id="box0" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -92,7 +92,7 @@
                     <children>
                         <CheckBox fx:id="recCheckbox1" disable="true" mnemonicParsing="false" onAction="#handleOnClickRecordBtn" text="Not Recording" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                         </CheckBox>
-                        <Label text=" #1" />
+                        <Label text=" #2" />
                         <Label fx:id="deviceName1" text="Not Connected" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Label fx:id="addLabel1" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box1" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
@@ -114,7 +114,7 @@
                             </GridPane.margin>
                         </CheckBox>
                         <Label fx:id="deviceName2" text="Not Connected" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Label text="#2" />
+                        <Label text="#3" />
                         <Label fx:id="addLabel2" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box2" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -139,7 +139,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </CheckBox>
-                        <Label text="#3" />
+                        <Label text="#4" />
                         <Label fx:id="addLabel3" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box3" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -154,7 +154,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="#4" />
+                        <Label text="#5" />
                         <Label fx:id="deviceName4" text="Not Connected" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <GridPane.margin>
                                 <Insets />
@@ -189,7 +189,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </CheckBox>
-                        <Label text="#5" />
+                        <Label text="#6" />
                         <Label fx:id="addLabel5" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box5" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -214,7 +214,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </CheckBox>
-                        <Label text="#6" />
+                        <Label text="#7" />
                         <Label fx:id="addLabel6" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box6" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -239,7 +239,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </CheckBox>
-                        <Label text="#7" />
+                        <Label text="#8" />
                         <Label fx:id="addLabel7" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box7" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -264,7 +264,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </CheckBox>
-                        <Label text="#8" />
+                        <Label text="#9" />
                         <Label fx:id="addLabel8" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box8" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -289,7 +289,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </CheckBox>
-                        <Label text="#9" />
+                        <Label text="#10" />
                         <Label fx:id="addLabel9" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box9" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -314,7 +314,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#10" />
+                        <Label text="#11" />
                         <Label fx:id="addLabel10" GridPane.halignment="CENTER" />
                         <Rectangle fx:id="box10" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -339,7 +339,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#11" />
+                        <Label text="#12" />
                         <Label fx:id="addLabel11" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box11" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -364,7 +364,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#12" />
+                        <Label text="#13" />
                         <Label fx:id="addLabel12" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box12" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -389,7 +389,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#13" />
+                        <Label text="#14" />
                         <Label fx:id="addLabel13" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box13" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -414,7 +414,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#14" />
+                        <Label text="#15" />
                         <Label fx:id="addLabel14" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box14" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -439,7 +439,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#15" />
+                        <Label text="#16" />
                         <Label fx:id="addLabel15" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box15" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -464,7 +464,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#16" />
+                        <Label text="#17" />
                         <Label fx:id="addLabel16" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box16" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -489,7 +489,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#17" />
+                        <Label text="#18" />
                         <Label fx:id="addLabel17" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box17" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -514,7 +514,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#18" />
+                        <Label text="#19" />
                         <Label fx:id="addLabel18" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box18" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
@@ -539,7 +539,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label text="#19" />
+                        <Label text="#20" />
                         <Label fx:id="addLabel19" GridPane.halignment="CENTER" />
                   <Rectangle fx:id="box19" arcHeight="5.0" arcWidth="5.0" fill="#8080804a" height="33.0" stroke="BLACK" strokeType="INSIDE" width="193.0" GridPane.rowIndex="1" />
                     </children>
