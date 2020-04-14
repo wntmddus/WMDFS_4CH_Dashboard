@@ -388,7 +388,6 @@ public class CreateConnectionController extends DashboardController implements I
                                 TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeBytes("REC\0");
                                 Platform.runLater(() -> {
-                                    vibUnitLabelMap.get(chartAllocation.get(i)).setText(vibUnitMap.get(i));
                                     addressLabels.get(i).setText(addresses.get(i) + ":" + ports.get(i));
                                     disconnectBtnMap.get(i).setDisable(false);
                                     deviceConnNumMap.get(i).setTextFill(Color.BLACK);
@@ -401,6 +400,9 @@ public class CreateConnectionController extends DashboardController implements I
                                     deviceNames.get(i).setText(devName);
                                     setGraphConfiguration(i);
                                     initializeChartData(i);
+                                    if (chartAllocation.containsKey(i)) {
+                                        vibUnitLabelMap.get(chartAllocation.get(i)).setText(vibUnitMap.get(i));
+                                    }
                                 });
                                 int counter = 0;
                                 AtomicReference<List<Number>> tempArr = new AtomicReference<>();
@@ -452,9 +454,12 @@ public class CreateConnectionController extends DashboardController implements I
                                         chartDataMap.get(i).remove("vib2");
                                         chartDataMap.get(i).remove("vib3");
                                         deviceData.get(i).clear();
+                                        initializeChartData(i);
                                         Platform.runLater(() -> {
-                                            lineCharts.get(chartAllocation.get(i)).getData().clear();
-                                            initializeChartData(i);
+                                            if (chartAllocation.containsKey(i)) {
+                                                lineRightCharts.get(chartAllocation.get(i)).getData().clear();
+                                                lineCharts.get(chartAllocation.get(i)).getData().clear();
+                                            }
                                         });
                                         outputList.get(i).writeBytes("STOP\0");
                                         TimeUnit.MILLISECONDS.sleep(300);
@@ -631,9 +636,11 @@ public class CreateConnectionController extends DashboardController implements I
             chartDataMap.get(i).remove("vib3");
             deviceData.get(i).clear();
             Platform.runLater(() -> {
-                lineCharts.get(chartAllocation.get(i)).getData().clear();
-                lineRightCharts.get(chartAllocation.get(i)).getData().clear();
-                initializeChartData(i);
+                if (chartAllocation.containsKey(i)) {
+                    lineCharts.get(chartAllocation.get(i)).getData().clear();
+                    lineRightCharts.get(chartAllocation.get(i)).getData().clear();
+                    initializeChartData(i);
+                }
             });
             return line;
         } else {
@@ -733,8 +740,8 @@ public class CreateConnectionController extends DashboardController implements I
         chartDataMap.get(index).get("vib1").setName("vib1");
         chartDataMap.get(index).get("vib2").setName("vib2");
         chartDataMap.get(index).get("vib3").setName("vib3");
-        graphLabels.get(chartAllocation.get(index)).setText(deviceNames.get(index).getText());
         if (chartAllocation.containsKey(index)) {
+            graphLabels.get(chartAllocation.get(index)).setText(deviceNames.get(index).getText());
             if (chartConfigMap.get(index).get(0)) {
                 lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm1"));
                 chartDataMap.get(index).get("rpm1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.DEEPSKYBLUE) + ", 1.0);");
@@ -747,18 +754,6 @@ public class CreateConnectionController extends DashboardController implements I
                 lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm3"));
                 chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.SLATEGRAY) + ", 1.0);");
             }
-//            if (chartConfigMap.get(index).get(3)) {
-//                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib1"));
-//                chartDataMap.get(index).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
-//            }
-//            if (chartConfigMap.get(index).get(4)) {
-//                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
-//                chartDataMap.get(index).get("vib2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
-//            }
-//            if (chartConfigMap.get(index).get(5)) {
-//                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
-//                chartDataMap.get(index).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
-//            }
             if (chartConfigMap.get(index).get(3)) {
                 lineRightCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib1"));
                 chartDataMap.get(index).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
