@@ -42,7 +42,6 @@
                       <Image url="@../image/recording-dot-png.png" />
                    </image>
                 </ImageView>
-            <Label fx:id="chart" layoutX="314.0" layoutY="13.0" text="Label" />
             </children>
         </Pane>
         <GridPane gridLinesVisible="true" minHeight="200.0" minWidth="1920.0" prefHeight="200.0" prefWidth="1920.0">

@@ -689,9 +689,6 @@ public class DashboardController extends SharedStorage implements Initializable 
     @FXML
     public LineChart<String, Number> graphRight7;
 
-    @FXML
-    public Label chart;
-
     private double rectangleStart;
 
     private int startIndexOnGraph;
@@ -706,7 +703,6 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        chartLabel = chart;
         deviceNames.add(deviceName0);
         deviceNames.add(deviceName1);
         deviceNames.add(deviceName2);
