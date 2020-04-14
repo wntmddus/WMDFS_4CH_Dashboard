@@ -261,16 +261,18 @@ public class SelectGraphController extends DashboardController implements Initia
             }
         }
         Platform.runLater(() -> {
+            for (int i = 0; i < MAX_GRAPH_NUMBER; i ++) {
+                deviceNumPickerMap.get(i).getItems().addAll(comboBoxItems);
+            }
             for (int i = 0; i < MAX_GRAPH_NUMBER; i++) {
-                int deviceNumber = -2;
+                Integer deviceNumber = null;
                 for (Map.Entry<Integer, Integer> entry : chartAllocation.entrySet()) {
                     if (entry.getValue() == i) {
                         deviceNumber = entry.getKey();
                         break;
                     }
                 }
-                deviceNumPickerMap.get(i).getItems().addAll(comboBoxItems);
-                if (deviceNumber > -2) {
+                if (deviceNumber != null) {
                     deviceNumPickerMap.get(i).setValue(deviceNumber + 1);
                     List<Boolean> deviceConfig = chartConfigMap.get(deviceNumber);
                     graphSelectCheckboxMap.get(i).get("rpm1").setSelected(deviceConfig.get(0));
@@ -319,6 +321,7 @@ public class SelectGraphController extends DashboardController implements Initia
                     chartAllocation.put(newDeviceNumber - 1, chartNumber);
                 }
             }
+            chartLabel.setText(chartAllocation.toString());
         });
         stage.close();
     }
@@ -336,14 +339,14 @@ public class SelectGraphController extends DashboardController implements Initia
         }
         Platform.runLater(() -> {
             for (int i = 0; i < MAX_GRAPH_NUMBER; i++) {
+                for (Map.Entry<Integer, Integer> e : chartAllocation.entrySet()) {
+                    if (e.getValue() == i) {
+                        chartAllocation.remove(e.getKey());
+                        break;
+                    }
+                }
                 Integer deviceIndex = deviceNumPickerMap.get(i).getValue();
                 if (deviceIndex == null) {
-                    for (Map.Entry<Integer, Integer> e : chartAllocation.entrySet()) {
-                        if (e.getValue() == i) {
-                            chartAllocation.remove(e.getKey());
-                            break;
-                        }
-                    }
                     lineCharts.get(i).getData().clear();
                     lineRightCharts.get(i).getData().clear();
                     graphLabels.get(i).setText("Empty");

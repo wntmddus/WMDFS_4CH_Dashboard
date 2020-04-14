@@ -379,6 +379,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     Platform.runLater(() -> addressLabels.get(i).setText("Device Not in SRV"));
                                     throw new IOException("Device is not in SRV Status");
                                 }
+
                                 if (chartAllocation.size() <= MAX_GRAPH_NUMBER) {
                                     for (int j = 0; j < MAX_GRAPH_NUMBER; j++) {
                                         if (!chartAllocation.containsValue(j)) {
@@ -387,6 +388,7 @@ public class CreateConnectionController extends DashboardController implements I
                                         }
                                     }
                                 }
+                                System.out.println(chartAllocation.size());
                                 TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeBytes("REC\0");
                                 Platform.runLater(() -> {
@@ -480,7 +482,6 @@ public class CreateConnectionController extends DashboardController implements I
                                 if (!disconnectBtnMap.get(i).isDisable()) {
                                     clientConn.get(i).close();
                                 }
-                                removingDeviceDataOnDisconnect(i);
                                 Platform.runLater(() -> {
                                     if (!addressLabels.get(i).getText().equals("Device Not in SRV")) {
                                         addressLabels.get(i).setText("");
@@ -492,6 +493,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     boxes.get(i).setFill(Color.GRAY);
                                     boxes.get(i).setOpacity(0.3);
                                     removeChartData(i);
+                                    removingDeviceDataOnDisconnect(i);
                                 });
                                 e.printStackTrace();
                             }
@@ -592,7 +594,7 @@ public class CreateConnectionController extends DashboardController implements I
         stage.show();
     }
 
-    private void removingDeviceDataOnDisconnect(int i) throws IOException {
+    private void removingDeviceDataOnDisconnect(int i) {
         clientConn.remove(i);
         addresses.remove(i);
         ports.remove(i);
@@ -708,7 +710,6 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     private void removeChartData(int i) {
-        int chartIndex = chartAllocation.get(i);
         if (!disconnectBtnMap.get(i).isDisable()) {
             boxes.get(i).setOpacity(0.3);
             boxes.get(i).setFill(Color.GRAY);
@@ -726,26 +727,29 @@ public class CreateConnectionController extends DashboardController implements I
         chartDataMap.get(i).remove("vib1");
         chartDataMap.get(i).remove("vib2");
         chartDataMap.get(i).remove("vib3");
-        chartLabelMap.get(chartIndex).get(0).setText("");
-        chartLabelMap.get(chartIndex).get(1).setText("");
-        chartLabelMap.get(chartIndex).get(2).setText("");
         disconnectBtnMap.get(i).setDisable(true);
         connAddTextFieldMap.get(i).setDisable(false);
         connPortTextFieldMap.get(i).setDisable(false);
-        realTimeData.get(chartIndex).get(0).setText("0");
-        realTimeData.get(chartIndex).get(1).setText("0");
-        realTimeData.get(chartIndex).get(2).setText("0");
-        realTimeData.get(chartIndex).get(3).setText("0");
-        realTimeData.get(chartIndex).get(4).setText("0");
-        realTimeData.get(chartIndex).get(5).setText("0");
-        graphLabels.get(chartIndex).setText("Empty");
-        graphPanelLabels.get(chartIndex).setText("Empty");
-        chartRectangleMap.get(chartIndex).setVisible(false);
-        vibUnitLabelMap.get(chartIndex).setText("Disp.Peak");
-        lineRightCharts.get(chartIndex).getYAxis().setLabel("Vib");
-        lineCharts.get(chartIndex).getData().clear();
-        lineRightCharts.get(chartIndex).getData().clear();
-        chartAllocation.remove(i);
+        if (chartAllocation.containsKey(i)) {
+            int chartIndex = chartAllocation.get(i);
+            chartLabelMap.get(chartIndex).get(0).setText("");
+            chartLabelMap.get(chartIndex).get(1).setText("");
+            chartLabelMap.get(chartIndex).get(2).setText("");
+            realTimeData.get(chartIndex).get(0).setText("0");
+            realTimeData.get(chartIndex).get(1).setText("0");
+            realTimeData.get(chartIndex).get(2).setText("0");
+            realTimeData.get(chartIndex).get(3).setText("0");
+            realTimeData.get(chartIndex).get(4).setText("0");
+            realTimeData.get(chartIndex).get(5).setText("0");
+            graphLabels.get(chartIndex).setText("Empty");
+            graphPanelLabels.get(chartIndex).setText("Empty");
+            chartRectangleMap.get(chartIndex).setVisible(false);
+            vibUnitLabelMap.get(chartIndex).setText("Disp.Peak");
+            lineRightCharts.get(chartIndex).getYAxis().setLabel("Vib");
+            lineCharts.get(chartIndex).getData().clear();
+            lineRightCharts.get(chartIndex).getData().clear();
+            chartAllocation.remove(i);
+        }
     }
 
     private void initializeChartData(int index) {

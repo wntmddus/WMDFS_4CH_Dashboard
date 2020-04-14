@@ -689,6 +689,9 @@ public class DashboardController extends SharedStorage implements Initializable 
     @FXML
     public LineChart<String, Number> graphRight7;
 
+    @FXML
+    public Label chart;
+
     private double rectangleStart;
 
     private int startIndexOnGraph;
@@ -703,6 +706,7 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        chartLabel = chart;
         deviceNames.add(deviceName0);
         deviceNames.add(deviceName1);
         deviceNames.add(deviceName2);
@@ -827,7 +831,9 @@ public class DashboardController extends SharedStorage implements Initializable 
                 lineCharts.get(i).setAlternativeRowFillVisible(false);
                 lineCharts.get(i).getXAxis().setOpacity(0.0);
                 lineCharts.get(i).getYAxis().setOpacity(1.0);
-                lineCharts.get(i).getXAxis().setTickLabelFont(Font.font(9));
+                lineCharts.get(i).getYAxis().setTickLabelFont(Font.font(9));
+                lineCharts.get(i).getYAxis().setTickLabelGap(5);
+                lineCharts.get(i).getYAxis().setTickLength(2);
                 lineCharts.get(i).getXAxis().setTickMarkVisible(false);
                 lineCharts.get(i).setBackground(Background.EMPTY);
                 lineCharts.get(i).setLegendVisible(false);
@@ -840,7 +846,9 @@ public class DashboardController extends SharedStorage implements Initializable 
                 lineRightCharts.get(i).getXAxis().setOpacity(0.0);
                 lineRightCharts.get(i).getXAxis().setTickLabelsVisible(false);
                 lineRightCharts.get(i).getYAxis().setAnimated(false);
-                lineRightCharts.get(i).getXAxis().setTickLabelFont(Font.font(9));
+                lineRightCharts.get(i).getYAxis().setTickLabelFont(Font.font(9));
+                lineRightCharts.get(i).getYAxis().setTickLabelGap(5);
+                lineRightCharts.get(i).getYAxis().setTickLength(2);
                 lineRightCharts.get(i).getXAxis().setTickMarkVisible(false);
                 lineRightCharts.get(i).setLegendVisible(false);
                 lineRightCharts.get(i).setBackground(Background.EMPTY);
