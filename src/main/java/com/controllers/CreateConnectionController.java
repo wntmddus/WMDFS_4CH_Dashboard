@@ -350,7 +350,7 @@ public class CreateConnectionController extends DashboardController implements I
     private void connectValidAddressesToTCP() {
         addresses.forEach((i, value) -> {
             try {
-                TimeUnit.MILLISECONDS.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -376,9 +376,7 @@ public class CreateConnectionController extends DashboardController implements I
                                 vibUnitMap.put(i, vibSetting.substring(12));
                                 vibUnitDetailedMap.put(i, vibUnitMap.get(i).substring(vibUnitMap.get(i).indexOf('(') + 1, vibUnitMap.get(i).length() - 1));
                                 if (devState.equals("SD")) {
-                                    Platform.runLater(() -> {
-                                        addressLabels.get(i).setText("Device Not in SRV");
-                                    });
+                                    Platform.runLater(() -> addressLabels.get(i).setText("Device Not in SRV"));
                                     throw new IOException("Device is not in SRV Status");
                                 }
                                 if (chartAllocation.size() <= MAX_GRAPH_NUMBER) {
