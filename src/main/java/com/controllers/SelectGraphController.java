@@ -299,6 +299,7 @@ public class SelectGraphController extends DashboardController implements Initia
             lineRightCharts.get(chartNumber).getData().clear();
             Platform.runLater(() -> {
                 graphLabels.get(chartNumber).setText("Empty");
+                graphPanelLabels.get(chartNumber).setText("Empty");
                 realTimeData.get(chartNumber).get(0).setText("0");
                 realTimeData.get(chartNumber).get(1).setText("0");
                 realTimeData.get(chartNumber).get(2).setText("0");
@@ -355,6 +356,7 @@ public class SelectGraphController extends DashboardController implements Initia
                 int finalI = i;
                 Platform.runLater(() -> {
                     graphLabels.get(finalI).setText("Empty");
+                    graphPanelLabels.get(finalI).setText("Empty");
                     realTimeData.get(finalI).get(0).setText("0");
                     realTimeData.get(finalI).get(1).setText("0");
                     realTimeData.get(finalI).get(2).setText("0");
@@ -420,6 +422,7 @@ public class SelectGraphController extends DashboardController implements Initia
             chartConfigMap.get(deviceNumber).set(5, vib3);
             vibUnitLabelMap.get(chartNumber).setText(vibUnitMap.get(deviceNumber));
             graphLabels.get(chartNumber).setText(deviceNames.get(deviceNumber).getText());
+            graphPanelLabels.get(chartNumber).setText(deviceNames.get(deviceNumber).getText());
             if (!chartConfigMap.get(deviceNumber).get(0)) {
                 lineCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("rpm1"));
             } else if (chartConfigMap.get(deviceNumber).get(0) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("rpm1"))) {

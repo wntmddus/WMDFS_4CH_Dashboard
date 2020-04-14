@@ -642,6 +642,30 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Button recordAllBtn;
 
     @FXML
+    public Label graphPanelLabel0;
+
+    @FXML
+    public Label graphPanelLabel1;
+
+    @FXML
+    public Label graphPanelLabel2;
+
+    @FXML
+    public Label graphPanelLabel3;
+
+    @FXML
+    public Label graphPanelLabel4;
+
+    @FXML
+    public Label graphPanelLabel5;
+
+    @FXML
+    public Label graphPanelLabel6;
+
+    @FXML
+    public Label graphPanelLabel7;
+
+    @FXML
     public LineChart<String, Number> graphRight0;
 
     @FXML
@@ -910,6 +934,15 @@ public class DashboardController extends SharedStorage implements Initializable 
         vibUnitLabelMap.put(5, vibUnit5);
         vibUnitLabelMap.put(6, vibUnit6);
         vibUnitLabelMap.put(7, vibUnit7);
+        graphPanelLabels.put(0, graphPanelLabel0);
+        graphPanelLabels.put(1, graphPanelLabel1);
+        graphPanelLabels.put(2, graphPanelLabel2);
+        graphPanelLabels.put(3, graphPanelLabel3);
+        graphPanelLabels.put(4, graphPanelLabel4);
+        graphPanelLabels.put(5, graphPanelLabel5);
+        graphPanelLabels.put(6, graphPanelLabel6);
+        graphPanelLabels.put(7, graphPanelLabel7);
+        recordAllBtnGlobal = recordAllBtn;
     }
 
     public void setStage(Stage stage) {

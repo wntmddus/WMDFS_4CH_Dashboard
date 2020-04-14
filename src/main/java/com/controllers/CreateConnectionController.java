@@ -186,6 +186,8 @@ public class CreateConnectionController extends DashboardController implements I
     Label deviceConnNum18;
     @FXML
     Label deviceConnNum19;
+    @FXML
+    Button disconnectAllBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -275,6 +277,7 @@ public class CreateConnectionController extends DashboardController implements I
                     connAddTextFieldMap.get(entry.getKey()).setDisable(true);
                     connPortTextFieldMap.get(entry.getKey()).setDisable(true);
                     disconnectBtnMap.get(entry.getKey()).setDisable(false);
+                    disconnectAllBtn.setDisable(false);
                 }
             }
             for(int i = 0; i < MAX_DEVICE_NUMBER; i++) {
@@ -287,6 +290,7 @@ public class CreateConnectionController extends DashboardController implements I
                     connPortTextFieldMap.get(i).setText(pref.get("port" + i, "root"));
                 }
             }
+            if (clientConn.entrySet().size() == 0) disconnectAllBtn.setDisable(true);
         });
     }
 
@@ -402,6 +406,7 @@ public class CreateConnectionController extends DashboardController implements I
                                     initializeChartData(i);
                                     if (chartAllocation.containsKey(i)) {
                                         vibUnitLabelMap.get(chartAllocation.get(i)).setText(vibUnitMap.get(i));
+                                        graphPanelLabels.get(chartAllocation.get(i)).setText(devName);
                                     }
                                 });
                                 int counter = 0;
@@ -454,12 +459,12 @@ public class CreateConnectionController extends DashboardController implements I
                                         chartDataMap.get(i).remove("vib2");
                                         chartDataMap.get(i).remove("vib3");
                                         deviceData.get(i).clear();
-                                        initializeChartData(i);
                                         Platform.runLater(() -> {
                                             if (chartAllocation.containsKey(i)) {
                                                 lineRightCharts.get(chartAllocation.get(i)).getData().clear();
                                                 lineCharts.get(chartAllocation.get(i)).getData().clear();
                                             }
+                                            initializeChartData(i);
                                         });
                                         outputList.get(i).writeBytes("STOP\0");
                                         TimeUnit.MILLISECONDS.sleep(300);
@@ -532,6 +537,23 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     @FXML
+    private void handleOnDisconnectAll() throws InterruptedException {
+        Platform.runLater(() -> {
+            disconnectAllBtn.setDisable(true);
+        });
+        Thread.sleep(100);
+        for (Map.Entry<Integer, Socket> entry: clientConn.entrySet()){
+            try {
+                outputList.get(entry.getKey()).writeBytes("STOP\0");
+                outputList.get(entry.getKey()).writeBytes("NO CARRIER\0");
+                clientConn.get(entry.getKey()).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
     private void handleOnReset() throws IOException {
         for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
             if (!entry.getValue().getText().equals("")) {
@@ -578,10 +600,7 @@ public class CreateConnectionController extends DashboardController implements I
         vibUnitMap.remove(i);
         vibUnitDetailedMap.remove(i);
         chartConfigMap.remove(i);
-//        if (fileWriters.containsKey(i)) {
-//            fileWriters.get(i).close();
-//            fileWriters.remove(i);
-//        }
+        fileWriters.remove(i);
     }
 
     private void setGraphConfiguration(int index) {
@@ -611,7 +630,7 @@ public class CreateConnectionController extends DashboardController implements I
 
     private String reconnectOnSocketFailure(int i) throws IOException, InterruptedException {
         String line = "";
-        if (disconnectBtnMap.get(i).isDisable()) {
+        if (disconnectBtnMap.get(i).isDisable() || disconnectAllBtn.isDisable()) {
             throw new IOException("Device is disconnected by user");
         }
         clientConn.get(i).close();
@@ -627,7 +646,9 @@ public class CreateConnectionController extends DashboardController implements I
             outputList.get(i).writeBytes("REC\0");
             TimeUnit.MILLISECONDS.sleep(500);
             line = inputList.get(i).readLine();
-            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), true);
+            if (recordAllBtnGlobal.getText().equals("Stop")) {
+                createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), true);
+            }
             chartDataMap.get(i).remove("rpm1");
             chartDataMap.get(i).remove("rpm2");
             chartDataMap.get(i).remove("rpm3");
@@ -636,10 +657,10 @@ public class CreateConnectionController extends DashboardController implements I
             chartDataMap.get(i).remove("vib3");
             deviceData.get(i).clear();
             Platform.runLater(() -> {
+                initializeChartData(i);
                 if (chartAllocation.containsKey(i)) {
                     lineCharts.get(chartAllocation.get(i)).getData().clear();
                     lineRightCharts.get(chartAllocation.get(i)).getData().clear();
-                    initializeChartData(i);
                 }
             });
             return line;
@@ -718,6 +739,7 @@ public class CreateConnectionController extends DashboardController implements I
         realTimeData.get(chartIndex).get(4).setText("0");
         realTimeData.get(chartIndex).get(5).setText("0");
         graphLabels.get(chartIndex).setText("Empty");
+        graphPanelLabels.get(chartIndex).setText("Empty");
         chartRectangleMap.get(chartIndex).setVisible(false);
         vibUnitLabelMap.get(chartIndex).setText("Disp.Peak");
         lineRightCharts.get(chartIndex).getYAxis().setLabel("Vib");

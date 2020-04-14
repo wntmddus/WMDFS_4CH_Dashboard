@@ -37,7 +37,9 @@ public class SharedStorage {
     public static Map<Integer, Label> addressLabels = new HashMap<>();
     public static Map<Integer, List<List<String>>> deviceData = new HashMap<>();
     public static Map<Integer, Label> graphLabels = new HashMap<>();
+    public static Map<Integer, Label> graphPanelLabels = new HashMap<>();
     public static Map<Integer, Integer> chartAllocation = new HashMap<>();
+    public static Button recordAllBtnGlobal;
     public static Map<Integer, Label> deviceConnNumMap = new HashMap<>();
     public static Map<Integer, String> dateTimeOnFileNameMap = new HashMap<>();
     public static Map<Integer, Boolean> isRecordingAll = new HashMap<Integer, Boolean>() {

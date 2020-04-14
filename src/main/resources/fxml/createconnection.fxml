@@ -182,8 +182,9 @@
                         <Font size="10.0" />
                     </font>
                 </Button>
-            <Button onAction="#handleOnSave" layoutX="551.0" layoutY="28.0" mnemonicParsing="false" text="Save" />
-            <Button onAction="#handleOnReset" layoutX="607.0" layoutY="28.0" mnemonicParsing="false" text="Reset" />
+            <Button layoutX="551.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleOnSave" text="Save" />
+            <Button layoutX="607.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleOnReset" text="Reset" />
+            <Button fx:id="disconnectAllBtn" onAction="#handleOnDisconnectAll" disable="true" layoutX="445.0" layoutY="28.0" mnemonicParsing="false" text="Disconnect All" />
             </children>
         </Pane>
     </children>
