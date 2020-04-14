@@ -321,7 +321,6 @@ public class SelectGraphController extends DashboardController implements Initia
                     chartAllocation.put(newDeviceNumber - 1, chartNumber);
                 }
             }
-            chartLabel.setText(chartAllocation.toString());
         });
         stage.close();
     }
