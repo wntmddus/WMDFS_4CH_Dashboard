@@ -387,7 +387,6 @@ public class CreateConnectionController extends DashboardController implements I
                                         }
                                     }
                                 }
-                                System.out.println(chartAllocation);
                                 TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeBytes("REC\0");
                                 Platform.runLater(() -> {
