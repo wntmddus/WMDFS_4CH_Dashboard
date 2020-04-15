@@ -40,6 +40,54 @@ public class SharedStorage {
     public static Map<Integer, Label> graphPanelLabels = new HashMap<>();
     public static Map<Integer, Integer> chartAllocation = new HashMap<>();
     public static Map<Integer, CheckBox> connChkBoxMap = new HashMap<>();
+    public static Map<Integer, Boolean> connChkBoxStatusMap = new HashMap<Integer, Boolean>(){
+        {
+            put(0, true);
+            put(1, true);
+            put(2, true);
+            put(3, true);
+            put(4, true);
+            put(5, true);
+            put(6, true);
+            put(7, true);
+            put(8, true);
+            put(9, true);
+            put(10, true);
+            put(11, true);
+            put(12, true);
+            put(13, true);
+            put(14, true);
+            put(15, true);
+            put(16, true);
+            put(17, true);
+            put(18, true);
+            put(19, true);
+        }
+    };
+    public static List<Boolean> isDisconnecting = new ArrayList<Boolean>() {
+        {
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+            add(false);
+        }
+    };
     public static Button recordAllBtnGlobal;
     public static Button disconnectAllBtnGlobal;
     public static Map<Integer, Label> deviceConnNumMap = new HashMap<>();

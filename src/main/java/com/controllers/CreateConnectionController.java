@@ -349,6 +349,7 @@ public class CreateConnectionController extends DashboardController implements I
                 }
             }
             for(int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+                connChkBoxMap.get(i).setSelected(connChkBoxStatusMap.get(i));
                 if (addresses.containsKey(i) && ports.containsKey(i)) {
                     connAddTextFieldMap.get(i).setText(addresses.get(i));
                     connPortTextFieldMap.get(i).setText(ports.get(i));
@@ -381,6 +382,23 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     @FXML
+    void handleOnCheckBoxClick(ActionEvent event) {
+        CheckBox chkBox = ((CheckBox)(event.getSource()));
+        String chkBoxId = chkBox.getId();
+        int index;
+        if (chkBoxId.length() == 11) {
+            index = Character.getNumericValue(chkBoxId.charAt(chkBoxId.length() - 1));
+        } else {
+            index = Integer.parseInt(chkBoxId.substring(chkBoxId.length() - 2));
+        }
+        if (((CheckBox)(event.getSource())).isSelected()) {
+            connChkBoxStatusMap.put(index, true);
+        } else {
+            connChkBoxStatusMap.put(index, false);
+        }
+    }
+
+    @FXML
     void handleOnDisconnect(ActionEvent event) {
         Button btn = ((Button)(event.getSource()));
         String btnId = btn.getId();
@@ -394,6 +412,7 @@ public class CreateConnectionController extends DashboardController implements I
             btn.setDisable(true);
         });
         try {
+            isDisconnecting.set(index, true);
             outputList.get(index).writeBytes("STOP\0");
             outputList.get(index).writeBytes("NO CARRIER\0");
             clientConn.get(index).close();
@@ -587,10 +606,8 @@ public class CreateConnectionController extends DashboardController implements I
     @FXML
     private void handleOnSave() throws IOException {
         for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
-            if (!entry.getValue().getText().equals("")) {
-                pref.put("address" + entry.getKey(), entry.getValue().getText());
-                pref.put("port" + entry.getKey(), connPortTextFieldMap.get(entry.getKey()).getText());
-            }
+            pref.put("address" + entry.getKey(), entry.getValue().getText());
+            pref.put("port" + entry.getKey(), connPortTextFieldMap.get(entry.getKey()).getText());
         }
         FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
         VBox vbox = saveSettingLoader.load();
@@ -612,6 +629,7 @@ public class CreateConnectionController extends DashboardController implements I
         clientConn.entrySet().forEach((entry) -> {
             try {
                 Thread.sleep(100);
+                isDisconnecting.set(entry.getKey(), true);
                 outputList.get(entry.getKey()).writeBytes("STOP\0");
                 outputList.get(entry.getKey()).writeBytes("NO CARRIER\0");
                 clientConn.get(entry.getKey()).close();
@@ -700,7 +718,8 @@ public class CreateConnectionController extends DashboardController implements I
         String line = "";
         int timeCounter = 0;
         while (line.equals("") && timeCounter < 20) {
-            if (disconnectBtnMap.get(i).isDisable() || disconnectAllBtnGlobal.isDisable()) {
+            if (isDisconnecting.get(i)) {
+                isDisconnecting.set(i, false);
                 throw new IOException("Device is disconnected by user");
             }
             clientConn.get(i).close();
