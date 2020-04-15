@@ -823,7 +823,8 @@ public class DashboardController extends SharedStorage implements Initializable 
                 lineCharts.get(i).getXAxis().setAnimated(false);
                 lineCharts.get(i).getXAxis().setTickLabelsVisible(false);
                 lineCharts.get(i).getYAxis().setAnimated(false);
-//                lineCharts.get(i).setVerticalGridLinesVisible(false);
+                lineCharts.get(i).setVerticalGridLinesVisible(false);
+                lineCharts.get(i).setHorizontalGridLinesVisible(false);
                 lineCharts.get(i).setAlternativeRowFillVisible(false);
                 lineCharts.get(i).getXAxis().setOpacity(0.0);
                 lineCharts.get(i).getYAxis().setOpacity(1.0);
@@ -836,13 +837,13 @@ public class DashboardController extends SharedStorage implements Initializable 
                 lineRightCharts.get(i).getStyleClass().add("thick-chart");
                 lineRightCharts.get(i).setAnimated(false);
                 lineRightCharts.get(i).getXAxis().setAnimated(false);
-//                lineRightCharts.get(i).setVerticalGridLinesVisible(false);
+                lineRightCharts.get(i).setVerticalGridLinesVisible(false);
+                lineRightCharts.get(i).setHorizontalGridLinesVisible(false);
                 lineRightCharts.get(i).setAlternativeRowFillVisible(false);
                 lineRightCharts.get(i).getXAxis().setOpacity(0.0);
                 lineRightCharts.get(i).getXAxis().setTickLabelsVisible(false);
                 lineRightCharts.get(i).getYAxis().setAnimated(false);
                 lineRightCharts.get(i).getYAxis().setTickLabelFont(Font.font(9));
-                lineRightCharts.get(i).getYAxis().setTickLabelGap(5);
                 lineRightCharts.get(i).getYAxis().setTickLength(2);
                 lineRightCharts.get(i).getXAxis().setTickMarkVisible(false);
                 lineRightCharts.get(i).setLegendVisible(false);
@@ -957,6 +958,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         LineChart chart = ((LineChart) (event.getSource()));
         String chartId = chart.getId();
         int chartIndex = Character.getNumericValue(chartId.charAt(chartId.length() - 1));
+        whichGraphSelected = chartIndex;
         int dataIndex = -1;
         for(Map.Entry<Integer, Integer> entry: chartAllocation.entrySet()){
             if (chartIndex == entry.getValue()){
@@ -970,6 +972,7 @@ public class DashboardController extends SharedStorage implements Initializable 
             int index = (int) Math.floor((deviceData.get(dataIndex).size() - 1) * ((event.getX() - CHART_X_START_COORDINATE) / (CHART_X_END_COORDINATE - CHART_X_START_COORDINATE)));
             if (index != -1) {
                 List<String> lineData = deviceData.get(dataIndex).get(index);
+                currentGraphKeyIndex.put(chartIndex, index);
                 Label ch1Label = chartLabelMap.get(chartIndex).get(0);
                 Label ch2Label = chartLabelMap.get(chartIndex).get(1);
                 Label ch3Label = chartLabelMap.get(chartIndex).get(2);
@@ -993,6 +996,83 @@ public class DashboardController extends SharedStorage implements Initializable 
     }
 
     @FXML
+    private void onGraphClicked(MouseEvent event) {
+        LineChart chart = ((LineChart)(event.getSource()));
+        String chartId = chart.getId();
+        whichGraphSelected = Character.getNumericValue(chartId.charAt(chartId.length() - 1));
+    }
+
+    @FXML
+    private void handleOnKeyPressed(KeyEvent event) {
+        if (whichGraphSelected == null) return;
+        int deviceIndex = -1;
+        for(Map.Entry<Integer, Integer> entry: chartAllocation.entrySet()){
+            if (whichGraphSelected == entry.getValue()){
+                deviceIndex = entry.getKey();
+                break;
+            }
+        }
+        if (deviceIndex == -1) return;
+        if (!chartRectangleMap.get(whichGraphSelected).isVisible()) {
+            double currentDeviceIndex = currentGraphKeyIndex.get(whichGraphSelected);
+            double deviceDataSize = deviceData.get(deviceIndex).size();
+            double xCoordinate;
+            if (currentDeviceIndex == 0) {
+                xCoordinate = CHART_X_START_COORDINATE;
+            } else {
+                xCoordinate = ((currentDeviceIndex / deviceDataSize) * (CHART_X_END_COORDINATE - CHART_X_START_COORDINATE) + CHART_X_START_COORDINATE);
+            }
+            int finalDeviceIndex = deviceIndex;
+            switch (event.getCode()) {
+                case LEFT:
+                    if (currentDeviceIndex > 0) {
+                        currentGraphKeyIndex.put(whichGraphSelected, currentGraphKeyIndex.get(whichGraphSelected) - 1);
+                    }
+                    Platform.runLater(() -> {
+                        List<String> lineData = deviceData.get(finalDeviceIndex).get((int) currentDeviceIndex);
+                        Label ch1Label = chartLabelMap.get(whichGraphSelected).get(0);
+                        Label ch2Label = chartLabelMap.get(whichGraphSelected).get(1);
+                        Label ch3Label = chartLabelMap.get(whichGraphSelected).get(2);
+                        createLine(whichGraphSelected, xCoordinate, 54, xCoordinate, 224);
+                        if (chartConfigMap.get(finalDeviceIndex).get(0) || chartConfigMap.get(finalDeviceIndex).get(3)) {
+                            ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
+                        }
+                        if (chartConfigMap.get(finalDeviceIndex).get(1) || chartConfigMap.get(finalDeviceIndex).get(4)) {
+                            ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
+                        }
+                        if (chartConfigMap.get(finalDeviceIndex).get(2) || chartConfigMap.get(finalDeviceIndex).get(5)) {
+                            ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
+                        }
+                    });
+                    break;
+                case RIGHT:
+                    if (currentDeviceIndex < deviceDataSize - 1) {
+                        currentGraphKeyIndex.put(whichGraphSelected, currentGraphKeyIndex.get(whichGraphSelected) + 1);
+                    }
+                    Platform.runLater(() -> {
+                        List<String> lineData = deviceData.get(finalDeviceIndex).get((int) currentDeviceIndex);
+                        Label ch1Label = chartLabelMap.get(whichGraphSelected).get(0);
+                        Label ch2Label = chartLabelMap.get(whichGraphSelected).get(1);
+                        Label ch3Label = chartLabelMap.get(whichGraphSelected).get(2);
+                        createLine(whichGraphSelected, xCoordinate, 54, xCoordinate, 224);
+                        if (chartConfigMap.get(finalDeviceIndex).get(0) || chartConfigMap.get(finalDeviceIndex).get(3)) {
+                            ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
+                        }
+                        if (chartConfigMap.get(finalDeviceIndex).get(1) || chartConfigMap.get(finalDeviceIndex).get(4)) {
+                            ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
+                        }
+                        if (chartConfigMap.get(finalDeviceIndex).get(2) || chartConfigMap.get(finalDeviceIndex).get(5)) {
+                            ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
+                        }
+                    });
+                    break;
+                default:
+                    lineMap.get(whichGraphSelected).setVisible(false);
+            }
+        }
+    }
+
+    @FXML
     private void handleAbout() throws IOException {
         FXMLLoader aboutLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/about.fxml"));
         VBox vbox = aboutLoader.load();
@@ -1005,29 +1085,14 @@ public class DashboardController extends SharedStorage implements Initializable 
         stage.show();
     }
 
-    private void createLine(int index, int startX, int startY, int endX, int endY) {
+    private void createLine(int index, double startX, int startY, double endX, int endY) {
         lineMap.get(index).setStartX(startX);
         lineMap.get(index).setStartY(startY);
         lineMap.get(index).setEndX(endX);
         lineMap.get(index).setEndY(endY);
         lineMap.get(index).setFill(Color.LIGHTGREY);
-        lineMap.get(index).setOpacity(0.5);
+        lineMap.get(index).setOpacity(0.9);
         lineMap.get(index).setVisible(true);
-    }
-
-    @FXML
-    private void handleDragDetected(MouseEvent event) {
-//        System.out.println("Detected");
-//        int index = Integer.parseInt(((GridPane)(event.getSource())).getId());
-//        if (clientConn.containsKey(index)) {
-//            System.out.println(((GridPane) (event.getSource())).getId());
-//            Dragboard db = ((GridPane) (event.getSource())).startDragAndDrop(TransferMode.ANY);
-//            db.setDragView(createSnapshot((GridPane) (event.getSource())));
-//            ClipboardContent content = new ClipboardContent();
-//            content.putString(((GridPane) (event.getSource())).getId());
-//            db.setContent(content);
-//            event.consume();
-//        }
     }
 
     @FXML

@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -192,6 +194,71 @@ public class SelectGraphController extends DashboardController implements Initia
     @FXML
     public CheckBox ch3RpmChkBox7;
 
+    @FXML
+    public TextField maxRpm0;
+    @FXML
+    public TextField maxRpm1;
+    @FXML
+    public TextField maxRpm2;
+    @FXML
+    public TextField maxRpm3;
+    @FXML
+    public TextField maxRpm4;
+    @FXML
+    public TextField maxRpm5;
+    @FXML
+    public TextField maxRpm6;
+    @FXML
+    public TextField maxRpm7;
+    @FXML
+    public TextField maxVib0;
+    @FXML
+    public TextField maxVib1;
+    @FXML
+    public TextField maxVib2;
+    @FXML
+    public TextField maxVib3;
+    @FXML
+    public TextField maxVib4;
+    @FXML
+    public TextField maxVib5;
+    @FXML
+    public TextField maxVib6;
+    @FXML
+    public TextField maxVib7;
+    @FXML
+    public CheckBox rpmAutoChkBox0;
+    @FXML
+    public CheckBox rpmAutoChkBox1;
+    @FXML
+    public CheckBox rpmAutoChkBox2;
+    @FXML
+    public CheckBox rpmAutoChkBox3;
+    @FXML
+    public CheckBox rpmAutoChkBox4;
+    @FXML
+    public CheckBox rpmAutoChkBox5;
+    @FXML
+    public CheckBox rpmAutoChkBox6;
+    @FXML
+    public CheckBox rpmAutoChkBox7;
+    @FXML
+    public CheckBox vibAutoChkBox0;
+    @FXML
+    public CheckBox vibAutoChkBox1;
+    @FXML
+    public CheckBox vibAutoChkBox2;
+    @FXML
+    public CheckBox vibAutoChkBox3;
+    @FXML
+    public CheckBox vibAutoChkBox4;
+    @FXML
+    public CheckBox vibAutoChkBox5;
+    @FXML
+    public CheckBox vibAutoChkBox6;
+    @FXML
+    public CheckBox vibAutoChkBox7;
+
     private List<Integer> comboBoxItems = new ArrayList<>();
 
     private Stage stage;
@@ -254,6 +321,39 @@ public class SelectGraphController extends DashboardController implements Initia
         graphSelectCheckboxMap.get(7).put("vib1", ch1VibChkBox7);
         graphSelectCheckboxMap.get(7).put("vib2", ch2VibChkBox7);
         graphSelectCheckboxMap.get(7).put("vib3", ch3VibChkBox7);
+        maxRpmMap.put(0, maxRpm0);
+        maxRpmMap.put(1, maxRpm1);
+        maxRpmMap.put(2, maxRpm2);
+        maxRpmMap.put(3, maxRpm3);
+        maxRpmMap.put(4, maxRpm4);
+        maxRpmMap.put(5, maxRpm5);
+        maxRpmMap.put(6, maxRpm6);
+        maxRpmMap.put(7, maxRpm7);
+        maxVibMap.put(0, maxVib0);
+        maxVibMap.put(1, maxVib1);
+        maxVibMap.put(2, maxVib2);
+        maxVibMap.put(3, maxVib3);
+        maxVibMap.put(4, maxVib4);
+        maxVibMap.put(5, maxVib5);
+        maxVibMap.put(6, maxVib6);
+        maxVibMap.put(7, maxVib7);
+        rpmAutoChkBoxMap.put(0, rpmAutoChkBox0);
+        rpmAutoChkBoxMap.put(1, rpmAutoChkBox1);
+        rpmAutoChkBoxMap.put(2, rpmAutoChkBox2);
+        rpmAutoChkBoxMap.put(3, rpmAutoChkBox3);
+        rpmAutoChkBoxMap.put(4, rpmAutoChkBox4);
+        rpmAutoChkBoxMap.put(5, rpmAutoChkBox5);
+        rpmAutoChkBoxMap.put(6, rpmAutoChkBox6);
+        rpmAutoChkBoxMap.put(7, rpmAutoChkBox7);
+        vibAutoChkBoxMap.put(0, vibAutoChkBox0);
+        vibAutoChkBoxMap.put(1, vibAutoChkBox1);
+        vibAutoChkBoxMap.put(2, vibAutoChkBox2);
+        vibAutoChkBoxMap.put(3, vibAutoChkBox3);
+        vibAutoChkBoxMap.put(4, vibAutoChkBox4);
+        vibAutoChkBoxMap.put(5, vibAutoChkBox5);
+        vibAutoChkBoxMap.put(6, vibAutoChkBox6);
+        vibAutoChkBoxMap.put(7, vibAutoChkBox7);
+
         comboBoxItems.add(null);
         for (Map.Entry<Integer, Socket> entry : clientConn.entrySet()) {
             if(entry.getValue().isConnected()) {
@@ -275,6 +375,18 @@ public class SelectGraphController extends DashboardController implements Initia
                 if (deviceNumber != null) {
                     deviceNumPickerMap.get(i).setValue(deviceNumber + 1);
                     List<Boolean> deviceConfig = chartConfigMap.get(deviceNumber);
+                    if (maxRpmValueMap.containsKey(deviceNumber)) {
+                        maxRpmMap.get(i).setText(maxRpmValueMap.get(deviceNumber).toString());
+                    } else {
+                        rpmAutoChkBoxMap.get(i).setSelected(true);
+                        maxRpmMap.get(i).setDisable(true);
+                    }
+                    if (maxVibValueMap.containsKey(deviceNumber)) {
+                        maxVibMap.get(i).setText(maxVibValueMap.get(deviceNumber).toString());
+                    } else {
+                        vibAutoChkBoxMap.get(i).setSelected(true);
+                        maxVibMap.get(i).setDisable(true);
+                    }
                     graphSelectCheckboxMap.get(i).get("rpm1").setSelected(deviceConfig.get(0));
                     graphSelectCheckboxMap.get(i).get("rpm2").setSelected(deviceConfig.get(1));
                     graphSelectCheckboxMap.get(i).get("rpm3").setSelected(deviceConfig.get(2));
@@ -317,6 +429,30 @@ public class SelectGraphController extends DashboardController implements Initia
                 chartRectangleMap.get(chartNumber).setVisible(false);
                 Integer newDeviceNumber = entry.getValue().getSelectionModel().getSelectedItem();
                 if (newDeviceNumber != null) {
+                    String maxRpm = maxRpmMap.get(chartNumber).getText();
+                    String maxVib = maxVibMap.get(chartNumber).getText();
+                    boolean rpmAutoRanging = rpmAutoChkBoxMap.get(chartNumber).isSelected();
+                    boolean vibAutoRanging = vibAutoChkBoxMap.get(chartNumber).isSelected();
+                    if (!maxRpm.equals("")) {
+                        maxRpmValueMap.put(newDeviceNumber - 1, Integer.parseInt(maxRpm));
+                    } else {
+                        maxRpmMap.get(chartNumber).setText("");
+                        maxRpmValueMap.remove(newDeviceNumber - 1);
+                    }
+                    if (!maxVib.equals("")) {
+                        maxVibValueMap.put(newDeviceNumber - 1, Integer.parseInt(maxVib));
+                    } else {
+                        maxVibMap.get(chartNumber).setText("");
+                        maxVibValueMap.remove(newDeviceNumber - 1);
+                    }
+                    if (rpmAutoRanging) {
+                        maxRpmMap.get(chartNumber).setText("");
+                        maxRpmValueMap.remove(newDeviceNumber - 1);
+                    }
+                    if (vibAutoRanging) {
+                        maxVibMap.get(chartNumber).setText("");
+                        maxVibValueMap.remove(newDeviceNumber - 1);
+                    }
                     modifyGraphWithGivenConfig(newDeviceNumber - 1, chartNumber);
                     chartAllocation.put(newDeviceNumber - 1, chartNumber);
                 }
@@ -370,6 +506,30 @@ public class SelectGraphController extends DashboardController implements Initia
                     boolean vib1 = graphSelectCheckboxMap.get(i).get("vib1").isSelected();
                     boolean vib2 = graphSelectCheckboxMap.get(i).get("vib2").isSelected();
                     boolean vib3 = graphSelectCheckboxMap.get(i).get("vib3").isSelected();
+                    String maxRpm = maxRpmMap.get(i).getText();
+                    String maxVib = maxVibMap.get(i).getText();
+                    boolean rpmAutoRanging = rpmAutoChkBoxMap.get(i).isSelected();
+                    boolean vibAutoRanging = vibAutoChkBoxMap.get(i).isSelected();
+                    if (!maxRpm.equals("")) {
+                        maxRpmValueMap.put(deviceIndex, Integer.parseInt(maxRpm));
+                    } else {
+                        maxRpmMap.get(i).setText("");
+                        maxRpmValueMap.remove(deviceIndex);
+                    }
+                    if (!maxVib.equals("")) {
+                        maxVibValueMap.put(deviceIndex, Integer.parseInt(maxVib));
+                    } else {
+                        maxVibMap.get(i).setText("");
+                        maxVibValueMap.remove(deviceIndex);
+                    }
+                    if (rpmAutoRanging) {
+                        maxRpmMap.get(i).setText("");
+                        maxRpmValueMap.remove(deviceIndex);
+                    }
+                    if (vibAutoRanging) {
+                        maxVibMap.get(i).setText("");
+                        maxVibValueMap.remove(deviceIndex);
+                    }
                     chartConfigMap.get(deviceIndex - 1).set(0, rpm1);
                     chartConfigMap.get(deviceIndex - 1).set(1, rpm2);
                     chartConfigMap.get(deviceIndex - 1).set(2, rpm3);
@@ -398,6 +558,28 @@ public class SelectGraphController extends DashboardController implements Initia
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    void handleRpmAutoChkBox(ActionEvent event) {
+        CheckBox chkBox = ((CheckBox)(event.getSource()));
+        String chkBoxId = chkBox.getId();
+        int chkBoxIndex = Character.getNumericValue(chkBoxId.charAt(chkBoxId.length() - 1));
+        if (chkBox.isSelected()) {
+            maxRpmMap.get(chkBoxIndex).setDisable(true);
+        } else {
+            maxRpmMap.get(chkBoxIndex).setDisable(false);
+        }
+    }
+    @FXML
+    void handleVibAutoChkBox(ActionEvent event) {
+        CheckBox chkBox = ((CheckBox)(event.getSource()));
+        String chkBoxId = chkBox.getId();
+        int chkBoxIndex = Character.getNumericValue(chkBoxId.charAt(chkBoxId.length() - 1));
+        if (chkBox.isSelected()) {
+            maxVibMap.get(chkBoxIndex).setDisable(true);
+        } else {
+            maxVibMap.get(chkBoxIndex).setDisable(false);
+        }
+    }
 
     private void modifyGraphWithGivenConfig(Integer deviceNumber, int chartNumber) {
         Platform.runLater(() -> {
@@ -416,6 +598,18 @@ public class SelectGraphController extends DashboardController implements Initia
             vibUnitLabelMap.get(chartNumber).setText(vibUnitMap.get(deviceNumber));
             graphLabels.get(chartNumber).setText(deviceNames.get(deviceNumber).getText());
             graphPanelLabels.get(chartNumber).setText(deviceNames.get(deviceNumber).getText());
+            if (maxRpmValueMap.containsKey(deviceNumber)) {
+                lineCharts.get(chartNumber).getYAxis().setAutoRanging(false);
+                ((NumberAxis) lineCharts.get(chartNumber).getYAxis()).setUpperBound(maxRpmValueMap.get(deviceNumber));
+            } else {
+                lineCharts.get(chartNumber).getYAxis().setAutoRanging(true);
+            }
+            if (maxVibValueMap.containsKey(deviceNumber)) {
+                lineRightCharts.get(chartNumber).getYAxis().setAutoRanging(false);
+                ((NumberAxis) lineRightCharts.get(chartNumber).getYAxis()).setUpperBound(maxVibValueMap.get(deviceNumber));
+            } else {
+                lineRightCharts.get(chartNumber).getYAxis().setAutoRanging(true);
+            }
             if (!chartConfigMap.get(deviceNumber).get(0)) {
                 lineCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("rpm1"));
             } else if (chartConfigMap.get(deviceNumber).get(0) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("rpm1"))) {
@@ -493,6 +687,12 @@ public class SelectGraphController extends DashboardController implements Initia
                 graphSelectCheckboxMap.get(comboBoxIndex).get("vib1").setSelected(false);
                 graphSelectCheckboxMap.get(comboBoxIndex).get("vib2").setSelected(false);
                 graphSelectCheckboxMap.get(comboBoxIndex).get("vib3").setSelected(false);
+                vibAutoChkBoxMap.get(comboBoxIndex).setSelected(false);
+                maxVibMap.get(comboBoxIndex).setDisable(false);
+                maxVibMap.get(comboBoxIndex).setText("");
+                rpmAutoChkBoxMap.get(comboBoxIndex).setSelected(false);
+                maxVibMap.get(comboBoxIndex).setDisable(false);
+                maxRpmMap.get(comboBoxIndex).setText("");
             });
         } else {
             Platform.runLater(() -> {
@@ -502,6 +702,24 @@ public class SelectGraphController extends DashboardController implements Initia
                 graphSelectCheckboxMap.get(comboBoxIndex).get("vib1").setSelected(chartConfigMap.get((int) comboBox.getValue() - 1).get(3));
                 graphSelectCheckboxMap.get(comboBoxIndex).get("vib2").setSelected(chartConfigMap.get((int) comboBox.getValue() - 1).get(4));
                 graphSelectCheckboxMap.get(comboBoxIndex).get("vib3").setSelected(chartConfigMap.get((int) comboBox.getValue() - 1).get(5));
+                if (maxRpmValueMap.containsKey((int) comboBox.getValue() - 1)) {
+                    rpmAutoChkBoxMap.get(comboBoxIndex).setSelected(false);
+                    maxRpmMap.get(comboBoxIndex).setDisable(false);
+                    maxRpmMap.get(comboBoxIndex).setText(maxRpmValueMap.get((int) comboBox.getValue() - 1).toString());
+                } else {
+                    rpmAutoChkBoxMap.get(comboBoxIndex).setSelected(true);
+                    maxRpmMap.get(comboBoxIndex).setDisable(true);
+                    maxRpmMap.get(comboBoxIndex).setText("");
+                }
+                if (maxVibValueMap.containsKey((int) comboBox.getValue() - 1)) {
+                    vibAutoChkBoxMap.get(comboBoxIndex).setSelected(false);
+                    maxVibMap.get(comboBoxIndex).setDisable(false);
+                    maxVibMap.get(comboBoxIndex).setText(maxVibValueMap.get((int) comboBox.getValue() - 1).toString());
+                } else {
+                    vibAutoChkBoxMap.get(comboBoxIndex).setSelected(true);
+                    maxVibMap.get(comboBoxIndex).setDisable(true);
+                    maxVibMap.get(comboBoxIndex).setText("");
+                }
             });
         }
     }

@@ -40,6 +40,25 @@ public class SharedStorage {
     public static Map<Integer, Label> graphPanelLabels = new HashMap<>();
     public static Map<Integer, Integer> chartAllocation = new HashMap<>();
     public static Map<Integer, CheckBox> connChkBoxMap = new HashMap<>();
+    public static Map<Integer, TextField> maxRpmMap = new HashMap<>();
+    public static Map<Integer, TextField> maxVibMap = new HashMap<>();
+    public static Map<Integer, CheckBox> rpmAutoChkBoxMap = new HashMap<>();
+    public static Map<Integer, CheckBox> vibAutoChkBoxMap = new HashMap<>();
+    public static Map<Integer, Integer> maxRpmValueMap = new HashMap<>();
+    public static Map<Integer, Integer> maxVibValueMap = new HashMap<>();
+    public static Integer whichGraphSelected = null;
+    public static Map<Integer, Integer> currentGraphKeyIndex = new HashMap<Integer, Integer>(){
+        {
+            put(0, 1);
+            put(1, 1);
+            put(2, 1);
+            put(3, 1);
+            put(4, 1);
+            put(5, 1);
+            put(6, 1);
+            put(7, 1);
+        }
+    };
     public static Map<Integer, Boolean> connChkBoxStatusMap = new HashMap<Integer, Boolean>(){
         {
             put(0, true);
@@ -131,7 +150,6 @@ public class SharedStorage {
 
         }
     };
-    public static boolean isSwitching = false;
     public static Map<Integer, List<Boolean>> chartConfigMap = new HashMap<>();
     public static Map<Integer, Map<Integer, Label>> chartLabelMap = new HashMap<Integer, Map<Integer, Label>>() {
         {

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -460,6 +461,8 @@ public class CreateConnectionController extends DashboardController implements I
                                 outputList.get(i).writeBytes("GET SETTING\0");
                                 String vibSetting = inputList.get(i).readLine();
                                 vibUnitMap.put(i, vibSetting.substring(12));
+                                maxRpmValueMap.put(i, 1200);
+                                if (vibUnitMap.get(i).contains("Disp.Peak  (mm)")) maxVibValueMap.put(i, 2);
                                 vibUnitDetailedMap.put(i, vibUnitMap.get(i).substring(vibUnitMap.get(i).indexOf('(') + 1, vibUnitMap.get(i).length() - 1));
                                 if (devState.equals("SD")) {
                                     Platform.runLater(() -> addressLabels.get(i).setText("Device Not in SRV"));
@@ -863,6 +866,14 @@ public class CreateConnectionController extends DashboardController implements I
         chartDataMap.get(index).get("vib2").setName("vib2");
         chartDataMap.get(index).get("vib3").setName("vib3");
         if (chartAllocation.containsKey(index)) {
+            if (maxRpmValueMap.containsKey(index)) {
+                lineCharts.get(chartAllocation.get(index)).getYAxis().setAutoRanging(false);
+                ((NumberAxis) lineCharts.get(chartAllocation.get(index)).getYAxis()).setUpperBound(maxRpmValueMap.get(index));
+            }
+            if (maxVibValueMap.containsKey(index)) {
+                lineRightCharts.get(chartAllocation.get(index)).getYAxis().setAutoRanging(false);
+                ((NumberAxis) lineRightCharts.get(chartAllocation.get(index)).getYAxis()).setUpperBound(maxVibValueMap.get(index));
+            }
             graphLabels.get(chartAllocation.get(index)).setText(deviceNames.get(index).getText());
             if (chartConfigMap.get(index).get(0)) {
                 lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm1"));
