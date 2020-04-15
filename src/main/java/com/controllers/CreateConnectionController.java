@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -188,6 +189,52 @@ public class CreateConnectionController extends DashboardController implements I
     Label deviceConnNum19;
     @FXML
     Button disconnectAllBtn;
+    @FXML
+    CheckBox connChkBox0;
+    @FXML
+    CheckBox connChkBox1;
+    @FXML
+    CheckBox connChkBox2;
+    @FXML
+    CheckBox connChkBox3;
+    @FXML
+    CheckBox connChkBox4;
+    @FXML
+    CheckBox connChkBox5;
+    @FXML
+    CheckBox connChkBox6;
+    @FXML
+    CheckBox connChkBox7;
+    @FXML
+    CheckBox connChkBox8;
+    @FXML
+    CheckBox connChkBox9;
+    @FXML
+    CheckBox connChkBox10;
+    @FXML
+    CheckBox connChkBox11;
+    @FXML
+    CheckBox connChkBox12;
+    @FXML
+    CheckBox connChkBox13;
+    @FXML
+    CheckBox connChkBox14;
+    @FXML
+    CheckBox connChkBox15;
+    @FXML
+    CheckBox connChkBox16;
+    @FXML
+    CheckBox connChkBox17;
+    @FXML
+    CheckBox connChkBox18;
+    @FXML
+    CheckBox connChkBox19;
+    @FXML
+    CheckBox connChkBox20;
+
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -271,13 +318,34 @@ public class CreateConnectionController extends DashboardController implements I
         deviceConnNumMap.put(17, deviceConnNum17);
         deviceConnNumMap.put(18, deviceConnNum18);
         deviceConnNumMap.put(19, deviceConnNum19);
+        connChkBoxMap.put(0, connChkBox0);
+        connChkBoxMap.put(1, connChkBox1);
+        connChkBoxMap.put(2, connChkBox2);
+        connChkBoxMap.put(3, connChkBox3);
+        connChkBoxMap.put(4, connChkBox4);
+        connChkBoxMap.put(5, connChkBox5);
+        connChkBoxMap.put(6, connChkBox6);
+        connChkBoxMap.put(7, connChkBox7);
+        connChkBoxMap.put(8, connChkBox8);
+        connChkBoxMap.put(9, connChkBox9);
+        connChkBoxMap.put(10, connChkBox10);
+        connChkBoxMap.put(11, connChkBox11);
+        connChkBoxMap.put(12, connChkBox12);
+        connChkBoxMap.put(13, connChkBox13);
+        connChkBoxMap.put(14, connChkBox14);
+        connChkBoxMap.put(15, connChkBox15);
+        connChkBoxMap.put(16, connChkBox16);
+        connChkBoxMap.put(17, connChkBox17);
+        connChkBoxMap.put(18, connChkBox18);
+        connChkBoxMap.put(19, connChkBox19);
+        disconnectAllBtnGlobal = disconnectAllBtn;
         Platform.runLater(() -> {
             for(Map.Entry<Integer, Socket> entry : clientConn.entrySet()) {
                 if(entry.getValue().isConnected()) {
                     connAddTextFieldMap.get(entry.getKey()).setDisable(true);
                     connPortTextFieldMap.get(entry.getKey()).setDisable(true);
                     disconnectBtnMap.get(entry.getKey()).setDisable(false);
-                    disconnectAllBtn.setDisable(false);
+                    disconnectAllBtnGlobal.setDisable(false);
                 }
             }
             for(int i = 0; i < MAX_DEVICE_NUMBER; i++) {
@@ -290,7 +358,6 @@ public class CreateConnectionController extends DashboardController implements I
                     connPortTextFieldMap.get(i).setText(pref.get("port" + i, "root"));
                 }
             }
-            if (clientConn.entrySet().size() == 0) disconnectAllBtn.setDisable(true);
         });
     }
 
@@ -354,7 +421,7 @@ public class CreateConnectionController extends DashboardController implements I
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(!clientConn.containsKey(i)) {
+            if(!clientConn.containsKey(i) && connChkBoxMap.get(i).isSelected()) {
                 Runnable task = () -> {
                     try {
                         // create and store Socket
@@ -388,7 +455,6 @@ public class CreateConnectionController extends DashboardController implements I
                                         }
                                     }
                                 }
-                                System.out.println(chartAllocation.size());
                                 TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeBytes("REC\0");
                                 Platform.runLater(() -> {
@@ -632,43 +698,54 @@ public class CreateConnectionController extends DashboardController implements I
 
     private String reconnectOnSocketFailure(int i) throws IOException, InterruptedException {
         String line = "";
-        if (disconnectBtnMap.get(i).isDisable() || disconnectAllBtn.isDisable()) {
-            throw new IOException("Device is disconnected by user");
-        }
-        clientConn.get(i).close();
-        Thread.sleep(10000);
-        Socket newSock = new Socket();
-        newSock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
-        newSock.setSoTimeout(5000);
-        if (newSock.isConnected()) {
-            clientConn.put(i, newSock);
-            outputList.put(i, new DataOutputStream(newSock.getOutputStream()));
-            inputList.put(i, new DataInputStream(newSock.getInputStream()));
-            TimeUnit.MILLISECONDS.sleep(500);
-            outputList.get(i).writeBytes("REC\0");
-            TimeUnit.MILLISECONDS.sleep(500);
-            line = inputList.get(i).readLine();
-            if (recordAllBtnGlobal.getText().equals("Stop")) {
-                createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), true);
+        int timeCounter = 0;
+        while (line.equals("") && timeCounter < 20) {
+            if (disconnectBtnMap.get(i).isDisable() || disconnectAllBtnGlobal.isDisable()) {
+                throw new IOException("Device is disconnected by user");
             }
-            chartDataMap.get(i).remove("rpm1");
-            chartDataMap.get(i).remove("rpm2");
-            chartDataMap.get(i).remove("rpm3");
-            chartDataMap.get(i).remove("vib1");
-            chartDataMap.get(i).remove("vib2");
-            chartDataMap.get(i).remove("vib3");
-            deviceData.get(i).clear();
-            Platform.runLater(() -> {
-                initializeChartData(i);
-                if (chartAllocation.containsKey(i)) {
-                    lineCharts.get(chartAllocation.get(i)).getData().clear();
-                    lineRightCharts.get(chartAllocation.get(i)).getData().clear();
+            clientConn.get(i).close();
+            Thread.sleep(10000);
+            Socket newSock = new Socket();
+            try {
+                newSock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
+                newSock.setSoTimeout(5000);
+            } catch (IOException e) {
+                line = "";
+            }
+            if (newSock.isConnected()) {
+                clientConn.put(i, newSock);
+                outputList.put(i, new DataOutputStream(newSock.getOutputStream()));
+                inputList.put(i, new DataInputStream(newSock.getInputStream()));
+                TimeUnit.MILLISECONDS.sleep(1000);
+                outputList.get(i).writeBytes("REC\0");
+                TimeUnit.MILLISECONDS.sleep(1000);
+                try {
+                    line = inputList.get(i).readLine();
+                } catch (IOException e) {
+                    line = "";
                 }
-            });
-            return line;
-        } else {
-            throw new IOException("Device is disconnected after retry");
+                if (recordAllBtnGlobal.getText().equals("Stop")) {
+                    createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), true);
+                }
+                chartDataMap.get(i).remove("rpm1");
+                chartDataMap.get(i).remove("rpm2");
+                chartDataMap.get(i).remove("rpm3");
+                chartDataMap.get(i).remove("vib1");
+                chartDataMap.get(i).remove("vib2");
+                chartDataMap.get(i).remove("vib3");
+                deviceData.get(i).clear();
+                Platform.runLater(() -> {
+                    if (chartAllocation.containsKey(i)) {
+                        lineCharts.get(chartAllocation.get(i)).getData().clear();
+                        lineRightCharts.get(chartAllocation.get(i)).getData().clear();
+                    }
+                    initializeChartData(i);
+                });
+            }
+            if (!line.equals("")) return line;
+            timeCounter++;
         }
+        throw new IOException("Device is disconnected After 10 minutes of Retry");
     }
 
     private List<Number> sliceChartData(List<Number> tempArr, List<String> arr, int i, int counter) {

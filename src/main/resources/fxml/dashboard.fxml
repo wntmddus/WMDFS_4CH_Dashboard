@@ -560,20 +560,20 @@
             <children>
                 <Pane fx:id="graphPane0" prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <LineChart fx:id="graphRight0" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graphRight0" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Vib" side="RIGHT" />
+                                <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
-                        <LineChart fx:id="graph0" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graph0" layoutX="2.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Rpm" side="LEFT" />
+                                <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph0Label0" layoutX="2.0" textFill="BLUE" />
@@ -586,20 +586,20 @@
                 </Pane>
                 <Pane fx:id="graphPane1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                     <children>
-                        <LineChart fx:id="graphRight1" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graphRight1" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Vib" side="RIGHT" />
+                                <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
-                        <LineChart fx:id="graph1" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graph1" layoutX="2.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Rpm" side="LEFT" />
+                                <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph1Label0" layoutX="2.0" textFill="BLUE" />
@@ -612,20 +612,20 @@
                 </Pane>
                 <Pane fx:id="graphPane2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                     <children>
-                        <LineChart fx:id="graphRight2" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graphRight2" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Vib" side="RIGHT" />
+                                <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
-                        <LineChart fx:id="graph2" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graph2" layoutX="2.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Rpm" side="LEFT" />
+                                <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph2Label0" layoutX="2.0" textFill="BLUE" />
@@ -638,20 +638,20 @@
                 </Pane>
                 <Pane fx:id="graphPane3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                     <children>
-                        <LineChart fx:id="graphRight3" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graphRight3" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Vib" side="RIGHT" />
+                                <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
-                        <LineChart fx:id="graph3" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graph3" layoutX="2.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Rpm" side="LEFT" />
+                                <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph3Label0" layoutX="2.0" textFill="BLUE" />
@@ -664,20 +664,20 @@
                 </Pane>
                 <Pane fx:id="graphPane4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graphRight4" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graphRight4" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Vib" side="RIGHT" />
+                                <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
-                        <LineChart fx:id="graph4" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graph4" layoutX="2.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Rpm" side="LEFT" />
+                                <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph4Label0" layoutX="2.0" textFill="BLUE" />
@@ -690,20 +690,20 @@
                 </Pane>
                 <Pane fx:id="graphPane5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graphRight5" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graphRight5" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Vib" side="RIGHT" />
+                                <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
-                        <LineChart fx:id="graph5" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graph5" layoutX="2.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Rpm" side="LEFT" />
+                                <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph5Label0" layoutX="2.0" textFill="BLUE" />
@@ -716,20 +716,20 @@
                 </Pane>
                 <Pane fx:id="graphPane6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graphRight6" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graphRight6" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Vib" side="RIGHT" />
+                                <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
-                        <LineChart fx:id="graph6" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graph6" layoutX="2.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Rpm" side="LEFT" />
+                                <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph6Label0" layoutX="2.0" textFill="BLUE" />
@@ -742,20 +742,20 @@
                 </Pane>
                 <Pane fx:id="graphPane7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <children>
-                        <LineChart fx:id="graphRight7" layoutX="54.0" layoutY="39.0" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graphRight7" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Vib" side="RIGHT" />
+                                <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
-                        <LineChart fx:id="graph7" layoutX="-3.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="425.0">
+                        <LineChart fx:id="graph7" layoutX="2.0" layoutY="39.0" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Rpm" side="LEFT" />
+                                <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                             </yAxis>
                         </LineChart>
                         <Label fx:id="graph7Label0" layoutX="2.0" textFill="BLUE" />

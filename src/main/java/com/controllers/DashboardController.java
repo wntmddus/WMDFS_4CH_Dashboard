@@ -697,9 +697,9 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     final private double CHART_Y_END_COORDINATE = 186;
 
-    final private double CHART_X_START_COORDINATE = 67;
+    final private double CHART_X_START_COORDINATE = 54;
 
-    final private double CHART_X_END_COORDINATE = 415;
+    final private double CHART_X_END_COORDINATE = 428;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -823,12 +823,11 @@ public class DashboardController extends SharedStorage implements Initializable 
                 lineCharts.get(i).getXAxis().setAnimated(false);
                 lineCharts.get(i).getXAxis().setTickLabelsVisible(false);
                 lineCharts.get(i).getYAxis().setAnimated(false);
-                lineCharts.get(i).setVerticalGridLinesVisible(false);
+//                lineCharts.get(i).setVerticalGridLinesVisible(false);
                 lineCharts.get(i).setAlternativeRowFillVisible(false);
                 lineCharts.get(i).getXAxis().setOpacity(0.0);
                 lineCharts.get(i).getYAxis().setOpacity(1.0);
                 lineCharts.get(i).getYAxis().setTickLabelFont(Font.font(9));
-                lineCharts.get(i).getYAxis().setTickLabelGap(5);
                 lineCharts.get(i).getYAxis().setTickLength(2);
                 lineCharts.get(i).getXAxis().setTickMarkVisible(false);
                 lineCharts.get(i).setBackground(Background.EMPTY);
@@ -837,7 +836,7 @@ public class DashboardController extends SharedStorage implements Initializable 
                 lineRightCharts.get(i).getStyleClass().add("thick-chart");
                 lineRightCharts.get(i).setAnimated(false);
                 lineRightCharts.get(i).getXAxis().setAnimated(false);
-                lineRightCharts.get(i).setVerticalGridLinesVisible(false);
+//                lineRightCharts.get(i).setVerticalGridLinesVisible(false);
                 lineRightCharts.get(i).setAlternativeRowFillVisible(false);
                 lineRightCharts.get(i).getXAxis().setOpacity(0.0);
                 lineRightCharts.get(i).getXAxis().setTickLabelsVisible(false);
