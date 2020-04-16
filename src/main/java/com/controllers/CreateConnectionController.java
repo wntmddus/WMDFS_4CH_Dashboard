@@ -377,6 +377,13 @@ public class CreateConnectionController extends DashboardController implements I
 
     @FXML
     void handleOnConnect() {
+        for (Map.Entry<Integer, CheckBox> entry : connChkBoxMap.entrySet()) {
+            if (entry.getValue().isSelected()) {
+                connChkBoxStatusMap.put(entry.getKey(), true);
+            } else {
+                connChkBoxStatusMap.put(entry.getKey(), false);
+            }
+        }
         extractInformationFromTextField();
         connectValidAddressesToTCP();
         stage.close();
@@ -384,19 +391,19 @@ public class CreateConnectionController extends DashboardController implements I
 
     @FXML
     void handleOnCheckBoxClick(ActionEvent event) {
-        CheckBox chkBox = ((CheckBox)(event.getSource()));
-        String chkBoxId = chkBox.getId();
-        int index;
-        if (chkBoxId.length() == 11) {
-            index = Character.getNumericValue(chkBoxId.charAt(chkBoxId.length() - 1));
-        } else {
-            index = Integer.parseInt(chkBoxId.substring(chkBoxId.length() - 2));
-        }
-        if (((CheckBox)(event.getSource())).isSelected()) {
-            connChkBoxStatusMap.put(index, true);
-        } else {
-            connChkBoxStatusMap.put(index, false);
-        }
+//        CheckBox chkBox = ((CheckBox)(event.getSource()));
+//        String chkBoxId = chkBox.getId();
+//        int index;
+//        if (chkBoxId.length() == 11) {
+//            index = Character.getNumericValue(chkBoxId.charAt(chkBoxId.length() - 1));
+//        } else {
+//            index = Integer.parseInt(chkBoxId.substring(chkBoxId.length() - 2));
+//        }
+//        if (((CheckBox)(event.getSource())).isSelected()) {
+//            connChkBoxStatusMap.put(index, true);
+//        } else {
+//            connChkBoxStatusMap.put(index, false);
+//        }
     }
 
     @FXML
@@ -611,6 +618,11 @@ public class CreateConnectionController extends DashboardController implements I
         for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
             pref.put("address" + entry.getKey(), entry.getValue().getText());
             pref.put("port" + entry.getKey(), connPortTextFieldMap.get(entry.getKey()).getText());
+            if (connChkBoxMap.get(entry.getKey()).isSelected()) {
+                connChkBoxStatusMap.put(entry.getKey(), true);
+            } else {
+                connChkBoxStatusMap.put(entry.getKey(), false);
+            }
         }
         FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
         VBox vbox = saveSettingLoader.load();
@@ -656,6 +668,7 @@ public class CreateConnectionController extends DashboardController implements I
                     connPortTextFieldMap.get(entry.getKey()).setText("");
                     connAddTextFieldMap.get(entry.getKey()).setText("");
                 }
+                connChkBoxStatusMap.put(entry.getKey(), true);
             }
         }
 //        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {

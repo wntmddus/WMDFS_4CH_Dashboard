@@ -511,24 +511,24 @@ public class SelectGraphController extends DashboardController implements Initia
                     boolean rpmAutoRanging = rpmAutoChkBoxMap.get(i).isSelected();
                     boolean vibAutoRanging = vibAutoChkBoxMap.get(i).isSelected();
                     if (!maxRpm.equals("")) {
-                        maxRpmValueMap.put(deviceIndex, Integer.parseInt(maxRpm));
+                        maxRpmValueMap.put(deviceIndex - 1, Integer.parseInt(maxRpm));
                     } else {
                         maxRpmMap.get(i).setText("");
-                        maxRpmValueMap.remove(deviceIndex);
+                        maxRpmValueMap.remove(deviceIndex - 1);
                     }
                     if (!maxVib.equals("")) {
-                        maxVibValueMap.put(deviceIndex, Integer.parseInt(maxVib));
+                        maxVibValueMap.put(deviceIndex - 1, Integer.parseInt(maxVib));
                     } else {
                         maxVibMap.get(i).setText("");
-                        maxVibValueMap.remove(deviceIndex);
+                        maxVibValueMap.remove(deviceIndex - 1);
                     }
                     if (rpmAutoRanging) {
                         maxRpmMap.get(i).setText("");
-                        maxRpmValueMap.remove(deviceIndex);
+                        maxRpmValueMap.remove(deviceIndex - 1);
                     }
                     if (vibAutoRanging) {
                         maxVibMap.get(i).setText("");
-                        maxVibValueMap.remove(deviceIndex);
+                        maxVibValueMap.remove(deviceIndex - 1);
                     }
                     chartConfigMap.get(deviceIndex - 1).set(0, rpm1);
                     chartConfigMap.get(deviceIndex - 1).set(1, rpm2);
@@ -546,17 +546,21 @@ public class SelectGraphController extends DashboardController implements Initia
                     chartAllocation.put(deviceIndex - 1, i);
                 }
             }
+            FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
+            VBox vbox = null;
+            try {
+                vbox = saveSettingLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Stage stage = new Stage();
+            stage.initOwner(mainStage);
+            Scene scene = new Scene(vbox);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("Setting Saved");
+            stage.setScene(scene);
+            stage.show();
         });
-
-        FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
-        VBox vbox = saveSettingLoader.load();
-        Stage stage = new Stage();
-        stage.initOwner(mainStage);
-        Scene scene = new Scene(vbox);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Setting Saved");
-        stage.setScene(scene);
-        stage.show();
     }
     @FXML
     void handleRpmAutoChkBox(ActionEvent event) {
