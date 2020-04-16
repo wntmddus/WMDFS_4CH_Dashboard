@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" onKeyPressed="#handleOnKeyPressed" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
+<VBox fx:id="vbox" onKeyPressed="#handleOnKeyPressed" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>

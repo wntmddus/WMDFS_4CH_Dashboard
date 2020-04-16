@@ -641,13 +641,13 @@ public class CreateConnectionController extends DashboardController implements I
             disconnectAllBtn.setDisable(true);
         });
         Thread.sleep(100);
-        clientConn.entrySet().forEach((entry) -> {
+        clientConn.forEach((key, value) -> {
             try {
                 Thread.sleep(100);
-                isDisconnecting.set(entry.getKey(), true);
-                outputList.get(entry.getKey()).writeBytes("STOP\0");
-                outputList.get(entry.getKey()).writeBytes("NO CARRIER\0");
-                clientConn.get(entry.getKey()).close();
+                isDisconnecting.set(key, true);
+                outputList.get(key).writeBytes("STOP\0");
+                outputList.get(key).writeBytes("NO CARRIER\0");
+                clientConn.get(key).close();
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }

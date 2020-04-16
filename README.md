@@ -1,6 +1,6 @@
-# SVDashboard
+# WMDFS_Dashboard
 
-SVDashboard application that monitors device analytics through TCP communication.
+WMDFS_Dashboard application that monitors device analytics through TCP server.
 
 Built with JavaFX
 
