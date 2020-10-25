@@ -17,6 +17,7 @@ import java.util.prefs.Preferences;
 public class SharedStorage {
     public final int MAX_DEVICE_NUMBER = 20;
     public final int MAX_GRAPH_NUMBER = 8;
+    public final static String BASE_URL = "https://ddms-api.samsunghrm.com/v2/ddms/service/";
     public static Stage mainStage;
     public static Preferences pref = Preferences.userNodeForPackage(SharedStorage.class);
     public static Map<Integer, Rectangle> boxes = new HashMap<>();

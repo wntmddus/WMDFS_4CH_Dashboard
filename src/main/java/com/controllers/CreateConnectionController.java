@@ -16,6 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.com.util.RestfulApi;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -469,6 +471,8 @@ public class CreateConnectionController extends DashboardController implements I
                                 String vibSetting = inputList.get(i).readLine();
                                 vibUnitMap.put(i, vibSetting.substring(12));
                                 maxRpmValueMap.put(i, 1200);
+                                // Post Init request
+
                                 if (vibUnitMap.get(i).contains("Disp.Peak  (mm)")) maxVibValueMap.put(i, 2);
                                 vibUnitDetailedMap.put(i, vibUnitMap.get(i).substring(vibUnitMap.get(i).indexOf('(') + 1, vibUnitMap.get(i).length() - 1));
                                 if (devState.equals("SD")) {

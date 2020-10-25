@@ -6,16 +6,68 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.java.com.controllers.DashboardController;
+import main.java.com.util.GetNetworkAddress;
 import main.java.com.util.SharedStorage;
+import main.java.com.util.RestfulApi;
 
-import static main.java.com.util.SharedStorage.clientConn;
-import static main.java.com.util.SharedStorage.outputList;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.config.Registry;
+import org.apache.http.config.RegistryBuilder;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.conn.ssl.*;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
+import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.http.ssl.SSLContexts;
+import org.omg.CORBA.NameValuePair;
+
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import static main.java.com.util.SharedStorage.*;
+import static org.apache.http.conn.ssl.SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
 
 public class Main extends Application {
 
     @Override
     public void init() throws Exception {
         super.init();
+        String macAddress = GetNetworkAddress.getAddress();
+        String requestBody1 = "{\n" +
+                "    \"extDeviceId\": \"Device1\"\n" +
+                "}";
+        String requestBody2 = "{\n" +
+                "    \"extDeviceId\": \"Device221\",\n" +
+                "    \"connectionMac\": \"" + macAddress + "\",\n" +
+                "    \"channelCount\": 6,\n" +
+                "    \"channelName\": [\"vib1\", \"Rpm1\", \"vib2\", \"Rpm2\", \"vib3\", \"Rpm3\"]\n" +
+                "}";
+        System.out.println(macAddress);
+        CloseableHttpClient httpClient = HttpClients.custom()
+                .setSSLContext(new SSLContextBuilder().loadTrustMaterial(null, (certificate, authType) -> true).build())
+                .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+                .setDefaultCookieStore(new BasicCookieStore())
+                .build();
+        HttpPost httppost = new HttpPost(BASE_URL + "extInit");
+        httppost.addHeader("Authorization", "Basic cnUyZm41aDluMzpqdm9hWmFidnVKQUUyNDA0ZXdnUG5zdnpYODVOS2ZqZA==");
+        httppost.addHeader("id", "ru2fn5h9n3");
+        httppost.addHeader("secret", "jvoaZabvuJAE2404ewgPnsvzX85NKfjd");
+
+        httpClient.execute(httppost);
+//        System.out.println(RestfulApi.post("extInit", requestBody1));
+//        RestfulApi.post("extRegistration", requestBody2);
         System.out.println("Inside init() method! Perform necessary initializations here.");
     }
 
