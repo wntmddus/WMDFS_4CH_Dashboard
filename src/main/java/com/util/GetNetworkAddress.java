@@ -30,7 +30,7 @@ public class GetNetworkAddress {
             }
         }
 
-        return macAddressBuilder.toString();
+        return macAddressBuilder.toString().replaceAll(":", "");
     }
 
 }

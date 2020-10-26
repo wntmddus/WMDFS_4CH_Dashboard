@@ -28,6 +28,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.SSLContexts;
+import org.json.JSONObject;
 import org.omg.CORBA.NameValuePair;
 
 
@@ -45,29 +46,18 @@ public class Main extends Application {
     public void init() throws Exception {
         super.init();
         String macAddress = GetNetworkAddress.getAddress();
-        String requestBody1 = "{\n" +
-                "    \"extDeviceId\": \"Device1\"\n" +
-                "}";
-        String requestBody2 = "{\n" +
-                "    \"extDeviceId\": \"Device221\",\n" +
-                "    \"connectionMac\": \"" + macAddress + "\",\n" +
-                "    \"channelCount\": 6,\n" +
-                "    \"channelName\": [\"vib1\", \"Rpm1\", \"vib2\", \"Rpm2\", \"vib3\", \"Rpm3\"]\n" +
-                "}";
         System.out.println(macAddress);
-        CloseableHttpClient httpClient = HttpClients.custom()
-                .setSSLContext(new SSLContextBuilder().loadTrustMaterial(null, (certificate, authType) -> true).build())
-                .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
-                .setDefaultCookieStore(new BasicCookieStore())
-                .build();
-        HttpPost httppost = new HttpPost(BASE_URL + "extInit");
-        httppost.addHeader("Authorization", "Basic cnUyZm41aDluMzpqdm9hWmFidnVKQUUyNDA0ZXdnUG5zdnpYODVOS2ZqZA==");
-        httppost.addHeader("id", "ru2fn5h9n3");
-        httppost.addHeader("secret", "jvoaZabvuJAE2404ewgPnsvzX85NKfjd");
-
-        httpClient.execute(httppost);
+//        JSONObject requestBody1 = new JSONObject("{\n" +
+//                "    \"extDeviceId\": \"Device1\"\n" +
+//                "}");
+//        JSONObject requestBody2 = new JSONObject("{\n" +
+//                "    \"extDeviceId\": \"Device221\",\n" +
+//                "    \"connectionMac\": \"" + macAddress + "\",\n" +
+//                "    \"channelCount\": 6,\n" +
+//                "    \"channelName\": [\"vib1\", \"Rpm1\", \"vib2\", \"Rpm2\", \"vib3\", \"Rpm3\"]\n" +
+//                "}");
 //        System.out.println(RestfulApi.post("extInit", requestBody1));
-//        RestfulApi.post("extRegistration", requestBody2);
+
         System.out.println("Inside init() method! Perform necessary initializations here.");
     }
 

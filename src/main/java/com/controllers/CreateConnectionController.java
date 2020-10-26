@@ -16,7 +16,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.com.util.GetNetworkAddress;
 import main.java.com.util.RestfulApi;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.net.*;
@@ -471,8 +474,21 @@ public class CreateConnectionController extends DashboardController implements I
                                 String vibSetting = inputList.get(i).readLine();
                                 vibUnitMap.put(i, vibSetting.substring(12));
                                 maxRpmValueMap.put(i, 1200);
-                                // Post Init request
-
+//                                // Post Init request
+//                                String macAddress = GetNetworkAddress.getAddress();
+//                                Platform.runLater(() -> {
+//                                    JSONObject requestBody1 = new JSONObject("{\n" +
+//                                            "    \"extDeviceId\": \"" + devName + "\"\n" +
+//                                            "}");
+//                                    JSONObject requestBody2 = new JSONObject("{\n" +
+//                                            "    \"extDeviceId\": \"" + devName + "\",\n" +
+//                                            "    \"connectionMac\": \"" + macAddress + "\",\n" +
+//                                            "    \"channelCount\": 6,\n" +
+//                                            "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
+//                                            "}");
+//                                    RestfulApi.post("extInit", requestBody1);
+//                                    RestfulApi.post("extRegistration", requestBody2);
+//                                });
                                 if (vibUnitMap.get(i).contains("Disp.Peak  (mm)")) maxVibValueMap.put(i, 2);
                                 vibUnitDetailedMap.put(i, vibUnitMap.get(i).substring(vibUnitMap.get(i).indexOf('(') + 1, vibUnitMap.get(i).length() - 1));
                                 if (devState.equals("SD")) {
@@ -539,8 +555,24 @@ public class CreateConnectionController extends DashboardController implements I
                                     List<String> arr = Arrays.asList(line.split("\\s+"));
                                     if (deviceData.get(i).size() > 3600) deviceData.get(i).remove(0);
                                     deviceData.get(i).add(arr);
-                                    int finalCounter = counter;
 
+                                    if (deviceData.get(i).size() % 5 == 0) {
+                                        Platform.runLater(() -> {
+                                            JSONObject body = new JSONObject("{\n" +
+                                                    "    \"extDeviceId\": \"Device221\",\n" +
+//                                                    "    \"connectionMac\": \"" + macAddress + "\",\n" +
+                                                    "    \"datetime\": \"" + getCurrentDateTime("yyyy-MM-dd HH:mm:ss") + "\",\n" +
+                                                    "}");
+//                                            JSONArray rawData = new JSONArray();
+//                                            rawData.put(new JSONObject("{\n" +
+//                                                    "            \"sensorData\": [" + deviceData.get(i).get(deviceData.get(i).size() - 1).get(0) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(1) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(2) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(3) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(4) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(5) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(6) + "]\n" +
+//                                                    "        }"));
+//                                            body.put("rawData", rawData);
+
+                                            RestfulApi.post("extLogs", body);
+                                        });
+                                    }
+                                    int finalCounter = counter;
                                     if (arr.size() == 7) {
                                         Platform.runLater(() -> {
                                             if(chartAllocation.containsKey(i)) {
