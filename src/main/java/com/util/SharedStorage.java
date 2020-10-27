@@ -47,6 +47,7 @@ public class SharedStorage {
     public static Map<Integer, CheckBox> vibAutoChkBoxMap = new HashMap<>();
     public static Map<Integer, Integer> maxRpmValueMap = new HashMap<>();
     public static Map<Integer, Integer> maxVibValueMap = new HashMap<>();
+    public static Map<Integer, Integer> totalCountMap = new HashMap<>();
     public static Integer whichGraphSelected = null;
     public static Map<Integer, Integer> currentGraphKeyIndex = new HashMap<Integer, Integer>(){
         {

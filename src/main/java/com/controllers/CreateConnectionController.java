@@ -467,28 +467,16 @@ public class CreateConnectionController extends DashboardController implements I
                                 inputList.put(i, new DataInputStream(sock.getInputStream()));
                                 deviceData.put(i, new ArrayList<>());
                                 outputList.get(i).writeBytes("GET DEVNAME\0");
-                                String devName = inputList.get(i).  readLine();
+                                String devName = inputList.get(i).readLine();
                                 outputList.get(i).writeBytes("GET STATE\0");
                                 String devState = inputList.get(i).readLine();
                                 outputList.get(i).writeBytes("GET SETTING\0");
                                 String vibSetting = inputList.get(i).readLine();
                                 vibUnitMap.put(i, vibSetting.substring(12));
                                 maxRpmValueMap.put(i, 1200);
+                                totalCountMap.put(i, 0);
 //                                // Post Init request
-//                                String macAddress = GetNetworkAddress.getAddress();
-//                                Platform.runLater(() -> {
-//                                    JSONObject requestBody1 = new JSONObject("{\n" +
-//                                            "    \"extDeviceId\": \"" + devName + "\"\n" +
-//                                            "}");
-//                                    JSONObject requestBody2 = new JSONObject("{\n" +
-//                                            "    \"extDeviceId\": \"" + devName + "\",\n" +
-//                                            "    \"connectionMac\": \"" + macAddress + "\",\n" +
-//                                            "    \"channelCount\": 6,\n" +
-//                                            "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
-//                                            "}");
-//                                    RestfulApi.post("extInit", requestBody1);
-//                                    RestfulApi.post("extRegistration", requestBody2);
-//                                });
+                                String macAddress = GetNetworkAddress.getAddress();
                                 if (vibUnitMap.get(i).contains("Disp.Peak  (mm)")) maxVibValueMap.put(i, 2);
                                 vibUnitDetailedMap.put(i, vibUnitMap.get(i).substring(vibUnitMap.get(i).indexOf('(') + 1, vibUnitMap.get(i).length() - 1));
                                 if (devState.equals("SD")) {
@@ -543,34 +531,26 @@ public class CreateConnectionController extends DashboardController implements I
                                         line = inputList.get(i).readLine();
                                     } catch (IOException e) {
                                         System.err.println("Timed out waiting for the socket in input ReadLine" + i);
-                                        line = reconnectOnSocketFailure(i);
+                                        line = reconnectOnSocketFailure(i, devName, macAddress);
                                     }
+
+                                    List<String> arr = Arrays.asList(line.split("\\s+"));
+                                    if (deviceData.get(i).size() > 3600) deviceData.get(i).remove(0);
+                                    deviceData.get(i).add(arr);
+                                    totalCountMap.put(i, totalCountMap.get(i) + 1);
                                     if (fileWriters.containsKey(i) && recCheckboxArray.get(i).isSelected()) {
                                         if (line.contains(":24:00:00")) {
                                             createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
                                         }
                                         fileWriters.get(i).write(line + "\r\n");
                                         fileWriters.get(i).flush();
-                                    }
-                                    List<String> arr = Arrays.asList(line.split("\\s+"));
-                                    if (deviceData.get(i).size() > 3600) deviceData.get(i).remove(0);
-                                    deviceData.get(i).add(arr);
-
-                                    if (deviceData.get(i).size() % 5 == 0) {
-                                        Platform.runLater(() -> {
-                                            JSONObject body = new JSONObject("{\n" +
-                                                    "    \"extDeviceId\": \"Device221\",\n" +
-//                                                    "    \"connectionMac\": \"" + macAddress + "\",\n" +
-                                                    "    \"datetime\": \"" + getCurrentDateTime("yyyy-MM-dd HH:mm:ss") + "\",\n" +
-                                                    "}");
-//                                            JSONArray rawData = new JSONArray();
-//                                            rawData.put(new JSONObject("{\n" +
-//                                                    "            \"sensorData\": [" + deviceData.get(i).get(deviceData.get(i).size() - 1).get(0) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(1) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(2) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(3) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(4) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(5) + ", " + deviceData.get(i).get(deviceData.get(i).size() - 6).get(6) + "]\n" +
-//                                                    "        }"));
-//                                            body.put("rawData", rawData);
-
-                                            RestfulApi.post("extLogs", body);
-                                        });
+                                        if (totalCountMap.get(i) != 0 && totalCountMap.get(i) % 5 == 0) {
+                                            Platform.runLater(() -> {
+                                                JSONObject body = buildSensorDataObject(i, devName, macAddress);
+                                                System.out.println(body);
+                                                RestfulApi.post("extLogs", body);
+                                            });
+                                        }
                                     }
                                     int finalCounter = counter;
                                     if (arr.size() == 7) {
@@ -590,6 +570,7 @@ public class CreateConnectionController extends DashboardController implements I
                                         chartDataMap.get(i).remove("vib2");
                                         chartDataMap.get(i).remove("vib3");
                                         deviceData.get(i).clear();
+                                        totalCountMap.put(i, 0);
                                         Platform.runLater(() -> {
                                             if (chartAllocation.containsKey(i)) {
                                                 lineRightCharts.get(chartAllocation.get(i)).getData().clear();
@@ -597,6 +578,17 @@ public class CreateConnectionController extends DashboardController implements I
                                             }
                                             initializeChartData(i);
                                         });
+                                        JSONObject requestBody1 = new JSONObject("{\n" +
+                                                "    \"extDeviceId\": \"" + devName + "\"\n" +
+                                                "}");
+                                        JSONObject requestBody2 = new JSONObject("{\n" +
+                                                "    \"extDeviceId\": \"" + devName + "\",\n" +
+                                                "    \"connectionMac\": \"" + macAddress + "\",\n" +
+                                                "    \"channelCount\": 7,\n" +
+                                                "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
+                                                "}");
+                                        RestfulApi.post("extInit", requestBody1);
+                                        RestfulApi.post("extRegistration", requestBody2);
                                         outputList.get(i).writeBytes("STOP\0");
                                         TimeUnit.MILLISECONDS.sleep(300);
                                         outputList.get(i).writeBytes("REC\0");
@@ -648,6 +640,79 @@ public class CreateConnectionController extends DashboardController implements I
                 backgroundThread.start();
             }
         });
+    }
+
+    private JSONObject buildSensorDataObject(int i, String devName, String macAddress) {
+        JSONObject body = new JSONObject("{\n" +
+                "    \"extDeviceId\": \"" + devName + "\",\n" +
+                "    \"connectionMac\": \"" + macAddress + "\",\n" +
+                "    \"datetime\": \"" + getCurrentDateTime("yyyy-MM-dd HH:mm:ss") + "\",\n" +
+                "}");
+        JSONArray rawData = new JSONArray();
+
+        JSONObject sensorObject2 = new JSONObject();
+        JSONArray sensorArray2 = new JSONArray();
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(0).replaceAll(":", ""));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(1));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(2));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(3));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(4));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(5));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(6));
+        sensorObject2.put("sensorData", sensorArray2);
+
+        JSONObject sensorObject3 = new JSONObject();
+        JSONArray sensorArray3 = new JSONArray();
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(0).replaceAll(":", ""));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(1));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(2));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(3));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(4));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(5));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(6));
+        sensorObject3.put("sensorData", sensorArray3);
+
+        JSONObject sensorObject4 = new JSONObject();
+        JSONArray sensorArray4 = new JSONArray();
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(0).replaceAll(":", ""));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(1));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(2));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(3));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(4));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(5));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(6));
+        sensorObject4.put("sensorData", sensorArray4);
+
+        JSONObject sensorObject5 = new JSONObject();
+        JSONArray sensorArray5 = new JSONArray();
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(0).replaceAll(":", ""));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(1));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(2));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(3));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(4));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(5));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(6));
+        sensorObject5.put("sensorData", sensorArray5);
+
+        JSONObject sensorObject6 = new JSONObject();
+        JSONArray sensorArray6 = new JSONArray();
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(0).replaceAll(":", ""));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(1));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(2));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(3));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(4));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(5));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(6));
+        sensorObject6.put("sensorData", sensorArray6);
+
+        rawData.put(sensorObject2);
+        rawData.put(sensorObject3);
+        rawData.put(sensorObject4);
+        rawData.put(sensorObject5);
+        rawData.put(sensorObject6);
+
+        body.put("rawData", rawData);
+        return body;
     }
     @FXML
     private void handleOnSave() throws IOException {
@@ -739,6 +804,7 @@ public class CreateConnectionController extends DashboardController implements I
         vibUnitDetailedMap.remove(i);
         chartConfigMap.remove(i);
         fileWriters.remove(i);
+        totalCountMap.put(i, 0);
     }
 
     private void setGraphConfiguration(int index) {
@@ -766,7 +832,7 @@ public class CreateConnectionController extends DashboardController implements I
         }
     }
 
-    private String reconnectOnSocketFailure(int i) throws IOException, InterruptedException {
+    private String reconnectOnSocketFailure(int i, String devName, String macAddress) throws IOException, InterruptedException {
         String line = "";
         int timeCounter = 0;
         while (line.equals("") && timeCounter < 20) {
@@ -813,7 +879,20 @@ public class CreateConnectionController extends DashboardController implements I
                     initializeChartData(i);
                 });
             }
-            if (!line.equals("")) return line;
+            if (!line.equals("")) {
+                JSONObject requestBody1 = new JSONObject("{\n" +
+                    "    \"extDeviceId\": \"" + devName + "\"\n" +
+                    "}");
+                JSONObject requestBody2 = new JSONObject("{\n" +
+                        "    \"extDeviceId\": \"" + devName + "\",\n" +
+                        "    \"connectionMac\": \"" + macAddress + "\",\n" +
+                        "    \"channelCount\": 6,\n" +
+                        "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
+                        "}");
+                RestfulApi.post("extInit", requestBody1);
+                RestfulApi.post("extRegistration", requestBody2);
+                return line;
+            }
             timeCounter++;
         }
         throw new IOException("Device is disconnected After 10 minutes of Retry");

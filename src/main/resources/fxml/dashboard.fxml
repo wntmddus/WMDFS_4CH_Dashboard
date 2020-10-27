@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" onKeyPressed="#handleOnKeyPressed" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
+<VBox fx:id="vbox" onKeyPressed="#handleOnKeyPressed" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -34,10 +34,19 @@
         </MenuBar>
         <Pane prefHeight="42.0" prefWidth="1920.0">
             <children>
-                <Button fx:id="devConfigBtn" layoutX="1585.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleOnClickDevConfigBtn" text="Dev Config" />
-                <Button fx:id="graphBtn" layoutX="1525.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleOnClickGraphBtn" text="Graph" />
-                <Button fx:id="recordAllBtn" layoutX="1718.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleOnClickRecordAllBtn" prefHeight="27.0" prefWidth="150.0" text="Record All" />
-                <ImageView fx:id="recordDot" fitHeight="17.0" fitWidth="17.0" layoutX="1734.0" layoutY="13.0">
+                <Button fx:id="devConfigBtn" layoutX="1587.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleOnClickDevConfigBtn" prefHeight="1.0" prefWidth="87.0" text="Dev Config">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+                <Button fx:id="graphBtn" layoutX="1493.0" layoutY="10.0" maxHeight="23.0" maxWidth="57.0" mnemonicParsing="false" onAction="#handleOnClickGraphBtn" prefHeight="23.0" prefWidth="57.0" text="Graph">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+                <Button fx:id="recordAllBtn" layoutX="1718.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleOnClickRecordAllBtn" prefHeight="1.0" prefWidth="150.0" text="Record All">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+                <ImageView fx:id="recordDot" fitHeight="15.0" fitWidth="17.0" layoutX="1734.0" layoutY="14.0">
                    <image>
                       <Image url="@../image/recording-dot-png.png" />
                    </image>

@@ -13,6 +13,7 @@ public class RestfulApi {
     public static Response post(String path, JSONObject requestBody) {
         RestAssured.baseURI = "https://ddms-api.samsunghrm.com/v2/ddms/service/";
         RestAssured.basePath = path;
+        System.out.println(RestAssured.baseURI + RestAssured.basePath);
         RequestSpecification request = RestAssured.given().relaxedHTTPSValidation()
                 .contentType("application/json").header("Authorization", "Basic cnUyZm41aDluMzpqdm9hWmFidnVKQUUyNDA0ZXdnUG5zdnpYODVOS2ZqZA==").header("id", "ru2fn5h9n3").header("secret", "jvoaZabvuJAE2404ewgPnsvzX85NKfjd");
         request.body(requestBody.toString());
