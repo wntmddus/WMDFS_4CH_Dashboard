@@ -594,18 +594,21 @@ public class CreateConnectionController extends DashboardController implements I
                                     List<String> arr = Arrays.asList(line.split("\\s+"));
                                     if (deviceData.get(i).size() > 3600) deviceData.get(i).remove(0);
                                     deviceData.get(i).add(arr);
-                                    totalCountMap.put(i, totalCountMap.get(i) + 1);
                                     if (fileWriters.containsKey(i) && recCheckboxArray.get(i).isSelected()) {
+                                        totalCountMap.put(i, totalCountMap.get(i) + 1);
                                         if (line.contains(":24:00:00")) {
                                             createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
                                         }
                                         fileWriters.get(i).write(line + "\r\n");
                                         fileWriters.get(i).flush();
                                         if (totalCountMap.get(i) != 0 && totalCountMap.get(i) % 5 == 0) {
-                                            Platform.runLater(() -> {
+                                            Runnable postCallThread = () -> {
                                                 JSONObject body = buildSensorDataObject(i, devName, macAddress);
                                                 RestfulApi.post("extLogs", body);
-                                            });
+                                            };
+                                            Thread backgroundThread = new Thread(postCallThread);
+                                            backgroundThread.setDaemon(true);
+                                            backgroundThread.start();
                                         }
                                     }
                                     int finalCounter = counter;
@@ -634,21 +637,27 @@ public class CreateConnectionController extends DashboardController implements I
                                             }
                                             initializeChartData(i);
                                         });
-                                        JSONObject requestBody1 = new JSONObject("{\n" +
-                                                "    \"extDeviceId\": \"" + devName + "\"\n" +
-                                                "}");
-                                        JSONObject requestBody2 = new JSONObject("{\n" +
-                                                "    \"extDeviceId\": \"" + devName + "\",\n" +
-                                                "    \"connectionMac\": \"" + macAddress + "\",\n" +
-                                                "    \"channelCount\": 7,\n" +
-                                                "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
-                                                "}");
-                                        RestfulApi.post("extInit", requestBody1);
-                                        RestfulApi.post("extRegistration", requestBody2);
+                                        Runnable postCallThread = () -> {
+                                            JSONObject requestBody1 = new JSONObject("{\n" +
+                                                    "    \"extDeviceId\": \"" + devName + "\"\n" +
+                                                    "}");
+                                            JSONObject requestBody2 = new JSONObject("{\n" +
+                                                    "    \"extDeviceId\": \"" + devName + "\",\n" +
+                                                    "    \"connectionMac\": \"" + macAddress + "\",\n" +
+                                                    "    \"channelCount\": 7,\n" +
+                                                    "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
+                                                    "}");
+                                            RestfulApi.post("extInit", requestBody1);
+                                            RestfulApi.post("extRegistration", requestBody2);
+                                        };
+                                        Thread backgroundThread = new Thread(postCallThread);
+                                        backgroundThread.setDaemon(true);
+                                        backgroundThread.start();
+                                        backgroundThread.join();
                                         outputList.get(i).writeBytes("STOP\0");
-                                        TimeUnit.MILLISECONDS.sleep(300);
+                                        TimeUnit.MILLISECONDS.sleep(2000);
                                         outputList.get(i).writeBytes("REC\0");
-                                        TimeUnit.MILLISECONDS.sleep(300);
+                                        TimeUnit.MILLISECONDS.sleep(2000);
                                         isRecordingAll.put(i, false);
                                     } else {
                                         outputList.get(i).writeBytes("1\0");
@@ -823,18 +832,6 @@ public class CreateConnectionController extends DashboardController implements I
                 connChkBoxStatusMap.put(entry.getKey(), true);
             }
         }
-//        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
-//            pref.remove("address" + entry.getKey());
-//            pref.remove("port" + entry.getKey());
-//            if (!clientConn.containsKey(entry.getKey())) {
-//                addresses.remove(entry.getKey());
-//                ports.remove(entry.getKey());
-//                connPortTextFieldMap.get(entry.getKey()).setText("");
-//                connAddTextFieldMap.get(entry.getKey()).setText("");
-//            }
-//            pref.remove("chartConfig" + entry.getKey());
-//            chartConfigMap.remove(entry.getKey());
-//        }
         FXMLLoader resetSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingreset.fxml"));
         VBox vbox = resetSettingLoader.load();
         Stage stage = new Stage();
@@ -932,17 +929,23 @@ public class CreateConnectionController extends DashboardController implements I
                 });
             }
             if (!line.equals("")) {
-                JSONObject requestBody1 = new JSONObject("{\n" +
-                    "    \"extDeviceId\": \"" + devName + "\"\n" +
-                    "}");
-                JSONObject requestBody2 = new JSONObject("{\n" +
-                        "    \"extDeviceId\": \"" + devName + "\",\n" +
-                        "    \"connectionMac\": \"" + macAddress + "\",\n" +
-                        "    \"channelCount\": 6,\n" +
-                        "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
-                        "}");
-                RestfulApi.post("extInit", requestBody1);
-                RestfulApi.post("extRegistration", requestBody2);
+                Runnable postCallThread = () -> {
+                    JSONObject requestBody1 = new JSONObject("{\n" +
+                            "    \"extDeviceId\": \"" + devName + "\"\n" +
+                            "}");
+                    JSONObject requestBody2 = new JSONObject("{\n" +
+                            "    \"extDeviceId\": \"" + devName + "\",\n" +
+                            "    \"connectionMac\": \"" + macAddress + "\",\n" +
+                            "    \"channelCount\": 7,\n" +
+                            "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
+                            "}");
+                    RestfulApi.post("extInit", requestBody1);
+                    RestfulApi.post("extRegistration", requestBody2);
+                };
+                Thread backgroundThread = new Thread(postCallThread);
+                backgroundThread.setDaemon(true);
+                backgroundThread.start();
+                backgroundThread.join();
                 return line;
             }
             timeCounter++;
