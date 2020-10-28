@@ -15,7 +15,7 @@
                   <Image url="@../image/sv_logo.jpg" />
                </image>
             </ImageView>
-            <Label layoutX="107.0" layoutY="46.0" text="WMDFS_Dashboard, Version 1.0t" />
+            <Label layoutX="107.0" layoutY="46.0" text="WMDFS_Dashboard, Version 2.0" />
             <Label layoutX="107.0" layoutY="77.0" text="Copyright (C) 2020" />
          </children>
       </Pane>

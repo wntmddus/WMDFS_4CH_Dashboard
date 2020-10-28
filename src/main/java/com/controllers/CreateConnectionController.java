@@ -235,8 +235,6 @@ public class CreateConnectionController extends DashboardController implements I
     CheckBox connChkBox18;
     @FXML
     CheckBox connChkBox19;
-    @FXML
-    CheckBox connChkBox20;
 
 
 
@@ -458,7 +456,8 @@ public class CreateConnectionController extends DashboardController implements I
                     try {
                         // create and store Socket
                         Socket sock = new Socket();
-                        sock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 5000);
+                        System.out.println(BASE_IP_ADDRESS + addresses.get(i));
+                        sock.connect(new InetSocketAddress(BASE_IP_ADDRESS + addresses.get(i), Integer.parseInt(ports.get(i))), 5000);
                         sock.setSoTimeout(5000);
                         if (sock.isConnected()) {
                             try {
@@ -475,7 +474,7 @@ public class CreateConnectionController extends DashboardController implements I
                                 vibUnitMap.put(i, vibSetting.substring(12));
                                 maxRpmValueMap.put(i, 1200);
                                 totalCountMap.put(i, 0);
-//                                // Post Init request
+                                // Post Init request
                                 String macAddress = GetNetworkAddress.getAddress();
                                 if (vibUnitMap.get(i).contains("Disp.Peak  (mm)")) maxVibValueMap.put(i, 2);
                                 vibUnitDetailedMap.put(i, vibUnitMap.get(i).substring(vibUnitMap.get(i).indexOf('(') + 1, vibUnitMap.get(i).length() - 1));
@@ -495,7 +494,7 @@ public class CreateConnectionController extends DashboardController implements I
                                 TimeUnit.MILLISECONDS.sleep(100);
                                 outputList.get(i).writeBytes("REC\0");
                                 Platform.runLater(() -> {
-                                    addressLabels.get(i).setText(addresses.get(i) + ":" + ports.get(i));
+                                    addressLabels.get(i).setText(BASE_IP_ADDRESS + addresses.get(i) + ":" + ports.get(i));
                                     disconnectBtnMap.get(i).setDisable(false);
                                     deviceConnNumMap.get(i).setTextFill(Color.BLACK);
                                     recCheckboxArray.get(i).setTextFill(Color.RED);
@@ -844,7 +843,7 @@ public class CreateConnectionController extends DashboardController implements I
             Thread.sleep(10000);
             Socket newSock = new Socket();
             try {
-                newSock.connect(new InetSocketAddress(addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
+                newSock.connect(new InetSocketAddress(BASE_IP_ADDRESS + addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
                 newSock.setSoTimeout(5000);
             } catch (IOException e) {
                 line = "";

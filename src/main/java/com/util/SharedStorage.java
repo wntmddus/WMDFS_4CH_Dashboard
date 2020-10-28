@@ -18,6 +18,11 @@ public class SharedStorage {
     public final int MAX_DEVICE_NUMBER = 20;
     public final int MAX_GRAPH_NUMBER = 8;
     public final static String BASE_URL = "https://ddms-api.samsunghrm.com/v2/ddms/service/";
+    public final static String BASE_IP_ADDRESS = "192.168.0.";
+    public final static String APPLICATION_JSON = "application/json";
+    public final static String AUTHORIZATION = "Authorization";
+    public final static String ID = "id";
+    public final static String SECRET = "secret";
     public static Stage mainStage;
     public static Preferences pref = Preferences.userNodeForPackage(SharedStorage.class);
     public static Map<Integer, Rectangle> boxes = new HashMap<>();
