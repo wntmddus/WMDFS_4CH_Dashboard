@@ -11,18 +11,23 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SelectGraphController extends DashboardController implements Initializable {
 
@@ -462,9 +467,9 @@ public class SelectGraphController extends DashboardController implements Initia
     }
     @FXML
     private void handleOnSave() throws IOException {
+        StringBuilder configString = new StringBuilder();
         for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
             pref.put("address" + entry.getKey(), entry.getValue());
-            pref.put("port" + entry.getKey(), ports.get(entry.getKey()));
             StringBuilder config = new StringBuilder();
             for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
                 if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
@@ -542,25 +547,45 @@ public class SelectGraphController extends DashboardController implements Initia
                         else config.append("0");
                     }
                     pref.put("chartConfig" + (deviceIndex - 1), config.toString());
+                    configString.append((deviceIndex - 1) + config.toString() + "\n");
                     modifyGraphWithGivenConfig(deviceIndex - 1, i);
                     chartAllocation.put(deviceIndex - 1, i);
                 }
             }
-            FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
-            VBox vbox = null;
-            try {
-                vbox = saveSettingLoader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Setting");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
+            //Show save file dialog
+            File file = fileChooser.showSaveDialog(stage);
+
+            if (file != null) {
+                saveTextToFile(configString.toString(), file);
+                FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
+                VBox vbox = null;
+                try {
+                    vbox = saveSettingLoader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage stage = new Stage();
+                stage.initOwner(mainStage);
+                Scene scene = new Scene(vbox);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.setTitle("Setting Saved");
+                stage.setScene(scene);
+                stage.show();
             }
-            Stage stage = new Stage();
-            stage.initOwner(mainStage);
-            Scene scene = new Scene(vbox);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.setTitle("Setting Saved");
-            stage.setScene(scene);
-            stage.show();
         });
+    }
+    private void saveTextToFile(String content, File file) {
+        try {
+            PrintWriter writer;
+            writer = new PrintWriter(file);
+            writer.println(content);
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();        }
     }
     @FXML
     void handleRpmAutoChkBox(ActionEvent event) {

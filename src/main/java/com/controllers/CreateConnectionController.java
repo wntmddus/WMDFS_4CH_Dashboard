@@ -30,6 +30,46 @@ import java.util.concurrent.atomic.AtomicReference;
 public class CreateConnectionController extends DashboardController implements Initializable {
 
     @FXML
+    Label fixedAddress0;
+    @FXML
+    Label fixedAddress1;
+    @FXML
+    Label fixedAddress2;
+    @FXML
+    Label fixedAddress3;
+    @FXML
+    Label fixedAddress4;
+    @FXML
+    Label fixedAddress5;
+    @FXML
+    Label fixedAddress6;
+    @FXML
+    Label fixedAddress7;
+    @FXML
+    Label fixedAddress8;
+    @FXML
+    Label fixedAddress9;
+    @FXML
+    Label fixedAddress10;
+    @FXML
+    Label fixedAddress11;
+    @FXML
+    Label fixedAddress12;
+    @FXML
+    Label fixedAddress13;
+    @FXML
+    Label fixedAddress14;
+    @FXML
+    Label fixedAddress15;
+    @FXML
+    Label fixedAddress16;
+    @FXML
+    Label fixedAddress17;
+    @FXML
+    Label fixedAddress18;
+    @FXML
+    Label fixedAddress19;
+    @FXML
     Button connectionCloseBtn;
     @FXML
     Button connectBtn;
@@ -242,6 +282,26 @@ public class CreateConnectionController extends DashboardController implements I
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        fixedAddressesMap.put(0, fixedAddress0);
+        fixedAddressesMap.put(1, fixedAddress1);
+        fixedAddressesMap.put(2, fixedAddress2);
+        fixedAddressesMap.put(3, fixedAddress3);
+        fixedAddressesMap.put(4, fixedAddress4);
+        fixedAddressesMap.put(5, fixedAddress5);
+        fixedAddressesMap.put(6, fixedAddress6);
+        fixedAddressesMap.put(7, fixedAddress7);
+        fixedAddressesMap.put(8, fixedAddress8);
+        fixedAddressesMap.put(9, fixedAddress9);
+        fixedAddressesMap.put(10, fixedAddress10);
+        fixedAddressesMap.put(11, fixedAddress11);
+        fixedAddressesMap.put(12, fixedAddress12);
+        fixedAddressesMap.put(13, fixedAddress13);
+        fixedAddressesMap.put(14, fixedAddress14);
+        fixedAddressesMap.put(15, fixedAddress15);
+        fixedAddressesMap.put(16, fixedAddress16);
+        fixedAddressesMap.put(17, fixedAddress17);
+        fixedAddressesMap.put(18, fixedAddress18);
+        fixedAddressesMap.put(19, fixedAddress19);
         connAddTextFieldMap.put(0, inputAdd0);
         connAddTextFieldMap.put(1, inputAdd1);
         connAddTextFieldMap.put(2, inputAdd2);
@@ -353,14 +413,12 @@ public class CreateConnectionController extends DashboardController implements I
                 }
             }
             for(int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+                fixedAddressesMap.get(i).setText(BASE_IP_ADDRESS);
                 connChkBoxMap.get(i).setSelected(connChkBoxStatusMap.get(i));
-                if (addresses.containsKey(i) && ports.containsKey(i)) {
-                    connAddTextFieldMap.get(i).setText(addresses.get(i));
-                    connPortTextFieldMap.get(i).setText(ports.get(i));
-                }
-                if (!pref.get("address" + i, "root").equals("root") && !pref.get("port" + i, "root").equals("root")) {
+                if (addresses.containsKey(i)) connAddTextFieldMap.get(i).setText(addresses.get(i));
+                if (ports.containsKey(i)) connPortTextFieldMap.get(i).setText(ports.get(i));
+                if (!pref.get("address" + i, "root").equals("root")) {
                     connAddTextFieldMap.get(i).setText(pref.get("address" + i, "root"));
-                    connPortTextFieldMap.get(i).setText(pref.get("port" + i, "root"));
                 }
             }
         });
@@ -456,8 +514,8 @@ public class CreateConnectionController extends DashboardController implements I
                     try {
                         // create and store Socket
                         Socket sock = new Socket();
-                        System.out.println(BASE_IP_ADDRESS + addresses.get(i));
-                        sock.connect(new InetSocketAddress(BASE_IP_ADDRESS + addresses.get(i), Integer.parseInt(ports.get(i))), 5000);
+                        String address = BASE_IP_ADDRESS + addresses.get(i);
+                        sock.connect(new InetSocketAddress(address, Integer.parseInt(ports.get(i))), 5000);
                         sock.setSoTimeout(5000);
                         if (sock.isConnected()) {
                             try {
@@ -546,7 +604,6 @@ public class CreateConnectionController extends DashboardController implements I
                                         if (totalCountMap.get(i) != 0 && totalCountMap.get(i) % 5 == 0) {
                                             Platform.runLater(() -> {
                                                 JSONObject body = buildSensorDataObject(i, devName, macAddress);
-                                                System.out.println(body);
                                                 RestfulApi.post("extLogs", body);
                                             });
                                         }
@@ -623,7 +680,6 @@ public class CreateConnectionController extends DashboardController implements I
                     } catch (IOException e) {
                         System.err.println("Timed out waiting for the socket on connection");
                         addresses.remove(i);
-                        ports.remove(i);
                         Platform.runLater(() -> {
                             boxes.get(i).setFill(Color.GREY);
                             boxes.get(i).setOpacity(0.3);
@@ -717,7 +773,6 @@ public class CreateConnectionController extends DashboardController implements I
     private void handleOnSave() throws IOException {
         for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
             pref.put("address" + entry.getKey(), entry.getValue().getText());
-            pref.put("port" + entry.getKey(), connPortTextFieldMap.get(entry.getKey()).getText());
             if (connChkBoxMap.get(entry.getKey()).isSelected()) {
                 connChkBoxStatusMap.put(entry.getKey(), true);
             } else {
@@ -759,13 +814,10 @@ public class CreateConnectionController extends DashboardController implements I
         for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
             if (!entry.getValue().getText().equals("")) {
                 pref.remove("address" + entry.getKey());
-                pref.remove("port" + entry.getKey());
                 pref.remove("chartConfig" + entry.getKey());
                 chartConfigMap.remove(entry.getKey());
                 if (!clientConn.containsKey(entry.getKey())) {
                     addresses.remove(entry.getKey());
-                    ports.remove(entry.getKey());
-                    connPortTextFieldMap.get(entry.getKey()).setText("");
                     connAddTextFieldMap.get(entry.getKey()).setText("");
                 }
                 connChkBoxStatusMap.put(entry.getKey(), true);
@@ -797,11 +849,11 @@ public class CreateConnectionController extends DashboardController implements I
     private void removingDeviceDataOnDisconnect(int i) {
         clientConn.remove(i);
         addresses.remove(i);
-        ports.remove(i);
         deviceData.get(i).clear();
         vibUnitMap.remove(i);
         vibUnitDetailedMap.remove(i);
         chartConfigMap.remove(i);
+        fileWriters.remove(i);
         fileWriters.remove(i);
         totalCountMap.put(i, 0);
     }
@@ -843,7 +895,8 @@ public class CreateConnectionController extends DashboardController implements I
             Thread.sleep(10000);
             Socket newSock = new Socket();
             try {
-                newSock.connect(new InetSocketAddress(BASE_IP_ADDRESS + addresses.get(i), Integer.parseInt(ports.get(i))), 1000);
+                String address = BASE_IP_ADDRESS + addresses.get(i);
+                newSock.connect(new InetSocketAddress(address, Integer.parseInt(ports.get(i))), 1000);
                 newSock.setSoTimeout(5000);
             } catch (IOException e) {
                 line = "";
@@ -955,7 +1008,7 @@ public class CreateConnectionController extends DashboardController implements I
         chartDataMap.get(i).remove("vib3");
         disconnectBtnMap.get(i).setDisable(true);
         connAddTextFieldMap.get(i).setDisable(false);
-        connPortTextFieldMap.get(i).setDisable(false);
+//        connPortTextFieldMap.get(i).setDisable(false);
         if (chartAllocation.containsKey(i)) {
             int chartIndex = chartAllocation.get(i);
             chartLabelMap.get(chartIndex).get(0).setText("");

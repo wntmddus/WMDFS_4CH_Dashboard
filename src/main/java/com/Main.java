@@ -45,19 +45,6 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        String macAddress = GetNetworkAddress.getAddress();
-        System.out.println(macAddress);
-//        JSONObject requestBody1 = new JSONObject("{\n" +
-//                "    \"extDeviceId\": \"Device1\"\n" +
-//                "}");
-//        JSONObject requestBody2 = new JSONObject("{\n" +
-//                "    \"extDeviceId\": \"Device221\",\n" +
-//                "    \"connectionMac\": \"" + macAddress + "\",\n" +
-//                "    \"channelCount\": 6,\n" +
-//                "    \"channelName\": [\"vib1\", \"Rpm1\", \"vib2\", \"Rpm2\", \"vib3\", \"Rpm3\"]\n" +
-//                "}");
-//        System.out.println(RestfulApi.post("extInit", requestBody1));
-
         System.out.println("Inside init() method! Perform necessary initializations here.");
     }
 

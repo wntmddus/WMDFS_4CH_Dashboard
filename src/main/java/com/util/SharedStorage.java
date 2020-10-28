@@ -28,7 +28,30 @@ public class SharedStorage {
     public static Map<Integer, Rectangle> boxes = new HashMap<>();
     public static Map<Integer, Socket> clientConn = new HashMap<>();
     public static Map<Integer, String> addresses = new HashMap<>();
-    public static Map<Integer, String> ports = new HashMap<>();
+    public static Map<Integer, String> ports = new HashMap<Integer, String>(){
+        {
+            put(0, "8080");
+            put(1, "1470");
+            put(2, "1470");
+            put(3, "1470");
+            put(4, "1470");
+            put(5, "1470");
+            put(6, "1470");
+            put(7, "1470");
+            put(8, "1470");
+            put(9, "1470");
+            put(10, "1470");
+            put(11, "1470");
+            put(12, "1470");
+            put(13, "1470");
+            put(14, "1470");
+            put(15, "1470");
+            put(16, "1470");
+            put(17, "1470");
+            put(18, "1470");
+            put(19, "1470");
+        }
+    };
     public static Map<Integer, DataOutputStream> outputList = new HashMap<>();
     public static Map<Integer, DataInputStream> inputList = new HashMap<>();
     public static Map<Integer, TextField> connAddTextFieldMap = new HashMap<>();
@@ -53,6 +76,7 @@ public class SharedStorage {
     public static Map<Integer, Integer> maxRpmValueMap = new HashMap<>();
     public static Map<Integer, Integer> maxVibValueMap = new HashMap<>();
     public static Map<Integer, Integer> totalCountMap = new HashMap<>();
+    public static Map<Integer, Label> fixedAddressesMap = new HashMap<>();
     public static Integer whichGraphSelected = null;
     public static Map<Integer, Integer> currentGraphKeyIndex = new HashMap<Integer, Integer>(){
         {
