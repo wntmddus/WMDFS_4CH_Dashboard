@@ -189,6 +189,7 @@
                 <TextField fx:id="maxVib7" layoutX="639.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox7" layoutX="698.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox7" layoutX="698.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
+            <Button layoutX="622.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load" />
             </children>
         </Pane>
     </children>

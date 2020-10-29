@@ -866,7 +866,7 @@ public class CreateConnectionController extends DashboardController implements I
                     chartConfigMap.get(index).add(false);
                 }
             }
-        } else {
+        } else if (!chartConfigMap.containsKey(index)) {
             chartConfigMap.put(index, new ArrayList<Boolean>() {
                 {
                     add(true);

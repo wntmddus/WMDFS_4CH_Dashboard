@@ -16,16 +16,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
+import org.ini4j.Ini;
 
+import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -466,8 +467,64 @@ public class SelectGraphController extends DashboardController implements Initia
         stage.close();
     }
     @FXML
+    private void handleOnLoad() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load Setting");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CFG files (*.cfg)", "*.cfg");
+        fileChooser.getExtensionFilters().add(extFilter);
+        //Show save file dialog
+        File file = fileChooser.showOpenDialog(stage);
+
+        if (file != null) {
+            Ini ini = new Ini(file);
+            Map<String, String> map = ini.get("ChartConfig");
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                int deviceIndex = Integer.parseInt(String.valueOf(entry.getKey().charAt(entry.getKey().length() - 1)));
+                if (clientConn.containsKey(deviceIndex) && clientConn.get(deviceIndex).isConnected()) {
+                    chartConfigMap.get(deviceIndex).set(0, entry.getValue().charAt(0) != '0');
+                    chartConfigMap.get(deviceIndex).set(1, entry.getValue().charAt(1) != '0');
+                    chartConfigMap.get(deviceIndex).set(2, entry.getValue().charAt(2) != '0');
+                    chartConfigMap.get(deviceIndex).set(3, entry.getValue().charAt(3) != '0');
+                    chartConfigMap.get(deviceIndex).set(4, entry.getValue().charAt(4) != '0');
+                    chartConfigMap.get(deviceIndex).set(5, entry.getValue().charAt(5) != '0');
+                    if (chartAllocation.containsKey(deviceIndex)) {
+                        graphSelectCheckboxMap.get(chartAllocation.get(deviceIndex)).get("rpm1").setSelected(chartConfigMap.get(deviceIndex).get(0));
+                        graphSelectCheckboxMap.get(chartAllocation.get(deviceIndex)).get("rpm2").setSelected(chartConfigMap.get(deviceIndex).get(1));
+                        graphSelectCheckboxMap.get(chartAllocation.get(deviceIndex)).get("rpm3").setSelected(chartConfigMap.get(deviceIndex).get(2));
+                        graphSelectCheckboxMap.get(chartAllocation.get(deviceIndex)).get("vib1").setSelected(chartConfigMap.get(deviceIndex).get(3));
+                        graphSelectCheckboxMap.get(chartAllocation.get(deviceIndex)).get("vib2").setSelected(chartConfigMap.get(deviceIndex).get(4));
+                        graphSelectCheckboxMap.get(chartAllocation.get(deviceIndex)).get("vib3").setSelected(chartConfigMap.get(deviceIndex).get(5));
+                    }
+                }
+            }
+            FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/loadsuccess.fxml"));
+            VBox vbox = null;
+            vbox = saveSettingLoader.load();
+            Stage stage = new Stage();
+            stage.initOwner(mainStage);
+            Scene scene = new Scene(vbox);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("Setting Loaded");
+            stage.setScene(scene);
+            stage.show();
+            return;
+        }
+        FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/loadfailed.fxml"));
+        VBox vbox = null;
+        vbox = saveSettingLoader.load();
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("Setting Load Failed");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     private void handleOnSave() throws IOException {
         StringBuilder configString = new StringBuilder();
+        configString.append("[ChartConfig]\n");
         for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
             pref.put("address" + entry.getKey(), entry.getValue());
             StringBuilder config = new StringBuilder();
@@ -547,14 +604,14 @@ public class SelectGraphController extends DashboardController implements Initia
                         else config.append("0");
                     }
                     pref.put("chartConfig" + (deviceIndex - 1), config.toString());
-                    configString.append((deviceIndex - 1) + config.toString() + "\n");
+                    configString.append("chartConfig").append(deviceIndex - 1).append("=").append(config.toString()).append("\n");
                     modifyGraphWithGivenConfig(deviceIndex - 1, i);
                     chartAllocation.put(deviceIndex - 1, i);
                 }
             }
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Setting");
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CFG files (*.cfg)", "*.cfg");
             fileChooser.getExtensionFilters().add(extFilter);
             //Show save file dialog
             File file = fileChooser.showSaveDialog(stage);
@@ -570,6 +627,7 @@ public class SelectGraphController extends DashboardController implements Initia
                 }
                 Stage stage = new Stage();
                 stage.initOwner(mainStage);
+                assert vbox != null;
                 Scene scene = new Scene(vbox);
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.setTitle("Setting Saved");
@@ -592,22 +650,14 @@ public class SelectGraphController extends DashboardController implements Initia
         CheckBox chkBox = ((CheckBox)(event.getSource()));
         String chkBoxId = chkBox.getId();
         int chkBoxIndex = Character.getNumericValue(chkBoxId.charAt(chkBoxId.length() - 1));
-        if (chkBox.isSelected()) {
-            maxRpmMap.get(chkBoxIndex).setDisable(true);
-        } else {
-            maxRpmMap.get(chkBoxIndex).setDisable(false);
-        }
+        maxRpmMap.get(chkBoxIndex).setDisable(chkBox.isSelected());
     }
     @FXML
     void handleVibAutoChkBox(ActionEvent event) {
         CheckBox chkBox = ((CheckBox)(event.getSource()));
         String chkBoxId = chkBox.getId();
         int chkBoxIndex = Character.getNumericValue(chkBoxId.charAt(chkBoxId.length() - 1));
-        if (chkBox.isSelected()) {
-            maxVibMap.get(chkBoxIndex).setDisable(true);
-        } else {
-            maxVibMap.get(chkBoxIndex).setDisable(false);
-        }
+        maxVibMap.get(chkBoxIndex).setDisable(chkBox.isSelected());
     }
 
     private void modifyGraphWithGivenConfig(Integer deviceNumber, int chartNumber) {

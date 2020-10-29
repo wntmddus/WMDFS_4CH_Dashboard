@@ -30,7 +30,7 @@ public class SharedStorage {
     public static Map<Integer, String> addresses = new HashMap<>();
     public static Map<Integer, String> ports = new HashMap<Integer, String>(){
         {
-            put(0, "8080");
+            put(0, "1470");
             put(1, "1470");
             put(2, "1470");
             put(3, "1470");
