@@ -367,7 +367,7 @@ public class SelectGraphController extends DashboardController implements Initia
             }
         }
         Platform.runLater(() -> {
-            for (int i = 0; i < MAX_GRAPH_NUMBER; i ++) {
+            for (int i = 0; i < MAX_GRAPH_NUMBER; i++) {
                 deviceNumPickerMap.get(i).getItems().addAll(comboBoxItems);
             }
             for (int i = 0; i < MAX_GRAPH_NUMBER; i++) {
@@ -404,68 +404,6 @@ public class SelectGraphController extends DashboardController implements Initia
         });
     }
 
-
-    @FXML
-    private void handleOnSubmit() {
-        Platform.runLater(() -> {
-            for (Map.Entry<Integer, ComboBox<Integer>> entry : deviceNumPickerMap.entrySet()) {
-                int chartNumber = entry.getKey();
-                for (Map.Entry<Integer, Integer> e : chartAllocation.entrySet()) {
-                    if (e.getValue() == chartNumber) {
-                        chartAllocation.remove(e.getKey());
-                        break;
-                    }
-                }
-                lineCharts.get(chartNumber).getData().clear();
-                lineRightCharts.get(chartNumber).getData().clear();
-                graphLabels.get(chartNumber).setText("Empty");
-                graphPanelLabels.get(chartNumber).setText("Empty");
-                lineRightCharts.get(chartNumber).getYAxis().setLabel("Vib");
-                realTimeData.get(chartNumber).get(0).setText("0");
-                realTimeData.get(chartNumber).get(1).setText("0");
-                realTimeData.get(chartNumber).get(2).setText("0");
-                realTimeData.get(chartNumber).get(3).setText("0");
-                realTimeData.get(chartNumber).get(4).setText("0");
-                realTimeData.get(chartNumber).get(5).setText("0");
-                chartLabelMap.get(chartNumber).get(0).setText("");
-                chartLabelMap.get(chartNumber).get(1).setText("");
-                chartLabelMap.get(chartNumber).get(2).setText("");
-                vibUnitLabelMap.get(chartNumber).setText("Disp.Peak");
-                lineMap.get(chartNumber).setVisible(false);
-                chartRectangleMap.get(chartNumber).setVisible(false);
-                Integer newDeviceNumber = entry.getValue().getSelectionModel().getSelectedItem();
-                if (newDeviceNumber != null) {
-                    String maxRpm = maxRpmMap.get(chartNumber).getText();
-                    String maxVib = maxVibMap.get(chartNumber).getText();
-                    boolean rpmAutoRanging = rpmAutoChkBoxMap.get(chartNumber).isSelected();
-                    boolean vibAutoRanging = vibAutoChkBoxMap.get(chartNumber).isSelected();
-                    if (!maxRpm.equals("")) {
-                        maxRpmValueMap.put(newDeviceNumber - 1, Integer.parseInt(maxRpm));
-                    } else {
-                        maxRpmMap.get(chartNumber).setText("");
-                        maxRpmValueMap.remove(newDeviceNumber - 1);
-                    }
-                    if (!maxVib.equals("")) {
-                        maxVibValueMap.put(newDeviceNumber - 1, Integer.parseInt(maxVib));
-                    } else {
-                        maxVibMap.get(chartNumber).setText("");
-                        maxVibValueMap.remove(newDeviceNumber - 1);
-                    }
-                    if (rpmAutoRanging) {
-                        maxRpmMap.get(chartNumber).setText("");
-                        maxRpmValueMap.remove(newDeviceNumber - 1);
-                    }
-                    if (vibAutoRanging) {
-                        maxVibMap.get(chartNumber).setText("");
-                        maxVibValueMap.remove(newDeviceNumber - 1);
-                    }
-                    modifyGraphWithGivenConfig(newDeviceNumber - 1, chartNumber);
-                    chartAllocation.put(newDeviceNumber - 1, chartNumber);
-                }
-            }
-        });
-        stage.close();
-    }
     @FXML
     private void handleOnLoad() throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -479,8 +417,8 @@ public class SelectGraphController extends DashboardController implements Initia
             Ini ini = new Ini(file);
             Map<String, String> map = ini.get("ChartConfig");
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                int deviceIndex = Integer.parseInt(String.valueOf(entry.getKey().charAt(entry.getKey().length() - 1)));
-                if (clientConn.containsKey(deviceIndex) && clientConn.get(deviceIndex).isConnected()) {
+                if (entry.getKey().contains("chartConfig")) {
+                    int deviceIndex = Integer.parseInt(entry.getKey().substring(11));
                     chartConfigMap.get(deviceIndex).set(0, entry.getValue().charAt(0) != '0');
                     chartConfigMap.get(deviceIndex).set(1, entry.getValue().charAt(1) != '0');
                     chartConfigMap.get(deviceIndex).set(2, entry.getValue().charAt(2) != '0');
@@ -495,6 +433,10 @@ public class SelectGraphController extends DashboardController implements Initia
                         graphSelectCheckboxMap.get(chartAllocation.get(deviceIndex)).get("vib2").setSelected(chartConfigMap.get(deviceIndex).get(4));
                         graphSelectCheckboxMap.get(chartAllocation.get(deviceIndex)).get("vib3").setSelected(chartConfigMap.get(deviceIndex).get(5));
                     }
+                } else {
+                    int deviceIndex = Integer.parseInt(entry.getKey().substring(7));
+                    addresses.put(deviceIndex, entry.getValue());
+                    connAddTextFieldMap.get(deviceIndex).setText(entry.getValue());
                 }
             }
             FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/loadsuccess.fxml"));
@@ -527,12 +469,14 @@ public class SelectGraphController extends DashboardController implements Initia
         configString.append("[ChartConfig]\n");
         for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
             pref.put("address" + entry.getKey(), entry.getValue());
+            configString.append("address").append(entry.getKey()).append("=").append(entry.getValue()).append("\n");
             StringBuilder config = new StringBuilder();
             for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
                 if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
                 else config.append("0");
             }
             pref.put("chartConfig" + entry.getKey(), config.toString());
+
         }
         Platform.runLater(() -> {
             for (int i = 0; i < MAX_GRAPH_NUMBER; i++) {
@@ -643,7 +587,8 @@ public class SelectGraphController extends DashboardController implements Initia
             writer.println(content);
             writer.close();
         } catch (IOException ex) {
-            ex.printStackTrace();        }
+            ex.printStackTrace();
+        }
     }
     @FXML
     void handleRpmAutoChkBox(ActionEvent event) {
@@ -660,7 +605,7 @@ public class SelectGraphController extends DashboardController implements Initia
         maxVibMap.get(chkBoxIndex).setDisable(chkBox.isSelected());
     }
 
-    private void modifyGraphWithGivenConfig(Integer deviceNumber, int chartNumber) {
+    public void modifyGraphWithGivenConfig(Integer deviceNumber, int chartNumber) {
         Platform.runLater(() -> {
             boolean rpm1 = graphSelectCheckboxMap.get(chartNumber).get("rpm1").isSelected();
             boolean rpm2 = graphSelectCheckboxMap.get(chartNumber).get("rpm2").isSelected();

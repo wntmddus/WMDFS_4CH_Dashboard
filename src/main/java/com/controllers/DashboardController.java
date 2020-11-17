@@ -1272,23 +1272,17 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public void handleOnClickDevConfigBtn(ActionEvent event) throws IOException {
-        FXMLLoader createConnectionLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/createconnection.fxml"));
-        VBox vbox = createConnectionLoader.load();
-        CreateConnectionController createConnectionController = createConnectionLoader.getController();
+        FXMLLoader devConfigLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/devconfig.fxml"));
+        VBox vbox = devConfigLoader.load();
+        DevConfigController devConfigController = devConfigLoader.getController();
         Stage stage = new Stage();
         stage.initOwner(mainStage);
         Scene scene = new Scene(vbox);
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Create Connection");
+        stage.setTitle("Dev Config");
         stage.setScene(scene);
-        createConnectionController.setStage(stage);
+        devConfigController.setStage(stage);
         stage.show();
-    }
-    public String rgbFormatter(Color color) {
-        return String.format("%d, %d, %d",
-                (int) (color.getRed() * 255),
-                (int) (color.getGreen() * 255),
-                (int) (color.getBlue() * 255));
     }
 
     @FXML
@@ -1387,20 +1381,6 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public void handleOnClickRecordBtn(ActionEvent event) {
-//        String currentDate = getCurrentDateTime("yyyy-MM-dd-HH.mm.ss");
-//        CheckBox checkBox = ((CheckBox)(event.getSource()));
-//        String checkBoxId = checkBox.getId();
-//        int index;
-//        if (checkBoxId.length() == 12) {
-//            index = Character.getNumericValue(checkBoxId.charAt(checkBoxId.length() - 1));
-//        } else {
-//            index = Integer.parseInt(checkBoxId.substring(checkBoxId.length() - 2));
-//        }
-//        try {
-//            createNewFileWriter(index, currentDate, false);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         Platform.runLater(() -> {
             if (((CheckBox)(event.getSource())).isSelected()) {
                 ((CheckBox)(event.getSource())).setText("Recording");

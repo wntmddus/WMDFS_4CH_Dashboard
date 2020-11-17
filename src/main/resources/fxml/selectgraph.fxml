@@ -19,7 +19,7 @@
                     </font>
                 </Label>
                 <Label layoutX="29.0" layoutY="61.0" text="Graph1" />
-                <ComboBox fx:id="deviceNumPicker0" layoutX="90.0" layoutY="89.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
+                <ComboBox fx:id="deviceNumPicker0" layoutX="94.0" layoutY="89.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
                 <Label layoutX="35.0" layoutY="94.0" text="Device #" />
                 <Label layoutX="35.0" layoutY="121.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox0" layoutX="77.0" layoutY="139.0" mnemonicParsing="false" />
@@ -34,7 +34,7 @@
                 <Label layoutX="33.0" layoutY="169.0" text="Rpm" />
                 <Label layoutX="35.0" layoutY="142.0" text="Vib" />
                 <Label layoutX="217.0" layoutY="59.0" text="Graph2" />
-                <ComboBox fx:id="deviceNumPicker1" layoutX="278.0" layoutY="87.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
+                <ComboBox fx:id="deviceNumPicker1" layoutX="282.0" layoutY="87.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
                 <Label layoutX="223.0" layoutY="92.0" text="Device #" />
                 <Label layoutX="223.0" layoutY="119.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox1" layoutX="265.0" layoutY="137.0" mnemonicParsing="false" />
@@ -49,7 +49,7 @@
                 <Label layoutX="221.0" layoutY="167.0" text="Rpm" />
                 <Label layoutX="223.0" layoutY="140.0" text="Vib" />
                 <Label layoutX="412.0" layoutY="59.0" text="Graph3" />
-                <ComboBox fx:id="deviceNumPicker2" layoutX="473.0" layoutY="87.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
+                <ComboBox fx:id="deviceNumPicker2" layoutX="477.0" layoutY="87.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
                 <Label layoutX="418.0" layoutY="92.0" text="Device #" />
                 <Label layoutX="418.0" layoutY="119.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox2" layoutX="460.0" layoutY="137.0" mnemonicParsing="false" />
@@ -64,7 +64,7 @@
                 <Label layoutX="416.0" layoutY="167.0" text="Rpm" />
                 <Label layoutX="418.0" layoutY="140.0" text="Vib" />
                 <Label layoutX="595.0" layoutY="59.0" text="Graph4" />
-                <ComboBox fx:id="deviceNumPicker3" layoutX="656.0" layoutY="87.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
+                <ComboBox fx:id="deviceNumPicker3" layoutX="660.0" layoutY="87.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
                 <Label layoutX="601.0" layoutY="92.0" text="Device #" />
                 <Label layoutX="601.0" layoutY="119.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox3" layoutX="643.0" layoutY="137.0" mnemonicParsing="false" />
@@ -79,7 +79,7 @@
                 <Label layoutX="599.0" layoutY="167.0" text="Rpm" />
                 <Label layoutX="601.0" layoutY="140.0" text="Vib" />
                 <Label layoutX="32.0" layoutY="287.0" text="Graph5" />
-                <ComboBox fx:id="deviceNumPicker4" layoutX="93.0" layoutY="315.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
+                <ComboBox fx:id="deviceNumPicker4" layoutX="97.0" layoutY="315.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
                 <Label layoutX="38.0" layoutY="320.0" text="Device #" />
                 <Label layoutX="38.0" layoutY="347.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox4" layoutX="80.0" layoutY="365.0" mnemonicParsing="false" />
@@ -94,7 +94,7 @@
                 <Label layoutX="36.0" layoutY="395.0" text="Rpm" />
                 <Label layoutX="38.0" layoutY="368.0" text="Vib" />
                 <Label layoutX="220.0" layoutY="285.0" text="Graph6" />
-                <ComboBox fx:id="deviceNumPicker5" layoutX="281.0" layoutY="313.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
+                <ComboBox fx:id="deviceNumPicker5" layoutX="285.0" layoutY="313.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
                 <Label layoutX="226.0" layoutY="318.0" text="Device #" />
                 <Label layoutX="226.0" layoutY="345.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox5" layoutX="268.0" layoutY="363.0" mnemonicParsing="false" />
@@ -109,7 +109,7 @@
                 <Label layoutX="224.0" layoutY="393.0" text="Rpm" />
                 <Label layoutX="226.0" layoutY="366.0" text="Vib" />
                 <Label layoutX="415.0" layoutY="285.0" text="Graph7" />
-                <ComboBox fx:id="deviceNumPicker6" layoutX="476.0" layoutY="313.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
+                <ComboBox fx:id="deviceNumPicker6" layoutX="480.0" layoutY="313.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
                 <Label layoutX="421.0" layoutY="318.0" text="Device #" />
                 <Label layoutX="421.0" layoutY="345.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox6" layoutX="463.0" layoutY="363.0" mnemonicParsing="false" />
@@ -124,7 +124,7 @@
                 <Label layoutX="419.0" layoutY="393.0" text="Rpm" />
                 <Label layoutX="421.0" layoutY="366.0" text="Vib" />
                 <Label layoutX="598.0" layoutY="285.0" text="Graph8" />
-                <ComboBox fx:id="deviceNumPicker7" layoutX="659.0" layoutY="313.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
+                <ComboBox fx:id="deviceNumPicker7" layoutX="663.0" layoutY="313.0" onAction="#handleComboboxAction" prefHeight="27.0" prefWidth="92.0" />
                 <Label layoutX="604.0" layoutY="318.0" text="Device #" />
                 <Label layoutX="604.0" layoutY="345.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox7" layoutX="646.0" layoutY="363.0" mnemonicParsing="false" />
@@ -138,58 +138,59 @@
                 <CheckBox fx:id="ch3RpmChkBox7" layoutX="727.0" layoutY="391.0" mnemonicParsing="false" />
                 <Label layoutX="602.0" layoutY="393.0" text="Rpm" />
                 <Label layoutX="604.0" layoutY="366.0" text="Vib" />
-                <Button fx:id="selectGraphSubmitBtn" layoutX="625.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleOnSubmit" text="Submit" />
-                <Button fx:id="selectGraphCloseBtn" layoutX="699.0" layoutY="511.0" mnemonicParsing="false" onAction="#onClose" text="Close" />
-                <Button layoutX="687.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleOnSave" text="Save" />
+<!--                <Button fx:id="selectGraphSubmitBtn" layoutX="625.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleOnSubmit" text="Submit" />-->
+<!--                <Button fx:id="selectGraphCloseBtn" layoutX="699.0" layoutY="511.0" mnemonicParsing="false" onAction="#onClose" text="Close" />-->
+                <Button layoutX="620.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleOnSave" text="Save" />
                 <Label layoutX="16.0" layoutY="211.0" text="Max Rpm" />
                 <Label layoutX="20.0" layoutY="244.0" text="Max Vib" />
-                <TextField fx:id="maxRpm0" layoutX="75.0" layoutY="206.0" prefHeight="27.0" prefWidth="49.0" />
-                <TextField fx:id="maxVib0" layoutX="75.0" layoutY="239.0" prefHeight="27.0" prefWidth="48.0" />
+                <TextField fx:id="maxRpm0" layoutX="77.0" layoutY="206.0" prefHeight="27.0" prefWidth="49.0" />
+                <TextField fx:id="maxVib0" layoutX="77.0" layoutY="239.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox0" layoutX="134.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox0" layoutX="134.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
                 <Label layoutX="216.0" layoutY="211.0" text="Max Rpm" />
                 <Label layoutX="220.0" layoutY="244.0" text="Max Vib" />
-                <TextField fx:id="maxRpm1" layoutX="275.0" layoutY="206.0" prefHeight="27.0" prefWidth="49.0" />
-                <TextField fx:id="maxVib1" layoutX="275.0" layoutY="239.0" prefHeight="27.0" prefWidth="48.0" />
+                <TextField fx:id="maxRpm1" layoutX="277.0" layoutY="206.0" prefHeight="27.0" prefWidth="49.0" />
+                <TextField fx:id="maxVib1" layoutX="277.0" layoutY="239.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox1" layoutX="334.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox1" layoutX="334.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
                 <Label layoutX="403.0" layoutY="211.0" text="Max Rpm" />
                 <Label layoutX="407.0" layoutY="244.0" text="Max Vib" />
-                <TextField fx:id="maxRpm2" layoutX="462.0" layoutY="206.0" prefHeight="27.0" prefWidth="49.0" />
-                <TextField fx:id="maxVib2" layoutX="462.0" layoutY="239.0" prefHeight="27.0" prefWidth="48.0" />
+                <TextField fx:id="maxRpm2" layoutX="464.0" layoutY="206.0" prefHeight="27.0" prefWidth="49.0" />
+                <TextField fx:id="maxVib2" layoutX="464.0" layoutY="239.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox2" layoutX="521.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox2" layoutX="521.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
                 <Label layoutX="595.0" layoutY="211.0" text="Max Rpm" />
                 <Label layoutX="599.0" layoutY="244.0" text="Max Vib" />
-                <TextField fx:id="maxRpm3" layoutX="654.0" layoutY="206.0" prefHeight="27.0" prefWidth="49.0" />
-                <TextField fx:id="maxVib3" layoutX="654.0" layoutY="239.0" prefHeight="27.0" prefWidth="48.0" />
+                <TextField fx:id="maxRpm3" layoutX="656.0" layoutY="206.0" prefHeight="27.0" prefWidth="49.0" />
+                <TextField fx:id="maxVib3" layoutX="656.0" layoutY="239.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox3" layoutX="713.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox3" layoutX="713.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
                 <Label layoutX="16.0" layoutY="433.0" text="Max Rpm" />
                 <Label layoutX="20.0" layoutY="466.0" text="Max Vib" />
-                <TextField fx:id="maxRpm4" layoutX="75.0" layoutY="428.0" prefHeight="27.0" prefWidth="49.0" />
-                <TextField fx:id="maxVib4" layoutX="75.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
+                <TextField fx:id="maxRpm4" layoutX="77.0" layoutY="428.0" prefHeight="27.0" prefWidth="49.0" />
+                <TextField fx:id="maxVib4" layoutX="77.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox4" layoutX="134.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox4" layoutX="134.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
                 <Label layoutX="203.0" layoutY="433.0" text="Max Rpm" />
                 <Label layoutX="207.0" layoutY="466.0" text="Max Vib" />
-                <TextField fx:id="maxRpm5" layoutX="262.0" layoutY="428.0" prefHeight="27.0" prefWidth="49.0" />
-                <TextField fx:id="maxVib5" layoutX="262.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
+                <TextField fx:id="maxRpm5" layoutX="264.0" layoutY="428.0" prefHeight="27.0" prefWidth="49.0" />
+                <TextField fx:id="maxVib5" layoutX="264.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox5" layoutX="321.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox5" layoutX="321.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
                 <Label layoutX="398.0" layoutY="433.0" text="Max Rpm" />
                 <Label layoutX="402.0" layoutY="466.0" text="Max Vib" />
-                <TextField fx:id="maxRpm6" layoutX="457.0" layoutY="428.0" prefHeight="27.0" prefWidth="49.0" />
-                <TextField fx:id="maxVib6" layoutX="457.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
+                <TextField fx:id="maxRpm6" layoutX="459.0" layoutY="428.0" prefHeight="27.0" prefWidth="49.0" />
+                <TextField fx:id="maxVib6" layoutX="459.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox6" layoutX="516.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox6" layoutX="516.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
                 <Label layoutX="580.0" layoutY="433.0" text="Max Rpm" />
                 <Label layoutX="584.0" layoutY="466.0" text="Max Vib" />
-                <TextField fx:id="maxRpm7" layoutX="639.0" layoutY="428.0" prefHeight="27.0" prefWidth="49.0" />
-                <TextField fx:id="maxVib7" layoutX="639.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
+                <TextField fx:id="maxRpm7" layoutX="641.0" layoutY="428.0" prefHeight="27.0" prefWidth="49.0" />
+                <TextField fx:id="maxVib7" layoutX="641.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox7" layoutX="698.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox7" layoutX="698.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
-            <Button layoutX="622.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load" />
+            <Button layoutX="558.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load" />
+            <Button layoutX="681.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleOnReset" text="Reset" />
             </children>
         </Pane>
     </children>
