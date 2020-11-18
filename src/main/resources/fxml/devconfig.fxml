@@ -15,10 +15,9 @@
             <fx:include source="selectgraph.fxml" />
         </Tab>
     </TabPane>
-   <Pane prefHeight="59.0" prefWidth="780.0">
-      <children>
-         <Button layoutX="681.0" layoutY="18.0" mnemonicParsing="false" text="Close" onAction="#onClose"/>
-         <Button layoutX="598.0" layoutY="18.0" mnemonicParsing="false" text="Submit" onAction="#handleOnSubmit" />
-      </children>
-   </Pane>
+    <Pane prefHeight="59.0" prefWidth="780.0">
+        <Button layoutX="681.0" layoutY="18.0" mnemonicParsing="false" onAction="#onClose" text="Close" />
+        <Button layoutX="598.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleOnSubmit" text="Submit" />
+        <Button fx:id="disconnectAllBtn" disable="true" layoutX="464.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleOnDisconnectAll" text="Disconnect All" />
+    </Pane>
 </VBox>

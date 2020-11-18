@@ -45,6 +45,9 @@ public class DashboardController extends SharedStorage implements Initializable 
     Button closeBtn;
 
     @FXML
+    Button connectionMacBtn;
+
+    @FXML
     Button devConfigBtn;
 
     @FXML
@@ -1286,17 +1289,17 @@ public class DashboardController extends SharedStorage implements Initializable 
     }
 
     @FXML
-    public void handleOnClickGraphBtn(ActionEvent event) throws IOException {
-        FXMLLoader selectGraphLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/selectgraph.fxml"));
-        VBox vbox = selectGraphLoader.load();
-        SelectGraphController selectGraphController = selectGraphLoader.getController();
+    public void handleOnClickConnectionMacBtn(ActionEvent event) throws IOException {
+        FXMLLoader connectionMacSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/connectionmacsetting.fxml"));
+        VBox vbox = connectionMacSettingLoader.load();
+        ConnectionMacSettingController connectionMacSettingController = connectionMacSettingLoader.getController();
         Stage stage = new Stage();
         stage.initOwner(mainStage);
         Scene scene = new Scene(vbox);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setTitle("Select Graph");
         stage.setScene(scene);
-        selectGraphController.setStage(stage);
+        connectionMacSettingController.setStage(stage);
         stage.show();
     }
 
@@ -1332,9 +1335,9 @@ public class DashboardController extends SharedStorage implements Initializable 
                     return;
                 }
                 ((Button) (event.getSource())).setText("Stop");
-                graphBtn.setDisable(true);
                 devConfigBtn.setDisable(true);
                 recordDot.setVisible(false);
+                connectionMacBtn.setDisable(true);
             });
         } else {
             Platform.runLater(() -> {
@@ -1348,8 +1351,8 @@ public class DashboardController extends SharedStorage implements Initializable 
                 }
                 recordDot.setVisible(true);
                 ((Button) (event.getSource())).setText("Record All");
-                graphBtn.setDisable(false);
                 devConfigBtn.setDisable(false);
+                connectionMacBtn.setDisable(false);
             });
         }
     }

@@ -8,268 +8,225 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="550.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="main.java.com.controllers.CreateConnectionController">
+<VBox prefHeight="550.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.CreateConnectionController">
     <Pane prefHeight="550.0" prefWidth="780.0">
         <Label layoutX="41.0" layoutY="27.0" text="Create Connection">
             <font>
-                <Font size="23.0"/>
+                <Font size="23.0" />
             </font>
         </Label>
-        <Label fx:id="deviceConnNum0" layoutX="26.0" layoutY="123.0" text="#1"/>
-        <TextField fx:id="inputAdd0" layoutX="135.0" layoutY="118.0" prefHeight="23.0" prefWidth="45.0"/>
-        <Label layoutX="94.0" layoutY="89.0" text="Address"/>
-        <TextField fx:id="inputPort0" disable="true" layoutX="190.0" layoutY="118.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label layoutX="207.0" layoutY="89.0" text="Port"/>
-        <Label layoutX="475.0" layoutY="89.0" text="Address"/>
-        <Label layoutX="594.0" layoutY="89.0" text="Port"/>
-        <Label fx:id="deviceConnNum1" layoutX="412.0" layoutY="123.0" text="#2"/>
-        <TextField fx:id="inputAdd1" layoutX="522.0" layoutY="118.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort1" disable="true" layoutX="578.0" layoutY="118.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum2" layoutX="26.0" layoutY="157.0" text="#3"/>
-        <TextField fx:id="inputAdd2" layoutX="135.0" layoutY="152.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort2" disable="true" layoutX="190.0" layoutY="152.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum3" layoutX="412.0" layoutY="157.0" text="#4"/>
-        <TextField fx:id="inputAdd3" layoutX="522.0" layoutY="152.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort3" disable="true" layoutX="578.0" layoutY="152.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum4" layoutX="26.0" layoutY="191.0" text="#5"/>
-        <TextField fx:id="inputAdd4" layoutX="135.0" layoutY="186.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort4" disable="true" layoutX="190.0" layoutY="186.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum5" layoutX="412.0" layoutY="191.0" text="#6"/>
-        <TextField fx:id="inputAdd5" layoutX="522.0" layoutY="186.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort5" disable="true" layoutX="578.0" layoutY="186.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum6" layoutX="26.0" layoutY="225.0" text="#7"/>
-        <TextField fx:id="inputAdd6" layoutX="135.0" layoutY="220.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort6" disable="true" layoutX="190.0" layoutY="220.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum7" layoutX="412.0" layoutY="225.0" text="#8"/>
-        <TextField fx:id="inputAdd7" layoutX="522.0" layoutY="220.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort7" disable="true" layoutX="578.0" layoutY="220.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum8" layoutX="26.0" layoutY="260.0" text="#9"/>
-        <TextField fx:id="inputAdd8" layoutX="135.0" layoutY="255.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort8" disable="true" layoutX="190.0" layoutY="255.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum9" layoutX="409.0" layoutY="260.0" text="#10"/>
-        <TextField fx:id="inputAdd9" layoutX="522.0" layoutY="255.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort9" disable="true" layoutX="578.0" layoutY="255.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum10" layoutX="23.0" layoutY="294.0" text="#11"/>
-        <TextField fx:id="inputAdd10" layoutX="135.0" layoutY="289.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort10" disable="true" layoutX="190.0" layoutY="289.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum11" layoutX="409.0" layoutY="294.0" text="#12"/>
-        <TextField fx:id="inputAdd11" layoutX="522.0" layoutY="289.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort11" disable="true" layoutX="578.0" layoutY="289.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum12" layoutX="23.0" layoutY="328.0" text="#13"/>
-        <TextField fx:id="inputAdd12" layoutX="135.0" layoutY="323.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort12" disable="true" layoutX="190.0" layoutY="323.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum13" layoutX="408.0" layoutY="328.0" text="#14"/>
-        <TextField fx:id="inputAdd13" layoutX="522.0" layoutY="323.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort13" disable="true" layoutX="578.0" layoutY="323.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum14" layoutX="22.0" layoutY="362.0" text="#15"/>
-        <TextField fx:id="inputAdd14" layoutX="135.0" layoutY="357.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort14" disable="true" layoutX="190.0" layoutY="357.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum15" layoutX="408.0" layoutY="362.0" text="#16"/>
-        <TextField fx:id="inputAdd15" layoutX="522.0" layoutY="357.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort15" disable="true" layoutX="578.0" layoutY="357.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum16" layoutX="22.0" layoutY="396.0" text="#17"/>
-        <TextField fx:id="inputAdd16" layoutX="135.0" layoutY="391.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort16" disable="true" layoutX="190.0" layoutY="391.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum17" layoutX="408.0" layoutY="396.0" text="#18"/>
-        <TextField fx:id="inputAdd17" layoutX="522.0" layoutY="391.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort17" disable="true" layoutX="578.0" layoutY="391.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum18" layoutX="22.0" layoutY="430.0" text="#19"/>
-        <TextField fx:id="inputAdd18" layoutX="135.0" layoutY="425.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort18" disable="true" layoutX="190.0" layoutY="425.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
-        <Label fx:id="deviceConnNum19" layoutX="408.0" layoutY="430.0" text="#20"/>
-        <TextField fx:id="inputAdd19" layoutX="522.0" layoutY="425.0" prefHeight="23.0" prefWidth="45.0"/>
-        <TextField fx:id="inputPort19" disable="true" layoutX="578.0" layoutY="425.0" prefHeight="27.0"
-                   prefWidth="60.0"/>
+        <Label fx:id="deviceConnNum0" layoutX="26.0" layoutY="123.0" text="#1" />
+        <TextField fx:id="inputAdd0" layoutX="135.0" layoutY="118.0" prefHeight="23.0" prefWidth="45.0" />
+        <Label layoutX="94.0" layoutY="89.0" text="Address" />
+        <TextField fx:id="inputPort0" disable="true" layoutX="190.0" layoutY="118.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label layoutX="207.0" layoutY="89.0" text="Port" />
+        <Label layoutX="475.0" layoutY="89.0" text="Address" />
+        <Label layoutX="594.0" layoutY="89.0" text="Port" />
+        <Label fx:id="deviceConnNum1" layoutX="412.0" layoutY="123.0" text="#2" />
+        <TextField fx:id="inputAdd1" layoutX="522.0" layoutY="118.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort1" disable="true" layoutX="578.0" layoutY="118.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum2" layoutX="26.0" layoutY="157.0" text="#3" />
+        <TextField fx:id="inputAdd2" layoutX="135.0" layoutY="152.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort2" disable="true" layoutX="190.0" layoutY="152.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum3" layoutX="412.0" layoutY="157.0" text="#4" />
+        <TextField fx:id="inputAdd3" layoutX="522.0" layoutY="152.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort3" disable="true" layoutX="578.0" layoutY="152.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum4" layoutX="26.0" layoutY="191.0" text="#5" />
+        <TextField fx:id="inputAdd4" layoutX="135.0" layoutY="186.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort4" disable="true" layoutX="190.0" layoutY="186.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum5" layoutX="412.0" layoutY="191.0" text="#6" />
+        <TextField fx:id="inputAdd5" layoutX="522.0" layoutY="186.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort5" disable="true" layoutX="578.0" layoutY="186.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum6" layoutX="26.0" layoutY="225.0" text="#7" />
+        <TextField fx:id="inputAdd6" layoutX="135.0" layoutY="220.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort6" disable="true" layoutX="190.0" layoutY="220.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum7" layoutX="412.0" layoutY="225.0" text="#8" />
+        <TextField fx:id="inputAdd7" layoutX="522.0" layoutY="220.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort7" disable="true" layoutX="578.0" layoutY="220.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum8" layoutX="26.0" layoutY="260.0" text="#9" />
+        <TextField fx:id="inputAdd8" layoutX="135.0" layoutY="255.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort8" disable="true" layoutX="190.0" layoutY="255.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum9" layoutX="409.0" layoutY="260.0" text="#10" />
+        <TextField fx:id="inputAdd9" layoutX="522.0" layoutY="255.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort9" disable="true" layoutX="578.0" layoutY="255.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum10" layoutX="23.0" layoutY="294.0" text="#11" />
+        <TextField fx:id="inputAdd10" layoutX="135.0" layoutY="289.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort10" disable="true" layoutX="190.0" layoutY="289.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum11" layoutX="409.0" layoutY="294.0" text="#12" />
+        <TextField fx:id="inputAdd11" layoutX="522.0" layoutY="289.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort11" disable="true" layoutX="578.0" layoutY="289.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum12" layoutX="23.0" layoutY="328.0" text="#13" />
+        <TextField fx:id="inputAdd12" layoutX="135.0" layoutY="323.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort12" disable="true" layoutX="190.0" layoutY="323.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum13" layoutX="408.0" layoutY="328.0" text="#14" />
+        <TextField fx:id="inputAdd13" layoutX="522.0" layoutY="323.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort13" disable="true" layoutX="578.0" layoutY="323.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum14" layoutX="22.0" layoutY="362.0" text="#15" />
+        <TextField fx:id="inputAdd14" layoutX="135.0" layoutY="357.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort14" disable="true" layoutX="190.0" layoutY="357.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum15" layoutX="408.0" layoutY="362.0" text="#16" />
+        <TextField fx:id="inputAdd15" layoutX="522.0" layoutY="357.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort15" disable="true" layoutX="578.0" layoutY="357.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum16" layoutX="22.0" layoutY="396.0" text="#17" />
+        <TextField fx:id="inputAdd16" layoutX="135.0" layoutY="391.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort16" disable="true" layoutX="190.0" layoutY="391.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum17" layoutX="408.0" layoutY="396.0" text="#18" />
+        <TextField fx:id="inputAdd17" layoutX="522.0" layoutY="391.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort17" disable="true" layoutX="578.0" layoutY="391.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum18" layoutX="22.0" layoutY="430.0" text="#19" />
+        <TextField fx:id="inputAdd18" layoutX="135.0" layoutY="425.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort18" disable="true" layoutX="190.0" layoutY="425.0" prefHeight="27.0" prefWidth="60.0" />
+        <Label fx:id="deviceConnNum19" layoutX="408.0" layoutY="430.0" text="#20" />
+        <TextField fx:id="inputAdd19" layoutX="522.0" layoutY="425.0" prefHeight="23.0" prefWidth="45.0" />
+        <TextField fx:id="inputPort19" disable="true" layoutX="578.0" layoutY="425.0" prefHeight="27.0" prefWidth="60.0" />
 <!--        <Button fx:id="connectBtn" layoutX="607.0" layoutY="502.0" mnemonicParsing="false"-->
 <!--                onAction="#handleOnConnect" text="Connect"/>-->
 <!--        <Button fx:id="connectionCloseBtn" layoutX="688.0" layoutY="502.0" mnemonicParsing="false"-->
 <!--                onAction="#onClose" text="Close"/>-->
-        <Button fx:id="disconnect0" disable="true" layoutX="292.0" layoutY="121.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect0" disable="true" layoutX="292.0" layoutY="121.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect2" disable="true" layoutX="292.0" layoutY="155.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect2" disable="true" layoutX="292.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect4" disable="true" layoutX="292.0" layoutY="189.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect4" disable="true" layoutX="292.0" layoutY="189.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect6" disable="true" layoutX="292.0" layoutY="223.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect6" disable="true" layoutX="292.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect8" disable="true" layoutX="292.0" layoutY="258.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect8" disable="true" layoutX="292.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect10" disable="true" layoutX="292.0" layoutY="292.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect10" disable="true" layoutX="292.0" layoutY="292.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect12" disable="true" layoutX="292.0" layoutY="326.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect12" disable="true" layoutX="292.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect14" disable="true" layoutX="292.0" layoutY="360.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect14" disable="true" layoutX="292.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect16" disable="true" layoutX="292.0" layoutY="394.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect16" disable="true" layoutX="292.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect18" disable="true" layoutX="292.0" layoutY="428.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect18" disable="true" layoutX="292.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect1" disable="true" layoutX="686.0" layoutY="121.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect1" disable="true" layoutX="686.0" layoutY="121.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect3" disable="true" layoutX="686.0" layoutY="155.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect3" disable="true" layoutX="686.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect5" disable="true" layoutX="686.0" layoutY="189.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect5" disable="true" layoutX="686.0" layoutY="189.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect7" disable="true" layoutX="686.0" layoutY="223.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect7" disable="true" layoutX="686.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect9" disable="true" layoutX="686.0" layoutY="258.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect9" disable="true" layoutX="686.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect11" disable="true" layoutX="686.0" layoutY="292.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect11" disable="true" layoutX="686.0" layoutY="292.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect13" disable="true" layoutX="686.0" layoutY="326.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect13" disable="true" layoutX="686.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect15" disable="true" layoutX="686.0" layoutY="360.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect15" disable="true" layoutX="686.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect17" disable="true" layoutX="686.0" layoutY="394.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect17" disable="true" layoutX="686.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="disconnect19" disable="true" layoutX="686.0" layoutY="428.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnect" text="Disconnect">
+        <Button fx:id="disconnect19" disable="true" layoutX="686.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Button>
-        <Button layoutX="632.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnSave" text="Save"/>
-        <Button layoutX="696.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnReset" text="Reset"/>
-        <Button fx:id="disconnectAllBtn" layoutX="445.0" layoutY="29.0" mnemonicParsing="false"
-                onAction="#handleOnDisconnectAll" text="Disconnect All"/>
-        <CheckBox fx:id="connChkBox1" layoutX="653.0" layoutY="123.0" mnemonicParsing="false" selected="true"/>
-        <Label layoutX="637.0" layoutY="89.0" text="Connect"/>
-        <Label layoutX="250.0" layoutY="89.0" text="Connect"/>
-        <CheckBox fx:id="connChkBox3" layoutX="653.0" layoutY="157.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox5" layoutX="653.0" layoutY="191.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox7" layoutX="653.0" layoutY="224.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox9" layoutX="653.0" layoutY="258.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox11" layoutX="653.0" layoutY="294.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox13" layoutX="653.0" layoutY="328.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox15" layoutX="653.0" layoutY="362.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox17" layoutX="653.0" layoutY="397.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox19" layoutX="653.0" layoutY="430.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox0" layoutX="263.0" layoutY="123.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox2" layoutX="263.0" layoutY="157.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox4" layoutX="263.0" layoutY="191.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox6" layoutX="263.0" layoutY="224.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox8" layoutX="263.0" layoutY="258.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox10" layoutX="263.0" layoutY="294.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox12" layoutX="263.0" layoutY="328.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox14" layoutX="263.0" layoutY="362.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox16" layoutX="263.0" layoutY="397.0" mnemonicParsing="false" selected="true"/>
-        <CheckBox fx:id="connChkBox18" layoutX="263.0" layoutY="430.0" mnemonicParsing="false" selected="true"/>
-        <Label fx:id="fixedAddress0" layoutX="62.0" layoutY="122.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress2" layoutX="62.0" layoutY="156.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress4" layoutX="62.0" layoutY="190.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress6" layoutX="62.0" layoutY="224.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress8" layoutX="62.0" layoutY="259.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress10" layoutX="62.0" layoutY="293.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress12" layoutX="62.0" layoutY="327.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress14" layoutX="62.0" layoutY="361.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress16" layoutX="62.0" layoutY="395.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress18" layoutX="62.0" layoutY="429.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress1" layoutX="448.0" layoutY="122.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress3" layoutX="448.0" layoutY="156.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress5" layoutX="448.0" layoutY="190.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress7" layoutX="448.0" layoutY="225.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress9" layoutX="448.0" layoutY="259.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress11" layoutX="448.0" layoutY="294.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress13" layoutX="448.0" layoutY="329.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress15" layoutX="448.0" layoutY="361.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress17" layoutX="448.0" layoutY="395.0" text="192.168.0."/>
-        <Label fx:id="fixedAddress19" layoutX="448.0" layoutY="429.0" text="192.168.0."/>
-        <Button layoutX="572.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load"/>
+        <Button layoutX="632.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnSave" text="Save" />
+        <Button layoutX="696.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnReset" text="Reset" />
+        <CheckBox fx:id="connChkBox1" layoutX="653.0" layoutY="123.0" mnemonicParsing="false" selected="true" />
+        <Label layoutX="637.0" layoutY="89.0" text="Connect" />
+        <Label layoutX="250.0" layoutY="89.0" text="Connect" />
+        <CheckBox fx:id="connChkBox3" layoutX="653.0" layoutY="157.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox5" layoutX="653.0" layoutY="191.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox7" layoutX="653.0" layoutY="224.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox9" layoutX="653.0" layoutY="258.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox11" layoutX="653.0" layoutY="294.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox13" layoutX="653.0" layoutY="328.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox15" layoutX="653.0" layoutY="362.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox17" layoutX="653.0" layoutY="397.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox19" layoutX="653.0" layoutY="430.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox0" layoutX="263.0" layoutY="123.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox2" layoutX="263.0" layoutY="157.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox4" layoutX="263.0" layoutY="191.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox6" layoutX="263.0" layoutY="224.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox8" layoutX="263.0" layoutY="258.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox10" layoutX="263.0" layoutY="294.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox12" layoutX="263.0" layoutY="328.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox14" layoutX="263.0" layoutY="362.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox16" layoutX="263.0" layoutY="397.0" mnemonicParsing="false" selected="true" />
+        <CheckBox fx:id="connChkBox18" layoutX="263.0" layoutY="430.0" mnemonicParsing="false" selected="true" />
+        <Label fx:id="fixedAddress0" layoutX="62.0" layoutY="122.0" text="192.168.0." />
+        <Label fx:id="fixedAddress2" layoutX="62.0" layoutY="156.0" text="192.168.0." />
+        <Label fx:id="fixedAddress4" layoutX="62.0" layoutY="190.0" text="192.168.0." />
+        <Label fx:id="fixedAddress6" layoutX="62.0" layoutY="224.0" text="192.168.0." />
+        <Label fx:id="fixedAddress8" layoutX="62.0" layoutY="259.0" text="192.168.0." />
+        <Label fx:id="fixedAddress10" layoutX="62.0" layoutY="293.0" text="192.168.0." />
+        <Label fx:id="fixedAddress12" layoutX="62.0" layoutY="327.0" text="192.168.0." />
+        <Label fx:id="fixedAddress14" layoutX="62.0" layoutY="361.0" text="192.168.0." />
+        <Label fx:id="fixedAddress16" layoutX="62.0" layoutY="395.0" text="192.168.0." />
+        <Label fx:id="fixedAddress18" layoutX="62.0" layoutY="429.0" text="192.168.0." />
+        <Label fx:id="fixedAddress1" layoutX="448.0" layoutY="122.0" text="192.168.0." />
+        <Label fx:id="fixedAddress3" layoutX="448.0" layoutY="156.0" text="192.168.0." />
+        <Label fx:id="fixedAddress5" layoutX="448.0" layoutY="190.0" text="192.168.0." />
+        <Label fx:id="fixedAddress7" layoutX="448.0" layoutY="225.0" text="192.168.0." />
+        <Label fx:id="fixedAddress9" layoutX="448.0" layoutY="259.0" text="192.168.0." />
+        <Label fx:id="fixedAddress11" layoutX="448.0" layoutY="294.0" text="192.168.0." />
+        <Label fx:id="fixedAddress13" layoutX="448.0" layoutY="329.0" text="192.168.0." />
+        <Label fx:id="fixedAddress15" layoutX="448.0" layoutY="361.0" text="192.168.0." />
+        <Label fx:id="fixedAddress17" layoutX="448.0" layoutY="395.0" text="192.168.0." />
+        <Label fx:id="fixedAddress19" layoutX="448.0" layoutY="429.0" text="192.168.0." />
+        <Button layoutX="565.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load" />
     </Pane>
 </VBox>

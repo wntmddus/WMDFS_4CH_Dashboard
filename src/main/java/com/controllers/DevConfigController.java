@@ -7,10 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import main.java.com.util.GetNetworkAddress;
 import main.java.com.util.RestfulApi;
 import main.java.com.util.SharedStorage;
 import org.json.JSONArray;
@@ -33,23 +31,27 @@ public class DevConfigController extends SharedStorage implements Initializable 
     public TabPane tabPane;
     private Stage stage;
 
+    @FXML
+    public Button disconnectAllBtn;
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-    }
-
-    public void init() {
+        disconnectAllBtnGlobal = disconnectAllBtn;
         tabPane.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) -> {
             if (newValue == createConnectionTab) {
-                System.out.println("- Create Connection Tab -");
-
+                disconnectAllBtn.setVisible(true);
             } else if (newValue == selectGraphTab) {
-                System.out.println("- Select Graph Tab -");
+                disconnectAllBtn.setVisible(false);
             }
         });
+        for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
+            if (clientConn.containsKey(i)) {
+                disconnectAllBtn.setDisable(false);
+            }
+        }
     }
 
     @FXML
@@ -191,7 +193,6 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                 maxRpmValueMap.put(i, 1200);
                                 totalCountMap.put(i, 0);
                                 // Post Init request
-                                String macAddress = GetNetworkAddress.getAddress();
                                 if (vibUnitMap.get(i).contains("Disp.Peak  (mm)")) maxVibValueMap.put(i, 2);
                                 vibUnitDetailedMap.put(i, vibUnitMap.get(i).substring(vibUnitMap.get(i).indexOf('(') + 1, vibUnitMap.get(i).length() - 1));
                                 if (devState.equals("SD")) {
@@ -246,7 +247,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         line = inputList.get(i).readLine();
                                     } catch (IOException e) {
                                         System.err.println("Timed out waiting for the socket in input ReadLine" + i);
-                                        line = reconnectOnSocketFailure(i, devName, macAddress);
+                                        line = reconnectOnSocketFailure(i, devName);
                                     }
 
                                     List<String> arr = Arrays.asList(line.split("\\s+"));
@@ -261,7 +262,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         fileWriters.get(i).flush();
                                         if (totalCountMap.get(i) != 0 && totalCountMap.get(i) % 5 == 0) {
                                             Runnable postCallThread = () -> {
-                                                JSONObject body = buildSensorDataObject(i, devName, macAddress);
+                                                JSONObject body = buildSensorDataObject(i, devName);
                                                 RestfulApi.post("extLogs", body);
                                             };
                                             Thread backgroundThread = new Thread(postCallThread);
@@ -301,10 +302,12 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                                     "}");
                                             JSONObject requestBody2 = new JSONObject("{\n" +
                                                     "    \"extDeviceId\": \"" + devName + "\",\n" +
-                                                    "    \"connectionMac\": \"" + macAddress + "\",\n" +
                                                     "    \"channelCount\": 7,\n" +
                                                     "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
                                                     "}");
+                                            if (!macAddressesMap.get(i).equals("")) {
+                                                requestBody2.put("connectionMac", macAddressesMap.get(i));
+                                            }
                                             RestfulApi.post("extInit", requestBody1);
                                             RestfulApi.post("extRegistration", requestBody2);
                                         };
@@ -373,6 +376,26 @@ public class DevConfigController extends SharedStorage implements Initializable 
         });
     }
 
+    @FXML
+    private void handleOnDisconnectAll() throws InterruptedException {
+        Platform.runLater(() -> {
+            disconnectAllBtn.setDisable(true);
+        });
+        Thread.sleep(100);
+        clientConn.forEach((key, value) -> {
+            try {
+                Thread.sleep(100);
+                isDisconnecting.set(key, true);
+                outputList.get(key).writeBytes("STOP\0");
+                outputList.get(key).writeBytes("NO CARRIER\0");
+                clientConn.get(key).close();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+
     private void setGraphConfiguration(int index) {
         if (!pref.get("chartConfig" + index, "root").equals("root")) {
             String config = pref.get("chartConfig" + index, "root");
@@ -397,7 +420,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
             });
         }
     }
-    private String reconnectOnSocketFailure(int i, String devName, String macAddress) throws IOException, InterruptedException {
+    private String reconnectOnSocketFailure(int i, String devName) throws IOException, InterruptedException {
         String line = "";
         int timeCounter = 0;
         while (line.equals("") && timeCounter < 20) {
@@ -452,10 +475,12 @@ public class DevConfigController extends SharedStorage implements Initializable 
                             "}");
                     JSONObject requestBody2 = new JSONObject("{\n" +
                             "    \"extDeviceId\": \"" + devName + "\",\n" +
-                            "    \"connectionMac\": \"" + macAddress + "\",\n" +
                             "    \"channelCount\": 7,\n" +
                             "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
                             "}");
+                    if (!macAddressesMap.get(i).equals("")) {
+                        requestBody2.put("connectionMac", macAddressesMap.get(i));
+                    }
                     RestfulApi.post("extInit", requestBody1);
                     RestfulApi.post("extRegistration", requestBody2);
                 };
@@ -648,12 +673,14 @@ public class DevConfigController extends SharedStorage implements Initializable 
         }
     }
 
-    private JSONObject buildSensorDataObject(int i, String devName, String macAddress) {
+    private JSONObject buildSensorDataObject(int i, String devName) {
         JSONObject body = new JSONObject("{\n" +
                 "    \"extDeviceId\": \"" + devName + "\",\n" +
-                "    \"connectionMac\": \"" + macAddress + "\",\n" +
                 "    \"datetime\": \"" + getCurrentDateTime("yyyy-MM-dd HH:mm:ss") + "\",\n" +
                 "}");
+        if (!macAddressesMap.get(i).equals("")) {
+            body.put("connectionMac", macAddressesMap.get(i));
+        }
         JSONArray rawData = new JSONArray();
 
         JSONObject sensorObject2 = new JSONObject();

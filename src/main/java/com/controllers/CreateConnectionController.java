@@ -6,28 +6,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.java.com.util.GetNetworkAddress;
-import main.java.com.util.RestfulApi;
 import org.ini4j.Ini;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class CreateConnectionController extends DashboardController implements Initializable {
 
@@ -236,8 +227,6 @@ public class CreateConnectionController extends DashboardController implements I
     @FXML
     Label deviceConnNum19;
     @FXML
-    Button disconnectAllBtn;
-    @FXML
     CheckBox connChkBox0;
     @FXML
     CheckBox connChkBox1;
@@ -404,14 +393,12 @@ public class CreateConnectionController extends DashboardController implements I
         connChkBoxMap.put(17, connChkBox17);
         connChkBoxMap.put(18, connChkBox18);
         connChkBoxMap.put(19, connChkBox19);
-        disconnectAllBtnGlobal = disconnectAllBtn;
         Platform.runLater(() -> {
             for(Map.Entry<Integer, Socket> entry : clientConn.entrySet()) {
                 if(entry.getValue().isConnected()) {
                     connAddTextFieldMap.get(entry.getKey()).setDisable(true);
                     connPortTextFieldMap.get(entry.getKey()).setDisable(true);
                     disconnectBtnMap.get(entry.getKey()).setDisable(false);
-                    disconnectAllBtnGlobal.setDisable(false);
                 }
             }
             for(int i = 0; i < MAX_DEVICE_NUMBER; i++) {
@@ -444,6 +431,7 @@ public class CreateConnectionController extends DashboardController implements I
         }
         Platform.runLater(() -> {
             btn.setDisable(true);
+            disconnectAllBtnGlobal.setDisable(disconnectBtnMap.get(0).isDisabled() && disconnectBtnMap.get(1).isDisabled() && disconnectBtnMap.get(2).isDisabled() && disconnectBtnMap.get(3).isDisabled() && disconnectBtnMap.get(4).isDisabled() && disconnectBtnMap.get(5).isDisabled() && disconnectBtnMap.get(6).isDisabled() && disconnectBtnMap.get(7).isDisabled() && disconnectBtnMap.get(8).isDisabled() && disconnectBtnMap.get(9).isDisabled() && disconnectBtnMap.get(10).isDisabled() && disconnectBtnMap.get(11).isDisabled() && disconnectBtnMap.get(12).isDisabled() && disconnectBtnMap.get(13).isDisabled() && disconnectBtnMap.get(14).isDisabled() && disconnectBtnMap.get(15).isDisabled() && disconnectBtnMap.get(16).isDisabled() && disconnectBtnMap.get(17).isDisabled() && disconnectBtnMap.get(18).isDisabled() && disconnectBtnMap.get(19).isDisabled());
         });
         try {
             isDisconnecting.set(index, true);
@@ -456,24 +444,6 @@ public class CreateConnectionController extends DashboardController implements I
 
     }
 
-    @FXML
-    private void handleOnDisconnectAll() throws InterruptedException {
-        Platform.runLater(() -> {
-            disconnectAllBtn.setDisable(true);
-        });
-        Thread.sleep(100);
-        clientConn.forEach((key, value) -> {
-            try {
-                Thread.sleep(100);
-                isDisconnecting.set(key, true);
-                outputList.get(key).writeBytes("STOP\0");
-                outputList.get(key).writeBytes("NO CARRIER\0");
-                clientConn.get(key).close();
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-    }
     @FXML
     private void handleOnLoad() throws IOException {
         FileChooser fileChooser = new FileChooser();

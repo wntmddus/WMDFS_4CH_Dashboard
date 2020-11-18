@@ -38,9 +38,35 @@ public class SharedStorage {
     public static Map<Integer, Rectangle> boxes = new HashMap<>();
     public static Map<Integer, Socket> clientConn = new HashMap<>();
     public static Map<Integer, String> addresses = new HashMap<>();
+    public static Map<Integer, Label> deviceIdMap = new HashMap<>();
+    public static Map<Integer, TextField> macIdTextFieldMap = new HashMap<>();
+    public static Map<Integer, String> macAddressesMap = new HashMap<Integer, String>(){
+        {
+            put(0, "");
+            put(1, "");
+            put(2, "");
+            put(3, "");
+            put(4, "");
+            put(5, "");
+            put(6, "");
+            put(7, "");
+            put(8, "");
+            put(9, "");
+            put(10, "");
+            put(11, "");
+            put(12, "");
+            put(13, "");
+            put(14, "");
+            put(15, "");
+            put(16, "");
+            put(17, "");
+            put(18, "");
+            put(19, "");
+        }
+    };
     public static Map<Integer, String> ports = new HashMap<Integer, String>(){
         {
-            put(0, "1470");
+            put(0, "8080");
             put(1, "1470");
             put(2, "1470");
             put(3, "1470");

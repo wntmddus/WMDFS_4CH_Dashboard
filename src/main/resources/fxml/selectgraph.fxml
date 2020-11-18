@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -138,9 +137,6 @@
                 <CheckBox fx:id="ch3RpmChkBox7" layoutX="727.0" layoutY="391.0" mnemonicParsing="false" />
                 <Label layoutX="602.0" layoutY="393.0" text="Rpm" />
                 <Label layoutX="604.0" layoutY="366.0" text="Vib" />
-<!--                <Button fx:id="selectGraphSubmitBtn" layoutX="625.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleOnSubmit" text="Submit" />-->
-<!--                <Button fx:id="selectGraphCloseBtn" layoutX="699.0" layoutY="511.0" mnemonicParsing="false" onAction="#onClose" text="Close" />-->
-                <Button layoutX="620.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleOnSave" text="Save" />
                 <Label layoutX="16.0" layoutY="211.0" text="Max Rpm" />
                 <Label layoutX="20.0" layoutY="244.0" text="Max Vib" />
                 <TextField fx:id="maxRpm0" layoutX="77.0" layoutY="206.0" prefHeight="27.0" prefWidth="49.0" />
@@ -189,8 +185,6 @@
                 <TextField fx:id="maxVib7" layoutX="641.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox7" layoutX="698.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox7" layoutX="698.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
-            <Button layoutX="558.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load" />
-            <Button layoutX="681.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleOnReset" text="Reset" />
             </children>
         </Pane>
     </children>
