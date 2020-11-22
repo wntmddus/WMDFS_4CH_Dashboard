@@ -1088,6 +1088,20 @@ public class DashboardController extends SharedStorage implements Initializable 
         stage.show();
     }
 
+    @FXML
+    private void handleViewLogs() throws IOException {
+        FXMLLoader viewLogsLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/logview.fxml"));
+        ViewLogsController viewLogsController = viewLogsLoader.getController();
+        VBox vbox = viewLogsLoader.load();
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("View Logs");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void createLine(int index, double startX, int startY, double endX, int endY) {
         lineMap.get(index).setStartX(startX);
         lineMap.get(index).setStartY(startY);

@@ -227,6 +227,6 @@
         <Label fx:id="fixedAddress15" layoutX="448.0" layoutY="361.0" text="192.168.0." />
         <Label fx:id="fixedAddress17" layoutX="448.0" layoutY="395.0" text="192.168.0." />
         <Label fx:id="fixedAddress19" layoutX="448.0" layoutY="429.0" text="192.168.0." />
-        <Button layoutX="565.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load" />
+        <Button fx:id="load" layoutX="565.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load" />
     </Pane>
 </VBox>

@@ -266,6 +266,8 @@ public class CreateConnectionController extends DashboardController implements I
     CheckBox connChkBox18;
     @FXML
     CheckBox connChkBox19;
+    @FXML
+    Button load;
 
 
 
@@ -393,9 +395,11 @@ public class CreateConnectionController extends DashboardController implements I
         connChkBoxMap.put(17, connChkBox17);
         connChkBoxMap.put(18, connChkBox18);
         connChkBoxMap.put(19, connChkBox19);
+        loadGlobal = load;
         Platform.runLater(() -> {
             for(Map.Entry<Integer, Socket> entry : clientConn.entrySet()) {
                 if(entry.getValue().isConnected()) {
+                    load.setDisable(true);
                     connAddTextFieldMap.get(entry.getKey()).setDisable(true);
                     connPortTextFieldMap.get(entry.getKey()).setDisable(true);
                     disconnectBtnMap.get(entry.getKey()).setDisable(false);
@@ -432,6 +436,7 @@ public class CreateConnectionController extends DashboardController implements I
         Platform.runLater(() -> {
             btn.setDisable(true);
             disconnectAllBtnGlobal.setDisable(disconnectBtnMap.get(0).isDisabled() && disconnectBtnMap.get(1).isDisabled() && disconnectBtnMap.get(2).isDisabled() && disconnectBtnMap.get(3).isDisabled() && disconnectBtnMap.get(4).isDisabled() && disconnectBtnMap.get(5).isDisabled() && disconnectBtnMap.get(6).isDisabled() && disconnectBtnMap.get(7).isDisabled() && disconnectBtnMap.get(8).isDisabled() && disconnectBtnMap.get(9).isDisabled() && disconnectBtnMap.get(10).isDisabled() && disconnectBtnMap.get(11).isDisabled() && disconnectBtnMap.get(12).isDisabled() && disconnectBtnMap.get(13).isDisabled() && disconnectBtnMap.get(14).isDisabled() && disconnectBtnMap.get(15).isDisabled() && disconnectBtnMap.get(16).isDisabled() && disconnectBtnMap.get(17).isDisabled() && disconnectBtnMap.get(18).isDisabled() && disconnectBtnMap.get(19).isDisabled());
+            load.setDisable(!(disconnectBtnMap.get(0).isDisabled() && disconnectBtnMap.get(1).isDisabled() && disconnectBtnMap.get(2).isDisabled() && disconnectBtnMap.get(3).isDisabled() && disconnectBtnMap.get(4).isDisabled() && disconnectBtnMap.get(5).isDisabled() && disconnectBtnMap.get(6).isDisabled() && disconnectBtnMap.get(7).isDisabled() && disconnectBtnMap.get(8).isDisabled() && disconnectBtnMap.get(9).isDisabled() && disconnectBtnMap.get(10).isDisabled() && disconnectBtnMap.get(11).isDisabled() && disconnectBtnMap.get(12).isDisabled() && disconnectBtnMap.get(13).isDisabled() && disconnectBtnMap.get(14).isDisabled() && disconnectBtnMap.get(15).isDisabled() && disconnectBtnMap.get(16).isDisabled() && disconnectBtnMap.get(17).isDisabled() && disconnectBtnMap.get(18).isDisabled() && disconnectBtnMap.get(19).isDisabled()));
         });
         try {
             isDisconnecting.set(index, true);
@@ -501,16 +506,19 @@ public class CreateConnectionController extends DashboardController implements I
     private void handleOnSave() {
         StringBuilder configString = new StringBuilder();
         configString.append("[ChartConfig]\n");
-        for (Map.Entry<Integer, String> entry : addresses.entrySet()) {
-            pref.put("address" + entry.getKey(), entry.getValue());
-            configString.append("address").append(entry.getKey()).append("=").append(entry.getValue()).append("\n");
+        for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
+            String addressStr = entry.getValue().getText();
+            pref.put("address" + entry.getKey(), addressStr);
+            configString.append("address").append(entry.getKey()).append("=").append(addressStr).append("\n");
             StringBuilder config = new StringBuilder();
-            for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
-                if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
-                else config.append("0");
+            if (clientConn.containsKey(entry.getKey()) && clientConn.get(entry.getKey()).isConnected()) {
+                for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
+                    if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
+                    else config.append("0");
+                }
+                pref.put("chartConfig" + entry.getKey(), config.toString());
+                configString.append("chartConfig").append(entry.getKey()).append("=").append(config.toString()).append("\n");
             }
-            pref.put("chartConfig" + entry.getKey(), config.toString());
-            configString.append("chartConfig").append(entry.getKey()).append("=").append(config.toString()).append("\n");
         }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Setting");

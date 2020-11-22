@@ -1,5 +1,6 @@
 package main.java.com.controllers;
 
+import io.restassured.response.Response;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -262,8 +263,24 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         fileWriters.get(i).flush();
                                         if (totalCountMap.get(i) != 0 && totalCountMap.get(i) % 5 == 0) {
                                             Runnable postCallThread = () -> {
+                                                StringBuilder str = new StringBuilder();
                                                 JSONObject body = buildSensorDataObject(i, devName);
-                                                RestfulApi.post("extLogs", body);
+                                                Response res = RestfulApi.post("extLogs", body);
+                                                str.append(BASE_URL + "extLogs").append("\n")
+                                                        .append(res.getStatusLine()).append("\n")
+                                                        .append(res.getHeaders()).append("\n")
+                                                        .append(res.getContentType()).append("\n")
+                                                        .append(body.toString()).append("\n")
+                                                        .append("-------------------------------------------").append("\n");
+                                                Platform.runLater(() -> {
+                                                    if (logView != null) {
+                                                        logView.appendText(str.toString());
+
+                                                        if (logView.getText().length() > 30000) {
+                                                            logView.deleteText(0, 658);
+                                                        }
+                                                    }
+                                                });
                                             };
                                             Thread backgroundThread = new Thread(postCallThread);
                                             backgroundThread.setDaemon(true);
@@ -297,6 +314,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                             initializeChartData(i);
                                         });
                                         Runnable postCallThread = () -> {
+                                            StringBuilder str = new StringBuilder();
                                             JSONObject requestBody1 = new JSONObject("{\n" +
                                                     "    \"extDeviceId\": \"" + devName + "\"\n" +
                                                     "}");
@@ -308,8 +326,26 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                             if (!macAddressesMap.get(i).equals("")) {
                                                 requestBody2.put("connectionMac", macAddressesMap.get(i));
                                             }
-                                            RestfulApi.post("extInit", requestBody1);
-                                            RestfulApi.post("extRegistration", requestBody2);
+                                            Response res1 = RestfulApi.post("extInit", requestBody1);
+                                            Response res2 = RestfulApi.post("extRegistration", requestBody2);
+                                            str.append(BASE_URL + "extInit").append("\n")
+                                                    .append(res1.getStatusLine()).append("\n")
+                                                    .append(res1.getHeaders()).append("\n")
+                                                    .append(res1.getContentType()).append("\n")
+                                                    .append(requestBody1.toString()).append("\n")
+                                                    .append("-------------------------------------------").append("\n");
+                                            str.append(BASE_URL + "extRegistration").append("\n")
+                                                    .append(res2.getStatusLine()).append("\n")
+                                                    .append(res2.getHeaders()).append("\n")
+                                                    .append(res2.getContentType()).append("\n")
+                                                    .append(requestBody2.toString()).append("\n")
+                                                    .append("-------------------------------------------").append("\n");
+                                            logStringBuilder.append(str);
+                                            Platform.runLater(() -> {
+                                                if (logView != null) {
+                                                    logView.appendText(logStringBuilder.toString());
+                                                }
+                                            });
                                         };
                                         Thread backgroundThread = new Thread(postCallThread);
                                         backgroundThread.setDaemon(true);
@@ -380,6 +416,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
     private void handleOnDisconnectAll() throws InterruptedException {
         Platform.runLater(() -> {
             disconnectAllBtn.setDisable(true);
+
+            loadGlobal.setDisable(false);
         });
         Thread.sleep(100);
         clientConn.forEach((key, value) -> {

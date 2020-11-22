@@ -35,6 +35,7 @@ public class SharedStorage {
     public final static String SECRET = "secret";
     public static Stage mainStage;
     public static Preferences pref = Preferences.userNodeForPackage(SharedStorage.class);
+    public static TextArea logView;
     public static Map<Integer, Rectangle> boxes = new HashMap<>();
     public static Map<Integer, Socket> clientConn = new HashMap<>();
     public static Map<Integer, String> addresses = new HashMap<>();
@@ -66,7 +67,7 @@ public class SharedStorage {
     };
     public static Map<Integer, String> ports = new HashMap<Integer, String>(){
         {
-            put(0, "8080");
+            put(0, "1470");
             put(1, "1470");
             put(2, "1470");
             put(3, "1470");
@@ -114,6 +115,8 @@ public class SharedStorage {
     public static Map<Integer, Integer> totalCountMap = new HashMap<>();
     public static Map<Integer, Label> fixedAddressesMap = new HashMap<>();
     public static Integer whichGraphSelected = null;
+    public static StringBuilder logStringBuilder = new StringBuilder();
+    public static Button loadGlobal;
     public static Map<Integer, Integer> currentGraphKeyIndex = new HashMap<Integer, Integer>(){
         {
             put(0, 1);
