@@ -7,17 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="150.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Pane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <ImageView layoutX="29.0" layoutY="46.0">
-               <image>
-                  <Image url="@../image/sv_logo.jpg" />
-               </image>
-            </ImageView>
-            <Label layoutX="107.0" layoutY="46.0" text="WMDFS_Dashboard, Version 0 v2.0 Beta3" />
-            <Label layoutX="107.0" layoutY="77.0" text="Copyright (C) 2020" />
-         </children>
-      </Pane>
-   </children>
+   <Pane prefHeight="200.0" prefWidth="200.0">
+      <ImageView layoutX="29.0" layoutY="46.0">
+         <Image url="@../image/sv_logo.jpg"/>
+      </ImageView>
+      <Label layoutX="107.0" layoutY="46.0" text="WMDFS_Dashboard, Version IP0 v2.0 Beta5"/>
+      <Label layoutX="107.0" layoutY="77.0" text="Copyright (C) 2020"/>
+   </Pane>
 </VBox>
