@@ -377,12 +377,14 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                     recCheckboxArray.get(i).setDisable(true);
                                     boxes.get(i).setFill(Color.GRAY);
                                     boxes.get(i).setOpacity(0.3);
-                                    graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm1").setSelected(false);
-                                    graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm2").setSelected(false);
-                                    graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm3").setSelected(false);
-                                    graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib1").setSelected(false);
-                                    graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib2").setSelected(false);
-                                    graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib3").setSelected(false);
+                                    if (chartAllocation.containsKey(i)) {
+                                        graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm1").setSelected(false);
+                                        graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm2").setSelected(false);
+                                        graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm3").setSelected(false);
+                                        graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib1").setSelected(false);
+                                        graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib2").setSelected(false);
+                                        graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib3").setSelected(false);
+                                    }
                                     maxRpmMap.get(i).setText("");
                                     maxVibMap.get(i).setText("");
                                     deviceNumPickerMap.get(i).setValue(null);
@@ -681,12 +683,14 @@ public class DevConfigController extends SharedStorage implements Initializable 
             deviceNames.get(i).setText("Not Connected");
             deviceNames.get(i).setFocusTraversable(true);
         }
-        chartDataMap.get(i).remove("rpm1");
-        chartDataMap.get(i).remove("rpm2");
-        chartDataMap.get(i).remove("rpm3");
-        chartDataMap.get(i).remove("vib1");
-        chartDataMap.get(i).remove("vib2");
-        chartDataMap.get(i).remove("vib3");
+        if (chartDataMap.containsKey(i)) {
+            chartDataMap.get(i).remove("rpm1");
+            chartDataMap.get(i).remove("rpm2");
+            chartDataMap.get(i).remove("rpm3");
+            chartDataMap.get(i).remove("vib1");
+            chartDataMap.get(i).remove("vib2");
+            chartDataMap.get(i).remove("vib3");
+        }
         disconnectBtnMap.get(i).setDisable(true);
         connAddTextFieldMap.get(i).setDisable(false);
         if (chartAllocation.containsKey(i)) {
