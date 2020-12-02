@@ -176,7 +176,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                         // create and store Socket
                         Socket sock = new Socket();
                         String address = BASE_IP_ADDRESS + addresses.get(i);
-                        sock.connect(new InetSocketAddress(address, Integer.parseInt(ports.get(i))), 5000);
+                        sock.connect(new InetSocketAddress(address, 1470), 5000);
                         sock.setSoTimeout(5000);
                         if (sock.isConnected()) {
                             try {
@@ -718,7 +718,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
     private JSONObject buildSensorDataObject(int i, String devName) {
         JSONObject body = new JSONObject("{\n" +
                 "    \"extDeviceId\": \"" + devName + "\",\n" +
-                "    \"datetime\": \"" + getCurrentDateTime("yyyy-MM-dd HH:mm:ss") + "\",\n" +
+                "    \"dateTime\": \"" + getCurrentDateTime("yyyy-MM-dd HH:mm:ss") + "\",\n" +
                 "}");
         if (!macAddressesMap.get(i).equals("")) {
             body.put("connectionMac", macAddressesMap.get(i));

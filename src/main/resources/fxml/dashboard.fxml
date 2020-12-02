@@ -24,7 +24,7 @@
 <VBox fx:id="vbox" onKeyPressed="#handleOnKeyPressed" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="View">
-            <MenuItem mnemonicParsing="false" onAction="#handleViewLogs" text="View Logs"/>
+            <MenuItem mnemonicParsing="false" onAction="#handleViewLogs" text="View Logs" />
         </Menu>
         <Menu mnemonicParsing="false" text="About">
             <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About WMDFS_Dashboard" />
@@ -581,7 +581,7 @@
                     <Label fx:id="graph0Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                     <Rectangle fx:id="rectangle0" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line0" visible="false" />
-                    <Label fx:id="graphLabel0" layoutX="408.0" layoutY="18.0" text="Empty" />
+                    <Label fx:id="graphLabel0" layoutX="404.0" layoutY="18.0" text="Empty" />
                 </children>
             </Pane>
             <Pane fx:id="graphPane1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
@@ -607,7 +607,7 @@
                     <Label fx:id="graph1Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                     <Rectangle fx:id="rectangle1" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line1" visible="false" />
-                    <Label fx:id="graphLabel1" layoutX="408.0" layoutY="18.0" text="Empty" />
+                    <Label fx:id="graphLabel1" layoutX="404.0" layoutY="18.0" text="Empty" />
                 </children>
             </Pane>
             <Pane fx:id="graphPane2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
@@ -633,7 +633,7 @@
                     <Label fx:id="graph2Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                     <Rectangle fx:id="rectangle2" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line2" visible="false" />
-                    <Label fx:id="graphLabel2" layoutX="408.0" layoutY="18.0" text="Empty" />
+                    <Label fx:id="graphLabel2" layoutX="404.0" layoutY="18.0" text="Empty" />
                 </children>
             </Pane>
             <Pane fx:id="graphPane3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
@@ -659,7 +659,7 @@
                     <Label fx:id="graph3Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                     <Rectangle fx:id="rectangle3" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line3" visible="false" />
-                    <Label fx:id="graphLabel3" layoutX="408.0" layoutY="18.0" text="Empty" />
+                    <Label fx:id="graphLabel3" layoutX="404.0" layoutY="18.0" text="Empty" />
                 </children>
             </Pane>
             <Pane fx:id="graphPane4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -685,7 +685,7 @@
                     <Label fx:id="graph4Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                     <Rectangle fx:id="rectangle4" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line4" visible="false" />
-                    <Label fx:id="graphLabel4" layoutX="408.0" layoutY="18.0" text="Empty" />
+                    <Label fx:id="graphLabel4" layoutX="404.0" layoutY="18.0" text="Empty" />
                 </children>
             </Pane>
             <Pane fx:id="graphPane5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -711,7 +711,7 @@
                     <Label fx:id="graph5Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                     <Rectangle fx:id="rectangle5" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line5" visible="false" />
-                    <Label fx:id="graphLabel5" layoutX="408.0" layoutY="18.0" text="Empty" />
+                    <Label fx:id="graphLabel5" layoutX="404.0" layoutY="18.0" text="Empty" />
                 </children>
             </Pane>
             <Pane fx:id="graphPane6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -737,7 +737,7 @@
                     <Label fx:id="graph6Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                     <Rectangle fx:id="rectangle6" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line6" visible="false" />
-                    <Label fx:id="graphLabel6" layoutX="408.0" layoutY="18.0" text="Empty" />
+                    <Label fx:id="graphLabel6" layoutX="404.0" layoutY="18.0" text="Empty" />
                 </children>
             </Pane>
             <Pane fx:id="graphPane7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
@@ -763,7 +763,7 @@
                     <Label fx:id="graph7Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
                     <Rectangle fx:id="rectangle7" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line7" visible="false" />
-                    <Label fx:id="graphLabel7" layoutX="408.0" layoutY="18.0" text="Empty" />
+                    <Label fx:id="graphLabel7" layoutX="404.0" layoutY="18.0" text="Empty" />
                 </children>
             </Pane>
         </children>

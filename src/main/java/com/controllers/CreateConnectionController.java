@@ -503,22 +503,44 @@ public class CreateConnectionController extends DashboardController implements I
     }
 
     @FXML
-    private void handleOnSave() {
+    private void handleOnSaveToSystem() {
+        for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
+            String addressStr = entry.getValue().getText();
+            pref.put("address" + entry.getKey(), addressStr);
+        }
+        FXMLLoader saveSettingLoader = new FXMLLoader(getClass().getResource("/main/resources/fxml/settingsaved.fxml"));
+        VBox vbox = null;
+        try {
+            vbox = saveSettingLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.initOwner(mainStage);
+        assert vbox != null;
+        Scene scene = new Scene(vbox);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setTitle("Setting Saved");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleOnSaveToFile() {
         StringBuilder configString = new StringBuilder();
         configString.append("[ChartConfig]\n");
         for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
             String addressStr = entry.getValue().getText();
-            pref.put("address" + entry.getKey(), addressStr);
             configString.append("address").append(entry.getKey()).append("=").append(addressStr).append("\n");
-            StringBuilder config = new StringBuilder();
-            if (clientConn.containsKey(entry.getKey()) && clientConn.get(entry.getKey()).isConnected()) {
-                for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
-                    if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
-                    else config.append("0");
-                }
-                pref.put("chartConfig" + entry.getKey(), config.toString());
-                configString.append("chartConfig").append(entry.getKey()).append("=").append(config.toString()).append("\n");
-            }
+//            StringBuilder config = new StringBuilder();
+//            if (clientConn.containsKey(entry.getKey()) && clientConn.get(entry.getKey()).isConnected()) {
+//                for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
+//                    if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
+//                    else config.append("0");
+//                }
+//                pref.put("chartConfig" + entry.getKey(), config.toString());
+//                configString.append("chartConfig").append(entry.getKey()).append("=").append(config.toString()).append("\n");
+//            }
         }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Setting");

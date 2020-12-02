@@ -141,6 +141,10 @@ public class ConnectionMacSettingController extends DashboardController implemen
                 macIdTextFieldMap.get(entry.getKey()).setDisable(!clientConn.get(entry.getKey()).isConnected());
                 macIdTextFieldMap.get(entry.getKey()).setText(macAddressesMap.get(entry.getKey()));
                 deviceIdMap.get(entry.getKey()).setText(deviceNames.get(entry.getKey()).getText());
+                if (!pref.get("macAddress" + entry.getKey(), "root").equals("root")) {
+                    macAddressesMap.put(entry.getKey(), pref.get("macAddress" + entry.getKey(), "root"));
+                    macIdTextFieldMap.get(entry.getKey()).setText(pref.get("macAddress" + entry.getKey(), "root"));
+                }
             } else {
                 macIdTextFieldMap.get(entry.getKey()).setDisable(true);
                 deviceIdMap.get(entry.getKey()).setText("Not Connected");
@@ -163,6 +167,7 @@ public class ConnectionMacSettingController extends DashboardController implemen
     void onClickSubmit() {
         for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
             macAddressesMap.put(i, macIdTextFieldMap.get(i).getText());
+            pref.put("macAddress" + i, macIdTextFieldMap.get(i).getText());
         }
         stage.close();
     }

@@ -263,6 +263,7 @@ public class SharedStorage {
             if (!entry.getValue().getText().equals("")) {
                 pref.remove("address" + entry.getKey());
                 pref.remove("chartConfig" + entry.getKey());
+                pref.remove("macAddress" + entry.getKey());
                 chartConfigMap.remove(entry.getKey());
                 if (!clientConn.containsKey(entry.getKey())) {
                     addresses.remove(entry.getKey());

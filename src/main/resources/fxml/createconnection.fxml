@@ -79,10 +79,10 @@
         <Label fx:id="deviceConnNum19" layoutX="408.0" layoutY="430.0" text="#20" />
         <TextField fx:id="inputAdd19" layoutX="522.0" layoutY="425.0" prefHeight="23.0" prefWidth="45.0" />
         <TextField fx:id="inputPort19" disable="true" layoutX="578.0" layoutY="425.0" prefHeight="27.0" prefWidth="60.0" />
-<!--        <Button fx:id="connectBtn" layoutX="607.0" layoutY="502.0" mnemonicParsing="false"-->
-<!--                onAction="#handleOnConnect" text="Connect"/>-->
-<!--        <Button fx:id="connectionCloseBtn" layoutX="688.0" layoutY="502.0" mnemonicParsing="false"-->
-<!--                onAction="#onClose" text="Close"/>-->
+        <!--        <Button fx:id="connectBtn" layoutX="607.0" layoutY="502.0" mnemonicParsing="false"-->
+        <!--                onAction="#handleOnConnect" text="Connect"/>-->
+        <!--        <Button fx:id="connectionCloseBtn" layoutX="688.0" layoutY="502.0" mnemonicParsing="false"-->
+        <!--                onAction="#onClose" text="Close"/>-->
         <Button fx:id="disconnect0" disable="true" layoutX="292.0" layoutY="121.0" mnemonicParsing="false" onAction="#handleOnDisconnect" text="Disconnect">
             <font>
                 <Font size="10.0" />
@@ -183,7 +183,6 @@
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button layoutX="632.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnSave" text="Save" />
         <Button layoutX="696.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnReset" text="Reset" />
         <CheckBox fx:id="connChkBox1" layoutX="653.0" layoutY="123.0" mnemonicParsing="false" selected="true" />
         <Label layoutX="637.0" layoutY="89.0" text="Connect" />
@@ -227,6 +226,8 @@
         <Label fx:id="fixedAddress15" layoutX="448.0" layoutY="361.0" text="192.168.0." />
         <Label fx:id="fixedAddress17" layoutX="448.0" layoutY="395.0" text="192.168.0." />
         <Label fx:id="fixedAddress19" layoutX="448.0" layoutY="429.0" text="192.168.0." />
-        <Button fx:id="load" layoutX="565.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load" />
+        <Button fx:id="load" layoutX="410.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnLoad" text="Load" />
+        <Button layoutX="586.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnSaveToFile" text="Save to File" />
+        <Button layoutX="488.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleOnSaveToSystem" text="Save to PC" />
     </Pane>
 </VBox>
