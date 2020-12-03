@@ -19,7 +19,10 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.prefs.Preferences;
@@ -374,8 +377,8 @@ public class SharedStorage {
         });
     }
     public String getCurrentDateTime(String pattern) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
-        LocalDateTime now = LocalDateTime.now();
-        return dtf.format(now);
+        SimpleDateFormat simpleDate = new SimpleDateFormat(pattern);
+        simpleDate.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return simpleDate.format(new Date());
     }
 }
