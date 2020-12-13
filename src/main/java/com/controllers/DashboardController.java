@@ -5,15 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
@@ -27,17 +22,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.com.util.SharedStorage;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 public class DashboardController extends SharedStorage implements Initializable {
 
@@ -46,6 +37,12 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     Button connectionMacBtn;
+
+    @FXML
+    Menu logMenu;
+
+    @FXML
+    MenuItem logMenuSub;
 
     @FXML
     Button devConfigBtn;
@@ -703,9 +700,23 @@ public class DashboardController extends SharedStorage implements Initializable 
     final private double CHART_X_START_COORDINATE = 54;
 
     final private double CHART_X_END_COORDINATE = 428;
+    void dataSendingToggle(Boolean flag) {
+        if (flag) {
+            isSendingData = true;
+            connectionMacBtn.setDisable(false);
+            logMenu.setDisable(false);
+            logMenuSub.setDisable(false);
+        } else {
+            isSendingData = false;
+            connectionMacBtn.setDisable(true);
+            logMenu.setDisable(true);
+            logMenuSub.setDisable(true);
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        dataSendingToggle(true);
         deviceNames.add(deviceName0);
         deviceNames.add(deviceName1);
         deviceNames.add(deviceName2);
@@ -877,6 +888,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         chartLabelMap.get(7).put(0, graph7Label0);
         chartLabelMap.get(7).put(1, graph7Label1);
         chartLabelMap.get(7).put(2, graph7Label2);
+//        chartLabelMap.get(7).get(2).setText(System.getProperty("java.home"));
         graphLabels.put(0, graphLabel0);
         graphLabels.put(1, graphLabel1);
         graphLabels.put(2, graphLabel2);
@@ -1102,15 +1114,15 @@ public class DashboardController extends SharedStorage implements Initializable 
         stage.show();
     }
 
-    private void createLine(int index, double startX, int startY, double endX, int endY) {
-        lineMap.get(index).setStartX(startX);
-        lineMap.get(index).setStartY(startY);
-        lineMap.get(index).setEndX(endX);
-        lineMap.get(index).setEndY(endY);
-        lineMap.get(index).setFill(Color.LIGHTGREY);
-        lineMap.get(index).setOpacity(0.9);
-        lineMap.get(index).setVisible(true);
-    }
+        private void createLine(int index, double startX, int startY, double endX, int endY) {
+            lineMap.get(index).setStartX(startX);
+            lineMap.get(index).setStartY(startY);
+            lineMap.get(index).setEndX(endX);
+            lineMap.get(index).setEndY(endY);
+            lineMap.get(index).setFill(Color.LIGHTGREY);
+            lineMap.get(index).setOpacity(0.9);
+            lineMap.get(index).setVisible(true);
+        }
 
     @FXML
     private void handleDragDropped(DragEvent event) {
@@ -1311,7 +1323,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         stage.initOwner(mainStage);
         Scene scene = new Scene(vbox);
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.setTitle("Select Graph");
+        stage.setTitle("Connection Mac.");
         stage.setScene(scene);
         connectionMacSettingController.setStage(stage);
         stage.show();

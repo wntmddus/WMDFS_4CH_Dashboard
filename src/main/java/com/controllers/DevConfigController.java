@@ -1,6 +1,6 @@
 package main.java.com.controllers;
 
-import io.restassured.response.Response;
+//import io.restassured.response.Response;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -12,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.java.com.util.RestfulApi;
 import main.java.com.util.SharedStorage;
+import okhttp3.Response;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,6 +26,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DevConfigController extends SharedStorage implements Initializable {
+
+    private static Logger log = Logger.getLogger(DevConfigController.class);
+
     @FXML
     public Tab createConnectionTab;
     @FXML
@@ -40,6 +45,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         disconnectAllBtnGlobal = disconnectAllBtn;
         tabPane.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) -> {
             if (newValue == createConnectionTab) {
@@ -265,12 +271,17 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                             Runnable postCallThread = () -> {
                                                 StringBuilder str = new StringBuilder();
                                                 JSONObject body = buildSensorDataObject(i, devName);
-                                                Response res = RestfulApi.post("extLogs", body);
+                                                String res = null;
+                                                try {
+                                                    res = RestfulApi.post("extLogs", body);
+                                                } catch (Exception e) {
+                                                    log.error(e);
+                                                    System.err.println(e);
+                                                }
                                                 str.append(BASE_URL + "extLogs").append("\n")
-                                                        .append(res.getStatusLine()).append("\n")
-                                                        .append(res.getHeaders()).append("\n")
-                                                        .append(res.getContentType()).append("\n")
-                                                        .append(body.toString()).append("\n")
+                                                        .append(res).append("\n")
+//                                                        .append(res.headers().toString()).append("\n")
+//                                                        .append(res.body().toString()).append("\n")
                                                         .append("-------------------------------------------").append("\n");
                                                 Platform.runLater(() -> {
                                                     if (logView != null) {
@@ -282,9 +293,11 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                                     }
                                                 });
                                             };
-                                            Thread backgroundThread = new Thread(postCallThread);
-                                            backgroundThread.setDaemon(true);
-                                            backgroundThread.start();
+                                            if (isSendingData) {
+                                                Thread backgroundThread = new Thread(postCallThread);
+                                                backgroundThread.setDaemon(true);
+                                                backgroundThread.start();
+                                            }
                                         }
                                     }
                                     int finalCounter = counter;
@@ -326,19 +339,27 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                             if (!macAddressesMap.get(i).equals("")) {
                                                 requestBody2.put("connectionMac", macAddressesMap.get(i));
                                             }
-                                            Response res1 = RestfulApi.post("extInit", requestBody1);
-                                            Response res2 = RestfulApi.post("extRegistration", requestBody2);
+                                            String res1 = null;
+                                            try {
+                                                res1 = RestfulApi.post("extInit", requestBody1);
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                            String res2 = null;
+                                            try {
+                                                res2 = RestfulApi.post("extRegistration", requestBody2);
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
                                             str.append(BASE_URL + "extInit").append("\n")
-                                                    .append(res1.getStatusLine()).append("\n")
-                                                    .append(res1.getHeaders()).append("\n")
-                                                    .append(res1.getContentType()).append("\n")
-                                                    .append(requestBody1.toString()).append("\n")
+                                                    .append(res1).append("\n")
+//                                                    .append(res1.headers().toString()).append("\n")
+//                                                    .append(res1.body().toString()).append("\n")
                                                     .append("-------------------------------------------").append("\n");
                                             str.append(BASE_URL + "extRegistration").append("\n")
-                                                    .append(res2.getStatusLine()).append("\n")
-                                                    .append(res2.getHeaders()).append("\n")
-                                                    .append(res2.getContentType()).append("\n")
-                                                    .append(requestBody2.toString()).append("\n")
+                                                    .append(res2).append("\n")
+//                                                    .append(res2.headers().toString()).append("\n")
+//                                                    .append(res2.body().toString()).append("\n")
                                                     .append("-------------------------------------------").append("\n");
                                             logStringBuilder.append(str);
                                             Platform.runLater(() -> {
@@ -347,10 +368,12 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                                 }
                                             });
                                         };
-                                        Thread backgroundThread = new Thread(postCallThread);
-                                        backgroundThread.setDaemon(true);
-                                        backgroundThread.start();
-                                        backgroundThread.join();
+                                        if (isSendingData) {
+                                            Thread backgroundThread = new Thread(postCallThread);
+                                            backgroundThread.setDaemon(true);
+                                            backgroundThread.start();
+                                            backgroundThread.join();
+                                        }
                                         outputList.get(i).writeBytes("STOP\0");
                                         TimeUnit.MILLISECONDS.sleep(2000);
                                         outputList.get(i).writeBytes("REC\0");
@@ -363,7 +386,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                     counter++;
                                 }
                             } catch (IOException | InterruptedException e) {
-                                System.err.println("Timed out waiting for the socket while in Execute Thread");
+                                log.error("Timed out waiting for the socket while in Execute Thread", e);
                                 if (!disconnectBtnMap.get(i).isDisable()) {
                                     clientConn.get(i).close();
                                 }
@@ -395,7 +418,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                             }
                         }
                     } catch (IOException e) {
-                        System.err.println("Timed out waiting for the socket on connection");
+                        log.error("Timed out waiting for the socket on connection", e);
                         addresses.remove(i);
                         Platform.runLater(() -> {
                             boxes.get(i).setFill(Color.GREY);
@@ -508,6 +531,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                     initializeChartData(i);
                 });
             }
+
             if (!line.equals("")) {
                 Runnable postCallThread = () -> {
                     JSONObject requestBody1 = new JSONObject("{\n" +
@@ -521,13 +545,23 @@ public class DevConfigController extends SharedStorage implements Initializable 
                     if (!macAddressesMap.get(i).equals("")) {
                         requestBody2.put("connectionMac", macAddressesMap.get(i));
                     }
-                    RestfulApi.post("extInit", requestBody1);
-                    RestfulApi.post("extRegistration", requestBody2);
+                    try {
+                        RestfulApi.post("extInit", requestBody1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        RestfulApi.post("extRegistration", requestBody2);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 };
-                Thread backgroundThread = new Thread(postCallThread);
-                backgroundThread.setDaemon(true);
-                backgroundThread.start();
-                backgroundThread.join();
+                if (isSendingData) {
+                    Thread backgroundThread = new Thread(postCallThread);
+                    backgroundThread.setDaemon(true);
+                    backgroundThread.start();
+                    backgroundThread.join();
+                }
                 return line;
             }
             timeCounter++;

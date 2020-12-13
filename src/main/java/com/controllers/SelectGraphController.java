@@ -361,6 +361,20 @@ public class SelectGraphController extends DashboardController implements Initia
         vibAutoChkBoxMap.put(7, vibAutoChkBox7);
 
         comboBoxItems.add(null);
+
+        for (int j = 0; j < MAX_GRAPH_NUMBER; j++) {
+            int finalJ = j;
+            maxRpmMap.get(j).textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!isNumeric(newValue) || Integer.parseInt(newValue) < 0) {
+                    maxRpmMap.get(finalJ).setText("");
+                }
+            });
+            maxVibMap.get(j).textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!isNumeric(newValue) || Integer.parseInt(newValue) < 0) {
+                    maxVibMap.get(finalJ).setText("");
+                }
+            });
+        }
         for (Map.Entry<Integer, Socket> entry : clientConn.entrySet()) {
             if(entry.getValue().isConnected()) {
                 comboBoxItems.add(entry.getKey() + 1);
@@ -596,6 +610,8 @@ public class SelectGraphController extends DashboardController implements Initia
         String chkBoxId = chkBox.getId();
         int chkBoxIndex = Character.getNumericValue(chkBoxId.charAt(chkBoxId.length() - 1));
         maxRpmMap.get(chkBoxIndex).setDisable(chkBox.isSelected());
+        maxRpmMap.get(chkBoxIndex).setText(chkBox.isSelected() ? "" : "1200");
+
     }
     @FXML
     void handleVibAutoChkBox(ActionEvent event) {
@@ -603,6 +619,8 @@ public class SelectGraphController extends DashboardController implements Initia
         String chkBoxId = chkBox.getId();
         int chkBoxIndex = Character.getNumericValue(chkBoxId.charAt(chkBoxId.length() - 1));
         maxVibMap.get(chkBoxIndex).setDisable(chkBox.isSelected());
+        maxVibMap.get(chkBoxIndex).setText(chkBox.isSelected() ? "" : "2");
+
     }
 
     public void modifyGraphWithGivenConfig(Integer deviceNumber, int chartNumber) {
@@ -703,6 +721,12 @@ public class SelectGraphController extends DashboardController implements Initia
         ComboBox comboBox = ((ComboBox)(actionEvent.getSource()));
         String comboBoxId = comboBox.getId();
         int comboBoxIndex = Character.getNumericValue(comboBoxId.charAt(comboBoxId.length() - 1));
+        for (int i = 0; i < MAX_GRAPH_NUMBER; i++) {
+            if (!deviceNumPickerMap.get(i).getId().equals(comboBoxId) && deviceNumPickerMap.get(i).getValue() == comboBox.getValue() && comboBox.getValue() != null) {
+                comboBox.setValue(null);
+                return;
+            }
+        }
         if (comboBox.getValue() == null) {
             Platform.runLater(() -> {
                 graphSelectCheckboxMap.get(comboBoxIndex).get("rpm1").setSelected(false);

@@ -396,6 +396,14 @@ public class CreateConnectionController extends DashboardController implements I
         connChkBoxMap.put(18, connChkBox18);
         connChkBoxMap.put(19, connChkBox19);
         loadGlobal = load;
+        for (int j = 0; j < MAX_DEVICE_NUMBER; j++) {
+            int finalJ = j;
+            connAddTextFieldMap.get(j).textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!isNumeric(newValue) || Integer.parseInt(newValue) > 255 || Integer.parseInt(newValue) < 0) {
+                    connAddTextFieldMap.get(finalJ).setText("");
+                }
+            });
+        }
         Platform.runLater(() -> {
             for(Map.Entry<Integer, Socket> entry : clientConn.entrySet()) {
                 if(entry.getValue().isConnected()) {
@@ -532,15 +540,6 @@ public class CreateConnectionController extends DashboardController implements I
         for (Map.Entry<Integer, TextField> entry : connAddTextFieldMap.entrySet()) {
             String addressStr = entry.getValue().getText();
             configString.append("address").append(entry.getKey()).append("=").append(addressStr).append("\n");
-//            StringBuilder config = new StringBuilder();
-//            if (clientConn.containsKey(entry.getKey()) && clientConn.get(entry.getKey()).isConnected()) {
-//                for (int i = 0; i < chartConfigMap.get(entry.getKey()).size(); i++) {
-//                    if (chartConfigMap.get(entry.getKey()).get(i)) config.append("1");
-//                    else config.append("0");
-//                }
-//                pref.put("chartConfig" + entry.getKey(), config.toString());
-//                configString.append("chartConfig").append(entry.getKey()).append("=").append(config.toString()).append("\n");
-//            }
         }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Setting");

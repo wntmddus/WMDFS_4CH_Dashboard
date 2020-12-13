@@ -15,6 +15,7 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         super.init();
+        System.setProperty( "sun.security.ssl.allowUnsafeRenegotiation", "true" );
         System.out.println("Inside init() method! Perform necessary initializations here.");
     }
 

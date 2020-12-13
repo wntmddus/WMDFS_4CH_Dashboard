@@ -20,14 +20,11 @@ import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.prefs.Preferences;
 
 public class SharedStorage {
+    public static Boolean isSendingData = true;
     public final int MAX_DEVICE_NUMBER = 20;
     public final int MAX_GRAPH_NUMBER = 8;
     public final static String BASE_URL = "https://ddms-api.samsunghrm.com/v2/ddms/service/";
@@ -256,7 +253,7 @@ public class SharedStorage {
     };
 
 
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) throws FileNotFoundException {
 
     }
 
@@ -375,6 +372,17 @@ public class SharedStorage {
                 lineRightCharts.get(chartNumber).setVisible(true);
             }
         });
+    }
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
     public String getCurrentDateTime(String pattern) {
         SimpleDateFormat simpleDate = new SimpleDateFormat(pattern);

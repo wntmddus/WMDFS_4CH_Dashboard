@@ -23,8 +23,8 @@
 
 <VBox fx:id="vbox" onKeyPressed="#handleOnKeyPressed" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
     <MenuBar VBox.vgrow="NEVER">
-        <Menu mnemonicParsing="false" text="View">
-            <MenuItem mnemonicParsing="false" onAction="#handleViewLogs" text="View Logs" />
+        <Menu fx:id="logMenu" disable="true" mnemonicParsing="false" text="View">
+            <MenuItem fx:id="logMenuSub" mnemonicParsing="false" onAction="#handleViewLogs" text="View Logs" />
         </Menu>
         <Menu mnemonicParsing="false" text="About">
             <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About WMDFS_Dashboard" />
@@ -560,7 +560,7 @@
         <children>
             <Pane fx:id="graphPane0" prefHeight="200.0" prefWidth="200.0">
                 <children>
-                    <LineChart fx:id="graphRight0" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight0" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -586,7 +586,7 @@
             </Pane>
             <Pane fx:id="graphPane1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight1" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight1" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -612,7 +612,7 @@
             </Pane>
             <Pane fx:id="graphPane2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                 <children>
-                    <LineChart fx:id="graphRight2" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight2" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -638,7 +638,7 @@
             </Pane>
             <Pane fx:id="graphPane3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                 <children>
-                    <LineChart fx:id="graphRight3" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight3" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -664,7 +664,7 @@
             </Pane>
             <Pane fx:id="graphPane4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight4" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight4" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -690,7 +690,7 @@
             </Pane>
             <Pane fx:id="graphPane5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight5" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight5" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -716,7 +716,7 @@
             </Pane>
             <Pane fx:id="graphPane6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight6" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight6" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -742,7 +742,7 @@
             </Pane>
             <Pane fx:id="graphPane7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight7" layoutX="40.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight7" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
