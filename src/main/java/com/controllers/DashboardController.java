@@ -716,7 +716,7 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        dataSendingToggle(true);
+        dataSendingToggle(false);
         deviceNames.add(deviceName0);
         deviceNames.add(deviceName1);
         deviceNames.add(deviceName2);

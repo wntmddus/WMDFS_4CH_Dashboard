@@ -262,7 +262,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                     if (fileWriters.containsKey(i) && recCheckboxArray.get(i).isSelected()) {
                                         totalCountMap.put(i, totalCountMap.get(i) + 1);
                                         if (line.contains(":24:00:00")) {
-                                            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
+                                            createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss", false), false);
                                         }
                                         fileWriters.get(i).write(line + "\r\n");
                                         fileWriters.get(i).flush();
@@ -279,15 +279,13 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                                 }
                                                 str.append(BASE_URL + "extLogs").append("\n")
                                                         .append(res).append("\n")
-//                                                        .append(res.headers().toString()).append("\n")
-//                                                        .append(res.body().toString()).append("\n")
                                                         .append("-------------------------------------------").append("\n");
+                                                log.info(str.toString());
                                                 Platform.runLater(() -> {
                                                     if (logView != null) {
                                                         logView.appendText(str.toString());
-
                                                         if (logView.getText().length() > 30000) {
-                                                            logView.deleteText(0, 658);
+                                                            logView.deleteText(0, 1153);
                                                         }
                                                     }
                                                 });
@@ -309,7 +307,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         });
                                     }
                                     if (isRecordingAll.get(i)) {
-                                        createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), false);
+                                        createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss", false), false);
                                         chartDataMap.get(i).remove("rpm1");
                                         chartDataMap.get(i).remove("rpm2");
                                         chartDataMap.get(i).remove("rpm3");
@@ -513,7 +511,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                     line = "";
                 }
                 if (recordAllBtnGlobal.getText().equals("Stop")) {
-                    createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss"), true);
+                    createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss", false), true);
                 }
                 chartDataMap.get(i).remove("rpm1");
                 chartDataMap.get(i).remove("rpm2");
@@ -607,7 +605,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
     }
 
     public void createNewFileWriter(int index, String currentDate, boolean isReconnected) throws IOException {
-        dateTimeOnFileNameMap.put(index, getCurrentDateTime("yyyy/MM/dd"));
+        dateTimeOnFileNameMap.put(index, getCurrentDateTime("yyyy/MM/dd", false));
         String reconnected = "";
         if (isReconnected) {
             reconnected = "-Reconnected";
@@ -616,8 +614,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
         File file = new File(path);
         file.getParentFile().mkdirs();
         fileWriters.put(index, new FileWriter(file));
-        fileWriters.get(index).write("Date: " + getCurrentDateTime("yyyy/MM/dd") + "\r\n");
-        fileWriters.get(index).write("Time: " + getCurrentDateTime("HH:mm:ss") + "\r\n");
+        fileWriters.get(index).write("Date: " + getCurrentDateTime("yyyy/MM/dd", false) + "\r\n");
+        fileWriters.get(index).write("Time: " + getCurrentDateTime("HH:mm:ss", false) + "\r\n");
         fileWriters.get(index).write("\r\n");
         fileWriters.get(index).write("Vibration: " + vibUnitMap.get(index) + "\r\n");
         fileWriters.get(index).write("\r\n");
@@ -751,7 +749,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
     private JSONObject buildSensorDataObject(int i, String devName) {
         JSONObject body = new JSONObject("{\n" +
                 "    \"extDeviceId\": \"" + devName + "\",\n" +
-                "    \"dateTime\": \"" + getCurrentDateTime("yyyy-MM-dd HH:mm:ss") + "\",\n" +
+                "    \"dateTime\": \"" + getCurrentDateTime("yyyy-MM-dd HH:mm:ss", true) + "\",\n" +
                 "}");
         if (!macAddressesMap.get(i).equals("")) {
             body.put("connectionMac", macAddressesMap.get(i));
