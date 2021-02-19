@@ -404,10 +404,10 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib1").setSelected(false);
                                         graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib2").setSelected(false);
                                         graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib3").setSelected(false);
+                                        maxRpmMap.get(chartAllocation.get(i)).setText("");
+                                        maxVibMap.get(chartAllocation.get(i)).setText("");
+                                        deviceNumPickerMap.get(chartAllocation.get(i)).setValue(null);
                                     }
-                                    maxRpmMap.get(i).setText("");
-                                    maxVibMap.get(i).setText("");
-                                    deviceNumPickerMap.get(i).setValue(null);
                                     removeChartData(i);
                                     removingDeviceDataOnDisconnect(i);
                                 });

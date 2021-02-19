@@ -1378,7 +1378,7 @@ public class DashboardController extends SharedStorage implements Initializable 
                 recordDot.setVisible(true);
                 ((Button) (event.getSource())).setText("Record All");
                 devConfigBtn.setDisable(false);
-                connectionMacBtn.setDisable(false);
+                if (isSendingData) connectionMacBtn.setDisable(false);
             });
         }
     }
