@@ -560,7 +560,7 @@
         <children>
             <Pane fx:id="graphPane0" prefHeight="200.0" prefWidth="200.0">
                 <children>
-                    <LineChart fx:id="graphRight0" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight0" layoutX="37.0" layoutY="49.0" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -568,7 +568,8 @@
                             <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <LineChart fx:id="graph0" layoutX="2.0" layoutY="39.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
+                    <Rectangle fx:id="rectangle0" managed="false" mouseTransparent="true" visible="false" />
+                    <LineChart fx:id="graph0" layoutX="2.0" layoutY="49.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -576,17 +577,29 @@
                             <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <Label fx:id="graph0Label0" layoutX="2.0" textFill="BLUE" />
-                    <Label fx:id="graph0Label1" layoutX="2.0" layoutY="13.0" textFill="RED" />
-                    <Label fx:id="graph0Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
-                    <Rectangle fx:id="rectangle0" managed="false" mouseTransparent="true" visible="false" />
+                    <Label fx:id="graph0Label0" layoutX="2.0" textFill="BLUE">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph0Label1" layoutX="2.0" layoutY="12.0" textFill="RED">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph0Label2" layoutX="2.0" layoutY="24.0" textFill="BLACK">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+               <Label fx:id="graph0Label3" layoutX="2.0" layoutY="36.0" textFill="#008204">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                     <Line fx:id="line0" visible="false" />
                     <Label fx:id="graphLabel0" layoutX="404.0" layoutY="18.0" text="Empty" />
                 </children>
             </Pane>
             <Pane fx:id="graphPane1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight1" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight1" layoutX="37.0" layoutY="49.0" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -594,7 +607,7 @@
                             <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <LineChart fx:id="graph1" layoutX="2.0" layoutY="39.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graph1" layoutX="2.0" layoutY="49.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -602,17 +615,31 @@
                             <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <Label fx:id="graph1Label0" layoutX="2.0" textFill="BLUE" />
-                    <Label fx:id="graph1Label1" layoutX="2.0" layoutY="13.0" textFill="RED" />
-                    <Label fx:id="graph1Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
+                    <Label fx:id="graph1Label0" layoutX="2.0" textFill="BLUE">
+                  <font>
+                     <Font size="10.0" />
+                  </font>
+               </Label>
+                    <Label fx:id="graph1Label1" layoutX="2.0" layoutY="12.0" textFill="RED">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph1Label2" layoutX="2.0" layoutY="24.0" textFill="BLACK">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                     <Rectangle fx:id="rectangle1" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line1" visible="false" />
                     <Label fx:id="graphLabel1" layoutX="404.0" layoutY="18.0" text="Empty" />
+               <Label fx:id="graph1Label3" layoutY="36.0" textFill="#008204">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                 </children>
             </Pane>
             <Pane fx:id="graphPane2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                 <children>
-                    <LineChart fx:id="graphRight2" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight2" layoutX="37.0" layoutY="49.0" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -620,7 +647,7 @@
                             <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <LineChart fx:id="graph2" layoutX="2.0" layoutY="39.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graph2" layoutX="2.0" layoutY="49.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -628,17 +655,30 @@
                             <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <Label fx:id="graph2Label0" layoutX="2.0" textFill="BLUE" />
-                    <Label fx:id="graph2Label1" layoutX="2.0" layoutY="13.0" textFill="RED" />
-                    <Label fx:id="graph2Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
+                    <Label fx:id="graph2Label0" layoutX="2.0" textFill="BLUE">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph2Label1" layoutX="2.0" layoutY="12.0" textFill="RED">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph2Label2" layoutX="2.0" layoutY="24.0" textFill="BLACK">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                     <Rectangle fx:id="rectangle2" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line2" visible="false" />
                     <Label fx:id="graphLabel2" layoutX="404.0" layoutY="18.0" text="Empty" />
+               <Label fx:id="graph2Label3" layoutY="36.0" textFill="#008204">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                 </children>
             </Pane>
             <Pane fx:id="graphPane3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                 <children>
-                    <LineChart fx:id="graphRight3" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight3" layoutX="37.0" layoutY="49.0" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -646,7 +686,7 @@
                             <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <LineChart fx:id="graph3" layoutX="2.0" layoutY="39.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graph3" layoutX="2.0" layoutY="49.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -654,17 +694,30 @@
                             <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <Label fx:id="graph3Label0" layoutX="2.0" textFill="BLUE" />
-                    <Label fx:id="graph3Label1" layoutX="2.0" layoutY="13.0" textFill="RED" />
-                    <Label fx:id="graph3Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
+                    <Label fx:id="graph3Label0" layoutX="2.0" textFill="BLUE">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph3Label1" layoutX="2.0" layoutY="12.0" textFill="RED">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph3Label2" layoutX="2.0" layoutY="24.0" textFill="BLACK">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                     <Rectangle fx:id="rectangle3" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line3" visible="false" />
                     <Label fx:id="graphLabel3" layoutX="404.0" layoutY="18.0" text="Empty" />
+               <Label fx:id="graph3Label3" layoutY="36.0" textFill="#008204">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                 </children>
             </Pane>
             <Pane fx:id="graphPane4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight4" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight4" layoutX="37.0" layoutY="49.0" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -672,7 +725,7 @@
                             <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <LineChart fx:id="graph4" layoutX="2.0" layoutY="39.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graph4" layoutX="2.0" layoutY="49.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -680,17 +733,30 @@
                             <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <Label fx:id="graph4Label0" layoutX="2.0" textFill="BLUE" />
-                    <Label fx:id="graph4Label1" layoutX="2.0" layoutY="13.0" textFill="RED" />
-                    <Label fx:id="graph4Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
+                    <Label fx:id="graph4Label0" layoutX="2.0" textFill="BLUE">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph4Label1" layoutX="2.0" layoutY="12.0" textFill="RED">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph4Label2" layoutX="2.0" layoutY="24.0" textFill="BLACK">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                     <Rectangle fx:id="rectangle4" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line4" visible="false" />
                     <Label fx:id="graphLabel4" layoutX="404.0" layoutY="18.0" text="Empty" />
+               <Label fx:id="graph4Label3" layoutY="36.0" textFill="#008204">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                 </children>
             </Pane>
             <Pane fx:id="graphPane5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight5" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight5" layoutX="37.0" layoutY="49.0" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -698,7 +764,7 @@
                             <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <LineChart fx:id="graph5" layoutX="2.0" layoutY="39.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graph5" layoutX="2.0" layoutY="49.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -706,17 +772,30 @@
                             <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <Label fx:id="graph5Label0" layoutX="2.0" textFill="BLUE" />
-                    <Label fx:id="graph5Label1" layoutX="2.0" layoutY="13.0" textFill="RED" />
-                    <Label fx:id="graph5Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
+                    <Label fx:id="graph5Label0" layoutX="2.0" textFill="BLUE">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph5Label1" layoutX="2.0" layoutY="12.0" textFill="RED">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph5Label2" layoutX="2.0" layoutY="24.0" textFill="BLACK">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                     <Rectangle fx:id="rectangle5" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line5" visible="false" />
                     <Label fx:id="graphLabel5" layoutX="404.0" layoutY="18.0" text="Empty" />
+               <Label fx:id="graph5Label3" layoutY="36.0" textFill="#008204">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                 </children>
             </Pane>
             <Pane fx:id="graphPane6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight6" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight6" layoutX="37.0" layoutY="49.0" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -724,7 +803,7 @@
                             <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <LineChart fx:id="graph6" layoutX="2.0" layoutY="39.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graph6" layoutY="49.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -732,17 +811,30 @@
                             <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <Label fx:id="graph6Label0" layoutX="2.0" textFill="BLUE" />
-                    <Label fx:id="graph6Label1" layoutX="2.0" layoutY="13.0" textFill="RED" />
-                    <Label fx:id="graph6Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
+                    <Label fx:id="graph6Label0" layoutX="2.0" textFill="BLUE">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph6Label1" layoutX="2.0" layoutY="12.0" textFill="RED">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph6Label2" layoutX="2.0" layoutY="24.0" textFill="BLACK">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                     <Rectangle fx:id="rectangle6" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line6" visible="false" />
                     <Label fx:id="graphLabel6" layoutX="404.0" layoutY="18.0" text="Empty" />
+               <Label fx:id="graph6Label3" layoutY="36.0" textFill="#008204">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                 </children>
             </Pane>
             <Pane fx:id="graphPane7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                 <children>
-                    <LineChart fx:id="graphRight7" layoutX="37.0" layoutY="39.0" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graphRight7" layoutX="37.0" layoutY="49.0" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -750,7 +842,7 @@
                             <NumberAxis label="Vib" side="RIGHT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <LineChart fx:id="graph7" layoutX="2.0" layoutY="39.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="203.0" prefWidth="440.0">
+                    <LineChart fx:id="graph7" layoutX="2.0" layoutY="49.0" onMouseClicked="#onGraphClicked" onMouseDragged="#handleOnMouseDragged" onMouseMoved="#handleOnMouseHover" onMousePressed="#handleOnMousePressed" onMouseReleased="#handleOnMouseReleased" prefHeight="195.0" prefWidth="440.0">
                         <xAxis>
                             <CategoryAxis side="BOTTOM" />
                         </xAxis>
@@ -758,12 +850,25 @@
                             <NumberAxis label="Rpm" side="LEFT" tickLabelRotation="270" />
                         </yAxis>
                     </LineChart>
-                    <Label fx:id="graph7Label0" layoutX="2.0" textFill="BLUE" />
-                    <Label fx:id="graph7Label1" layoutX="2.0" layoutY="13.0" textFill="RED" />
-                    <Label fx:id="graph7Label2" layoutX="2.0" layoutY="26.0" textFill="BLACK" />
+                    <Label fx:id="graph7Label0" layoutX="2.0" textFill="BLUE">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph7Label1" layoutX="2.0" layoutY="12.0" textFill="RED">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
+                    <Label fx:id="graph7Label2" layoutX="2.0" layoutY="24.0" textFill="BLACK">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                     <Rectangle fx:id="rectangle7" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line7" visible="false" />
                     <Label fx:id="graphLabel7" layoutX="404.0" layoutY="18.0" text="Empty" />
+               <Label fx:id="graph7Label3" layoutY="36.0" textFill="#008204">
+                  <font>
+                     <Font size="10.0" />
+                  </font></Label>
                 </children>
             </Pane>
         </children>
@@ -780,7 +885,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <GridPane gridLinesVisible="true">
+            <GridPane gridLinesVisible="true" GridPane.halignment="RIGHT">
                 <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.70301818847656" minWidth="10.0" prefWidth="78.18657684326172" />
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.67281341552734" minWidth="10.0" prefWidth="180.78054809570312" />
@@ -791,6 +896,7 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <Label fx:id="vibUnit0" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -868,6 +974,21 @@
                             <Font size="10.0" />
                         </font>
                     </Label>
+               <Label contentDisplay="CENTER" text="CH4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="21.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4VibValue0" text="0" textFill="#00e61b" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4RpmValue0" text="0" textFill="#97c500" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
                 </children>
             </GridPane>
             <GridPane gridLinesVisible="true" GridPane.columnIndex="1">
@@ -881,6 +1002,7 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <Label fx:id="vibUnit1" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -961,6 +1083,21 @@
                             <Font size="10.0" />
                         </font>
                     </Label>
+               <Label contentDisplay="CENTER" text="CH4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="21.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4VibValue1" text="0" textFill="#00e61b" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4RpmValue1" text="0" textFill="#97c500" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
                 </children>
             </GridPane>
             <GridPane gridLinesVisible="true" GridPane.columnIndex="2">
@@ -974,6 +1111,7 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <Label fx:id="vibUnit2" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -1054,6 +1192,21 @@
                             <Font size="10.0" />
                         </font>
                     </Label>
+               <Label contentDisplay="CENTER" text="CH4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="21.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4RpmValue2" text="0" textFill="#97c500" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4VibValue2" text="0" textFill="#00e61b" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
                 </children>
             </GridPane>
             <GridPane gridLinesVisible="true" GridPane.columnIndex="3">
@@ -1067,6 +1220,7 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <Label fx:id="vibUnit3" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -1147,6 +1301,21 @@
                             <Font size="10.0" />
                         </font>
                     </Label>
+               <Label contentDisplay="CENTER" text="CH4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="21.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4RpmValue3" text="0" textFill="#97c500" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4VibValue3" text="0" textFill="#00e61b" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
                 </children>
             </GridPane>
             <GridPane gridLinesVisible="true" GridPane.rowIndex="1">
@@ -1160,6 +1329,7 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <Label fx:id="vibUnit4" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -1240,6 +1410,21 @@
                             <Font size="10.0" />
                         </font>
                     </Label>
+               <Label contentDisplay="CENTER" text="CH4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="21.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4RpmValue4" text="0" textFill="#97c500" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4VibValue4" text="0" textFill="#00e61b" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
                 </children>
             </GridPane>
             <GridPane gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -1253,6 +1438,7 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <Label fx:id="vibUnit5" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -1333,6 +1519,21 @@
                             <Font size="10.0" />
                         </font>
                     </Label>
+               <Label contentDisplay="CENTER" text="CH4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="21.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4RpmValue5" text="0" textFill="#97c500" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4VibValue5" text="0" textFill="#00e61b" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
                 </children>
             </GridPane>
             <GridPane gridLinesVisible="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -1346,6 +1547,7 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <Label fx:id="vibUnit6" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -1426,6 +1628,21 @@
                             <Font size="10.0" />
                         </font>
                     </Label>
+               <Label contentDisplay="CENTER" text="CH4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="21.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4RpmValue6" text="0" textFill="#97c500" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4VibValue6" text="0" textFill="#00e61b" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
                 </children>
             </GridPane>
             <GridPane gridLinesVisible="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
@@ -1439,6 +1656,7 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <Label fx:id="vibUnit7" text="Disp.Peak" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -1519,6 +1737,21 @@
                             <Font size="10.0" />
                         </font>
                     </Label>
+               <Label contentDisplay="CENTER" text="CH4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="21.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4RpmValue7" text="0" textFill="#97c500" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ch4VibValue7" text="0" textFill="#00e61b" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <font>
+                     <Font size="30.0" />
+                  </font>
+               </Label>
                 </children>
             </GridPane>
         </children>

@@ -201,6 +201,12 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Label ch3VibValue0;
 
     @FXML
+    public Label ch4VibValue0;
+
+    @FXML
+    public Label ch4RpmValue0;
+
+    @FXML
     public Label ch1RpmValue0;
 
     @FXML
@@ -228,6 +234,12 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Label ch3RpmValue1;
 
     @FXML
+    public Label ch4VibValue1;
+
+    @FXML
+    public Label ch4RpmValue1;
+
+    @FXML
     public Label ch1VibValue2;
 
     @FXML
@@ -244,6 +256,12 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public Label ch3RpmValue2;
+
+    @FXML
+    public Label ch4VibValue2;
+
+    @FXML
+    public Label ch4RpmValue2;
 
     @FXML
     public Label ch1VibValue3;
@@ -264,6 +282,12 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Label ch3RpmValue3;
 
     @FXML
+    public Label ch4VibValue3;
+
+    @FXML
+    public Label ch4RpmValue3;
+
+    @FXML
     public Label ch1VibValue4;
 
     @FXML
@@ -280,6 +304,12 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public Label ch3RpmValue4;
+
+    @FXML
+    public Label ch4VibValue4;
+
+    @FXML
+    public Label ch4RpmValue4;
 
     @FXML
     public Label ch1VibValue5;
@@ -300,6 +330,12 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Label ch3RpmValue5;
 
     @FXML
+    public Label ch4VibValue5;
+
+    @FXML
+    public Label ch4RpmValue5;
+
+    @FXML
     public Label ch1VibValue6;
 
     @FXML
@@ -316,6 +352,12 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public Label ch3RpmValue6;
+
+    @FXML
+    public Label ch4VibValue6;
+
+    @FXML
+    public Label ch4RpmValue6;
 
     @FXML
     public Label ch1VibValue7;
@@ -336,6 +378,12 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Label ch3RpmValue7;
 
     @FXML
+    public Label ch4VibValue7;
+
+    @FXML
+    public Label ch4RpmValue7;
+
+    @FXML
     public Pane graphPane0;
 
     @FXML
@@ -348,6 +396,9 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Label graph0Label2;
 
     @FXML
+    public Label graph0Label3;
+
+    @FXML
     public Label graph1Label0;
 
     @FXML
@@ -355,6 +406,9 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public Label graph1Label2;
+
+    @FXML
+    public Label graph1Label3;
 
     @FXML
     public Label graph2Label0;
@@ -366,6 +420,9 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Label graph2Label2;
 
     @FXML
+    public Label graph2Label3;
+
+    @FXML
     public Label graph3Label0;
 
     @FXML
@@ -373,6 +430,9 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public Label graph3Label2;
+
+    @FXML
+    public Label graph3Label3;
 
     @FXML
     public Label graph4Label0;
@@ -384,6 +444,9 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Label graph4Label2;
 
     @FXML
+    public Label graph4Label3;
+
+    @FXML
     public Label graph5Label0;
 
     @FXML
@@ -391,6 +454,9 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public Label graph5Label2;
+
+    @FXML
+    public Label graph5Label3;
 
     @FXML
     public Label graph6Label0;
@@ -402,6 +468,9 @@ public class DashboardController extends SharedStorage implements Initializable 
     public Label graph6Label2;
 
     @FXML
+    public Label graph6Label3;
+
+    @FXML
     public Label graph7Label0;
 
     @FXML
@@ -409,6 +478,9 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @FXML
     public Label graph7Label2;
+
+    @FXML
+    public Label graph7Label3;
 
     @FXML
     public Rectangle rectangle0;
@@ -704,7 +776,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         if (flag) {
             isSendingData = true;
             connectionMacBtn.setDisable(false);
-            logMenu.setDisable(false);
+            logMenu.setDisable(false);   
             logMenuSub.setDisable(false);
         } else {
             isSendingData = false;
@@ -716,7 +788,7 @@ public class DashboardController extends SharedStorage implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        dataSendingToggle(false);
+        dataSendingToggle(true);
         deviceNames.add(deviceName0);
         deviceNames.add(deviceName1);
         deviceNames.add(deviceName2);
@@ -768,51 +840,67 @@ public class DashboardController extends SharedStorage implements Initializable 
         realTimeData.get(0).add(ch1VibValue0);
         realTimeData.get(0).add(ch2VibValue0);
         realTimeData.get(0).add(ch3VibValue0);
+        realTimeData.get(0).add(ch4VibValue0);
         realTimeData.get(0).add(ch1RpmValue0);
         realTimeData.get(0).add(ch2RpmValue0);
         realTimeData.get(0).add(ch3RpmValue0);
+        realTimeData.get(0).add(ch4RpmValue0);
         realTimeData.get(1).add(ch1VibValue1);
         realTimeData.get(1).add(ch2VibValue1);
         realTimeData.get(1).add(ch3VibValue1);
+        realTimeData.get(1).add(ch4VibValue1);
         realTimeData.get(1).add(ch1RpmValue1);
         realTimeData.get(1).add(ch2RpmValue1);
         realTimeData.get(1).add(ch3RpmValue1);
+        realTimeData.get(1).add(ch4RpmValue1);
         realTimeData.get(2).add(ch1VibValue2);
         realTimeData.get(2).add(ch2VibValue2);
         realTimeData.get(2).add(ch3VibValue2);
+        realTimeData.get(2).add(ch4VibValue2);
         realTimeData.get(2).add(ch1RpmValue2);
         realTimeData.get(2).add(ch2RpmValue2);
         realTimeData.get(2).add(ch3RpmValue2);
+        realTimeData.get(2).add(ch4RpmValue2);
         realTimeData.get(3).add(ch1VibValue3);
         realTimeData.get(3).add(ch2VibValue3);
         realTimeData.get(3).add(ch3VibValue3);
+        realTimeData.get(3).add(ch4VibValue3);
         realTimeData.get(3).add(ch1RpmValue3);
         realTimeData.get(3).add(ch2RpmValue3);
         realTimeData.get(3).add(ch3RpmValue3);
+        realTimeData.get(3).add(ch4RpmValue3);
         realTimeData.get(4).add(ch1VibValue4);
         realTimeData.get(4).add(ch2VibValue4);
         realTimeData.get(4).add(ch3VibValue4);
+        realTimeData.get(4).add(ch4VibValue4);
         realTimeData.get(4).add(ch1RpmValue4);
         realTimeData.get(4).add(ch2RpmValue4);
         realTimeData.get(4).add(ch3RpmValue4);
+        realTimeData.get(4).add(ch4RpmValue4);
         realTimeData.get(5).add(ch1VibValue5);
         realTimeData.get(5).add(ch2VibValue5);
         realTimeData.get(5).add(ch3VibValue5);
+        realTimeData.get(5).add(ch4VibValue5);
         realTimeData.get(5).add(ch1RpmValue5);
         realTimeData.get(5).add(ch2RpmValue5);
         realTimeData.get(5).add(ch3RpmValue5);
+        realTimeData.get(5).add(ch4RpmValue5);
         realTimeData.get(6).add(ch1VibValue6);
         realTimeData.get(6).add(ch2VibValue6);
         realTimeData.get(6).add(ch3VibValue6);
+        realTimeData.get(6).add(ch4VibValue6);
         realTimeData.get(6).add(ch1RpmValue6);
         realTimeData.get(6).add(ch2RpmValue6);
         realTimeData.get(6).add(ch3RpmValue6);
+        realTimeData.get(6).add(ch4RpmValue6);
         realTimeData.get(7).add(ch1VibValue7);
         realTimeData.get(7).add(ch2VibValue7);
         realTimeData.get(7).add(ch3VibValue7);
+        realTimeData.get(7).add(ch4VibValue7);
         realTimeData.get(7).add(ch1RpmValue7);
         realTimeData.get(7).add(ch2RpmValue7);
         realTimeData.get(7).add(ch3RpmValue7);
+        realTimeData.get(7).add(ch4RpmValue7);
         chartRectangleMap.add(rectangle0);
         chartRectangleMap.add(rectangle1);
         chartRectangleMap.add(rectangle2);
@@ -867,27 +955,35 @@ public class DashboardController extends SharedStorage implements Initializable 
         chartLabelMap.get(0).put(0, graph0Label0);
         chartLabelMap.get(0).put(1, graph0Label1);
         chartLabelMap.get(0).put(2, graph0Label2);
+        chartLabelMap.get(0).put(3, graph0Label3);
         chartLabelMap.get(1).put(0, graph1Label0);
         chartLabelMap.get(1).put(1, graph1Label1);
         chartLabelMap.get(1).put(2, graph1Label2);
+        chartLabelMap.get(1).put(3, graph1Label3);
         chartLabelMap.get(2).put(0, graph2Label0);
         chartLabelMap.get(2).put(1, graph2Label1);
         chartLabelMap.get(2).put(2, graph2Label2);
+        chartLabelMap.get(2).put(3, graph2Label3);
         chartLabelMap.get(3).put(0, graph3Label0);
         chartLabelMap.get(3).put(1, graph3Label1);
         chartLabelMap.get(3).put(2, graph3Label2);
+        chartLabelMap.get(3).put(3, graph3Label3);
         chartLabelMap.get(4).put(0, graph4Label0);
         chartLabelMap.get(4).put(1, graph4Label1);
         chartLabelMap.get(4).put(2, graph4Label2);
+        chartLabelMap.get(4).put(3, graph4Label3);
         chartLabelMap.get(5).put(0, graph5Label0);
         chartLabelMap.get(5).put(1, graph5Label1);
         chartLabelMap.get(5).put(2, graph5Label2);
+        chartLabelMap.get(5).put(3, graph5Label3);
         chartLabelMap.get(6).put(0, graph6Label0);
         chartLabelMap.get(6).put(1, graph6Label1);
         chartLabelMap.get(6).put(2, graph6Label2);
+        chartLabelMap.get(6).put(3, graph6Label3);
         chartLabelMap.get(7).put(0, graph7Label0);
         chartLabelMap.get(7).put(1, graph7Label1);
         chartLabelMap.get(7).put(2, graph7Label2);
+        chartLabelMap.get(7).put(3, graph7Label3);
 //        chartLabelMap.get(7).get(2).setText(System.getProperty("java.home"));
         graphLabels.put(0, graphLabel0);
         graphLabels.put(1, graphLabel1);
@@ -991,17 +1087,21 @@ public class DashboardController extends SharedStorage implements Initializable 
                 Label ch1Label = chartLabelMap.get(chartIndex).get(0);
                 Label ch2Label = chartLabelMap.get(chartIndex).get(1);
                 Label ch3Label = chartLabelMap.get(chartIndex).get(2);
+                Label ch4Label = chartLabelMap.get(chartIndex).get(3);
                 int finalDataIndex = dataIndex;
                 Platform.runLater(() -> {
-                    createLine(chartIndex, (int) event.getX(), 54, (int) event.getX(), 224);
-                    if (chartConfigMap.get(finalDataIndex).get(0) || chartConfigMap.get(finalDataIndex).get(3)) {
+                    createLine(chartIndex, (int) event.getX(), 65, (int) event.getX(), 226);
+                    if (chartConfigMap.get(finalDataIndex).get(0) || chartConfigMap.get(finalDataIndex).get(4)) {
                         ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " " + vibUnitDetailedMap.get(finalDataIndex));
                     }
-                    if (chartConfigMap.get(finalDataIndex).get(1) || chartConfigMap.get(finalDataIndex).get(4)) {
+                    if (chartConfigMap.get(finalDataIndex).get(1) || chartConfigMap.get(finalDataIndex).get(5)) {
                         ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " " + vibUnitDetailedMap.get(finalDataIndex));
                     }
-                    if (chartConfigMap.get(finalDataIndex).get(2) || chartConfigMap.get(finalDataIndex).get(5)) {
+                    if (chartConfigMap.get(finalDataIndex).get(2) || chartConfigMap.get(finalDataIndex).get(6)) {
                         ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " " + vibUnitDetailedMap.get(finalDataIndex));
+                    }
+                    if (chartConfigMap.get(finalDataIndex).get(3) || chartConfigMap.get(finalDataIndex).get(7)) {
+                        ch4Label.setText("CH4 [" + lineData.get(0) + "] : " + lineData.get(7) + " Rpm : " + lineData.get(8) + " " + vibUnitDetailedMap.get(finalDataIndex));
                     }
                 });
             }
@@ -1048,15 +1148,19 @@ public class DashboardController extends SharedStorage implements Initializable 
                         Label ch1Label = chartLabelMap.get(whichGraphSelected).get(0);
                         Label ch2Label = chartLabelMap.get(whichGraphSelected).get(1);
                         Label ch3Label = chartLabelMap.get(whichGraphSelected).get(2);
-                        createLine(whichGraphSelected, xCoordinate, 54, xCoordinate, 224);
-                        if (chartConfigMap.get(finalDeviceIndex).get(0) || chartConfigMap.get(finalDeviceIndex).get(3)) {
+                        Label ch4Label = chartLabelMap.get(whichGraphSelected).get(3);
+                        createLine(whichGraphSelected, xCoordinate, 65, xCoordinate, 226);
+                        if (chartConfigMap.get(finalDeviceIndex).get(0) || chartConfigMap.get(finalDeviceIndex).get(4)) {
                             ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
                         }
-                        if (chartConfigMap.get(finalDeviceIndex).get(1) || chartConfigMap.get(finalDeviceIndex).get(4)) {
+                        if (chartConfigMap.get(finalDeviceIndex).get(1) || chartConfigMap.get(finalDeviceIndex).get(5)) {
                             ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
                         }
-                        if (chartConfigMap.get(finalDeviceIndex).get(2) || chartConfigMap.get(finalDeviceIndex).get(5)) {
+                        if (chartConfigMap.get(finalDeviceIndex).get(2) || chartConfigMap.get(finalDeviceIndex).get(6)) {
                             ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
+                        }
+                        if (chartConfigMap.get(finalDeviceIndex).get(3) || chartConfigMap.get(finalDeviceIndex).get(7)) {
+                            ch4Label.setText("CH4 [" + lineData.get(0) + "] : " + lineData.get(7) + " Rpm : " + lineData.get(8) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
                         }
                     });
                     break;
@@ -1069,15 +1173,19 @@ public class DashboardController extends SharedStorage implements Initializable 
                         Label ch1Label = chartLabelMap.get(whichGraphSelected).get(0);
                         Label ch2Label = chartLabelMap.get(whichGraphSelected).get(1);
                         Label ch3Label = chartLabelMap.get(whichGraphSelected).get(2);
-                        createLine(whichGraphSelected, xCoordinate, 54, xCoordinate, 224);
-                        if (chartConfigMap.get(finalDeviceIndex).get(0) || chartConfigMap.get(finalDeviceIndex).get(3)) {
+                        Label ch4Label = chartLabelMap.get(whichGraphSelected).get(3);
+                        createLine(whichGraphSelected, xCoordinate, 65, xCoordinate, 226);
+                        if (chartConfigMap.get(finalDeviceIndex).get(0) || chartConfigMap.get(finalDeviceIndex).get(4)) {
                             ch1Label.setText("CH1 [" + lineData.get(0) + "] : " + lineData.get(1) + " Rpm : " + lineData.get(2) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
                         }
-                        if (chartConfigMap.get(finalDeviceIndex).get(1) || chartConfigMap.get(finalDeviceIndex).get(4)) {
+                        if (chartConfigMap.get(finalDeviceIndex).get(1) || chartConfigMap.get(finalDeviceIndex).get(5)) {
                             ch2Label.setText("CH2 [" + lineData.get(0) + "] : " + lineData.get(3) + " Rpm : " + lineData.get(4) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
                         }
-                        if (chartConfigMap.get(finalDeviceIndex).get(2) || chartConfigMap.get(finalDeviceIndex).get(5)) {
+                        if (chartConfigMap.get(finalDeviceIndex).get(2) || chartConfigMap.get(finalDeviceIndex).get(6)) {
                             ch3Label.setText("CH3 [" + lineData.get(0) + "] : " + lineData.get(5) + " Rpm : " + lineData.get(6) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
+                        }
+                        if (chartConfigMap.get(finalDeviceIndex).get(3) || chartConfigMap.get(finalDeviceIndex).get(7)) {
+                            ch4Label.setText("CH4 [" + lineData.get(0) + "] : " + lineData.get(7) + " Rpm : " + lineData.get(8) + " " + vibUnitDetailedMap.get(finalDeviceIndex));
                         }
                     });
                     break;
@@ -1203,12 +1311,15 @@ public class DashboardController extends SharedStorage implements Initializable 
         Label ch1Label = chartLabelMap.get(chartIndex).get(0);
         Label ch2Label = chartLabelMap.get(chartIndex).get(1);
         Label ch3Label = chartLabelMap.get(chartIndex).get(2);
+        Label ch4Label = chartLabelMap.get(chartIndex).get(3);
         double rpm1 = 0;
         double rpm2 = 0;
         double rpm3 = 0;
+        double rpm4 = 0;
         double maxVib1 = 0;
         double maxVib2 = 0;
         double maxVib3 = 0;
+        double maxVib4 = 0;
 
         // Y start 15 end 120
         if (event.isSecondaryButtonDown()) {
@@ -1234,24 +1345,33 @@ public class DashboardController extends SharedStorage implements Initializable 
                     maxVib3 = Double.parseDouble(currentDeviceData.get(i).get(6));
                     rpm3 = Integer.parseInt(currentDeviceData.get(i).get(5));
                 }
+                if (Double.parseDouble(currentDeviceData.get(i).get(8)) > maxVib4) {
+                    maxVib4 = Double.parseDouble(currentDeviceData.get(i).get(8));
+                    rpm4 = Integer.parseInt(currentDeviceData.get(i).get(7));
+                }
             }
             int finalRpm = (int) rpm1;
             int finalRpm1 = (int) rpm2;
             int finalRpm2 = (int) rpm3;
+            int finalRpm3 = (int) rpm4;
             double finalMaxVib = maxVib1;
             double finalMaxVib1 = maxVib2;
             double finalMaxVib2 = maxVib3;
+            double finalMaxVib3 = maxVib4;
             int finalDataIndex = dataIndex;
             Platform.runLater(() -> {
                 createRectangle(chartRectangleMap.get(chartIndex), x, y, width, height);
-                if (chartConfigMap.get(finalDataIndex).get(0) || chartConfigMap.get(finalDataIndex).get(3)) {
+                if (chartConfigMap.get(finalDataIndex).get(0) || chartConfigMap.get(finalDataIndex).get(4)) {
                     ch1Label.setText("CH1 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib + " " + vibUnitDetailedMap.get(finalDataIndex) + ", RPM: " + finalRpm);
                 }
-                if (chartConfigMap.get(finalDataIndex).get(1) || chartConfigMap.get(finalDataIndex).get(4)) {
+                if (chartConfigMap.get(finalDataIndex).get(1) || chartConfigMap.get(finalDataIndex).get(5)) {
                     ch2Label.setText("CH2 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib1 + " " + vibUnitDetailedMap.get(finalDataIndex) + ", RPM: " + finalRpm1);
                 }
-                if (chartConfigMap.get(finalDataIndex).get(2) || chartConfigMap.get(finalDataIndex).get(5)) {
+                if (chartConfigMap.get(finalDataIndex).get(2) || chartConfigMap.get(finalDataIndex).get(6)) {
                     ch3Label.setText("CH3 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib2 + " " + vibUnitDetailedMap.get(finalDataIndex) + ", RPM: " + finalRpm2);
+                }
+                if (chartConfigMap.get(finalDataIndex).get(3) || chartConfigMap.get(finalDataIndex).get(7)) {
+                    ch4Label.setText("CH4 [" + currentDeviceData.get(start).get(0) + "-" + currentDeviceData.get(end).get(0) + "] : " + "Max Vib: " + finalMaxVib3 + " " + vibUnitDetailedMap.get(finalDataIndex) + ", RPM: " + finalRpm3);
                 }
             });
         }
@@ -1404,7 +1524,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         fileWriters.get(index).write("\r\n");
         fileWriters.get(index).write("Vibration: " + vibUnitMap.get(index) + "\r\n");
         fileWriters.get(index).write("\r\n");
-        fileWriters.get(index).write("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3\r\n");
+        fileWriters.get(index).write("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3     RPM#4     Vib#4\r\n");
         fileWriters.get(index).flush();
     }
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="550.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.SelectGraphController">
+<VBox prefHeight="550.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.SelectGraphController">
     <children>
         <Pane prefHeight="550.0" prefWidth="700.0">
             <children>
@@ -23,13 +23,13 @@
                 <Label layoutX="35.0" layoutY="121.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox0" layoutX="77.0" layoutY="139.0" mnemonicParsing="false" />
                 <Label layoutX="82.0" layoutY="121.0" text="1" />
-                <CheckBox fx:id="ch2VibChkBox0" layoutX="118.0" layoutY="139.0" mnemonicParsing="false" />
-                <Label layoutX="123.0" layoutY="121.0" text="2" />
-                <CheckBox fx:id="ch3VibChkBox0" layoutX="157.0" layoutY="139.0" mnemonicParsing="false" />
-                <Label layoutX="162.0" layoutY="121.0" text="3" />
+                <CheckBox fx:id="ch2VibChkBox0" layoutX="108.0" layoutY="139.0" mnemonicParsing="false" />
+                <Label layoutX="113.0" layoutY="121.0" text="2" />
+                <CheckBox fx:id="ch3VibChkBox0" layoutX="139.0" layoutY="139.0" mnemonicParsing="false" />
+                <Label layoutX="144.0" layoutY="121.0" text="3" />
                 <CheckBox fx:id="ch1RpmChkBox0" layoutX="77.0" layoutY="167.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch2RpmChkBox0" layoutX="118.0" layoutY="167.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch3RpmChkBox0" layoutX="157.0" layoutY="167.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch2RpmChkBox0" layoutX="108.0" layoutY="167.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch3RpmChkBox0" layoutX="139.0" layoutY="167.0" mnemonicParsing="false" />
                 <Label layoutX="32.0" layoutY="169.0" text="Rpm" />
                 <Label layoutX="35.0" layoutY="142.0" text="Vib" />
                 <Label layoutX="217.0" layoutY="59.0" text="Graph2" />
@@ -38,13 +38,13 @@
                 <Label layoutX="223.0" layoutY="119.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox1" layoutX="265.0" layoutY="137.0" mnemonicParsing="false" />
                 <Label layoutX="270.0" layoutY="119.0" text="1" />
-                <CheckBox fx:id="ch2VibChkBox1" layoutX="306.0" layoutY="137.0" mnemonicParsing="false" />
-                <Label layoutX="311.0" layoutY="119.0" text="2" />
-                <CheckBox fx:id="ch3VibChkBox1" layoutX="345.0" layoutY="137.0" mnemonicParsing="false" />
-                <Label layoutX="350.0" layoutY="119.0" text="3" />
+                <CheckBox fx:id="ch2VibChkBox1" layoutX="296.0" layoutY="137.0" mnemonicParsing="false" />
+                <Label layoutX="301.0" layoutY="119.0" text="2" />
+                <CheckBox fx:id="ch3VibChkBox1" layoutX="327.0" layoutY="137.0" mnemonicParsing="false" />
+                <Label layoutX="332.0" layoutY="119.0" text="3" />
                 <CheckBox fx:id="ch1RpmChkBox1" layoutX="265.0" layoutY="165.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch2RpmChkBox1" layoutX="306.0" layoutY="165.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch3RpmChkBox1" layoutX="345.0" layoutY="165.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch2RpmChkBox1" layoutX="296.0" layoutY="165.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch3RpmChkBox1" layoutX="327.0" layoutY="165.0" mnemonicParsing="false" />
                 <Label layoutX="220.0" layoutY="167.0" text="Rpm" />
                 <Label layoutX="223.0" layoutY="140.0" text="Vib" />
                 <Label layoutX="412.0" layoutY="59.0" text="Graph3" />
@@ -53,13 +53,13 @@
                 <Label layoutX="418.0" layoutY="119.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox2" layoutX="460.0" layoutY="137.0" mnemonicParsing="false" />
                 <Label layoutX="465.0" layoutY="119.0" text="1" />
-                <CheckBox fx:id="ch2VibChkBox2" layoutX="501.0" layoutY="137.0" mnemonicParsing="false" />
-                <Label layoutX="506.0" layoutY="119.0" text="2" />
-                <CheckBox fx:id="ch3VibChkBox2" layoutX="540.0" layoutY="137.0" mnemonicParsing="false" />
-                <Label layoutX="545.0" layoutY="119.0" text="3" />
+                <CheckBox fx:id="ch2VibChkBox2" layoutX="491.0" layoutY="137.0" mnemonicParsing="false" />
+                <Label layoutX="496.0" layoutY="119.0" text="2" />
+                <CheckBox fx:id="ch3VibChkBox2" layoutX="522.0" layoutY="137.0" mnemonicParsing="false" />
+                <Label layoutX="527.0" layoutY="119.0" text="3" />
                 <CheckBox fx:id="ch1RpmChkBox2" layoutX="460.0" layoutY="165.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch2RpmChkBox2" layoutX="501.0" layoutY="165.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch3RpmChkBox2" layoutX="540.0" layoutY="165.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch2RpmChkBox2" layoutX="491.0" layoutY="165.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch3RpmChkBox2" layoutX="522.0" layoutY="165.0" mnemonicParsing="false" />
                 <Label layoutX="415.0" layoutY="167.0" text="Rpm" />
                 <Label layoutX="418.0" layoutY="140.0" text="Vib" />
                 <Label layoutX="595.0" layoutY="59.0" text="Graph4" />
@@ -68,13 +68,13 @@
                 <Label layoutX="601.0" layoutY="119.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox3" layoutX="643.0" layoutY="137.0" mnemonicParsing="false" />
                 <Label layoutX="648.0" layoutY="119.0" text="1" />
-                <CheckBox fx:id="ch2VibChkBox3" layoutX="684.0" layoutY="137.0" mnemonicParsing="false" />
-                <Label layoutX="689.0" layoutY="119.0" text="2" />
-                <CheckBox fx:id="ch3VibChkBox3" layoutX="723.0" layoutY="137.0" mnemonicParsing="false" />
-                <Label layoutX="728.0" layoutY="119.0" text="3" />
+                <CheckBox fx:id="ch2VibChkBox3" layoutX="674.0" layoutY="137.0" mnemonicParsing="false" />
+                <Label layoutX="679.0" layoutY="119.0" text="2" />
+                <CheckBox fx:id="ch3VibChkBox3" layoutX="705.0" layoutY="137.0" mnemonicParsing="false" />
+                <Label layoutX="710.0" layoutY="119.0" text="3" />
                 <CheckBox fx:id="ch1RpmChkBox3" layoutX="643.0" layoutY="165.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch2RpmChkBox3" layoutX="684.0" layoutY="165.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch3RpmChkBox3" layoutX="723.0" layoutY="165.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch2RpmChkBox3" layoutX="674.0" layoutY="165.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch3RpmChkBox3" layoutX="705.0" layoutY="165.0" mnemonicParsing="false" />
                 <Label layoutX="598.0" layoutY="167.0" text="Rpm" />
                 <Label layoutX="601.0" layoutY="140.0" text="Vib" />
                 <Label layoutX="32.0" layoutY="287.0" text="Graph5" />
@@ -83,13 +83,13 @@
                 <Label layoutX="38.0" layoutY="347.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox4" layoutX="80.0" layoutY="365.0" mnemonicParsing="false" />
                 <Label layoutX="85.0" layoutY="347.0" text="1" />
-                <CheckBox fx:id="ch2VibChkBox4" layoutX="121.0" layoutY="365.0" mnemonicParsing="false" />
-                <Label layoutX="126.0" layoutY="347.0" text="2" />
-                <CheckBox fx:id="ch3VibChkBox4" layoutX="160.0" layoutY="365.0" mnemonicParsing="false" />
-                <Label layoutX="165.0" layoutY="347.0" text="3" />
+                <CheckBox fx:id="ch2VibChkBox4" layoutX="111.0" layoutY="365.0" mnemonicParsing="false" />
+                <Label layoutX="116.0" layoutY="347.0" text="2" />
+                <CheckBox fx:id="ch3VibChkBox4" layoutX="142.0" layoutY="365.0" mnemonicParsing="false" />
+                <Label layoutX="147.0" layoutY="347.0" text="3" />
                 <CheckBox fx:id="ch1RpmChkBox4" layoutX="80.0" layoutY="393.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch2RpmChkBox4" layoutX="121.0" layoutY="393.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch3RpmChkBox4" layoutX="160.0" layoutY="393.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch2RpmChkBox4" layoutX="111.0" layoutY="393.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch3RpmChkBox4" layoutX="142.0" layoutY="393.0" mnemonicParsing="false" />
                 <Label layoutX="35.0" layoutY="395.0" text="Rpm" />
                 <Label layoutX="38.0" layoutY="368.0" text="Vib" />
                 <Label layoutX="220.0" layoutY="285.0" text="Graph6" />
@@ -98,13 +98,13 @@
                 <Label layoutX="226.0" layoutY="345.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox5" layoutX="268.0" layoutY="363.0" mnemonicParsing="false" />
                 <Label layoutX="273.0" layoutY="345.0" text="1" />
-                <CheckBox fx:id="ch2VibChkBox5" layoutX="309.0" layoutY="363.0" mnemonicParsing="false" />
-                <Label layoutX="314.0" layoutY="345.0" text="2" />
-                <CheckBox fx:id="ch3VibChkBox5" layoutX="348.0" layoutY="363.0" mnemonicParsing="false" />
-                <Label layoutX="353.0" layoutY="345.0" text="3" />
+                <CheckBox fx:id="ch2VibChkBox5" layoutX="299.0" layoutY="363.0" mnemonicParsing="false" />
+                <Label layoutX="304.0" layoutY="345.0" text="2" />
+                <CheckBox fx:id="ch3VibChkBox5" layoutX="330.0" layoutY="363.0" mnemonicParsing="false" />
+                <Label layoutX="335.0" layoutY="345.0" text="3" />
                 <CheckBox fx:id="ch1RpmChkBox5" layoutX="268.0" layoutY="391.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch2RpmChkBox5" layoutX="309.0" layoutY="391.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch3RpmChkBox5" layoutX="348.0" layoutY="391.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch2RpmChkBox5" layoutX="299.0" layoutY="391.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch3RpmChkBox5" layoutX="330.0" layoutY="391.0" mnemonicParsing="false" />
                 <Label layoutX="223.0" layoutY="393.0" text="Rpm" />
                 <Label layoutX="226.0" layoutY="366.0" text="Vib" />
                 <Label layoutX="415.0" layoutY="285.0" text="Graph7" />
@@ -113,13 +113,13 @@
                 <Label layoutX="421.0" layoutY="345.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox6" layoutX="463.0" layoutY="363.0" mnemonicParsing="false" />
                 <Label layoutX="468.0" layoutY="345.0" text="1" />
-                <CheckBox fx:id="ch2VibChkBox6" layoutX="504.0" layoutY="363.0" mnemonicParsing="false" />
-                <Label layoutX="509.0" layoutY="345.0" text="2" />
-                <CheckBox fx:id="ch3VibChkBox6" layoutX="543.0" layoutY="363.0" mnemonicParsing="false" />
-                <Label layoutX="548.0" layoutY="345.0" text="3" />
+                <CheckBox fx:id="ch2VibChkBox6" layoutX="494.0" layoutY="363.0" mnemonicParsing="false" />
+                <Label layoutX="499.0" layoutY="345.0" text="2" />
+                <CheckBox fx:id="ch3VibChkBox6" layoutX="525.0" layoutY="363.0" mnemonicParsing="false" />
+                <Label layoutX="530.0" layoutY="345.0" text="3" />
                 <CheckBox fx:id="ch1RpmChkBox6" layoutX="463.0" layoutY="391.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch2RpmChkBox6" layoutX="504.0" layoutY="391.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch3RpmChkBox6" layoutX="543.0" layoutY="391.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch2RpmChkBox6" layoutX="494.0" layoutY="391.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch3RpmChkBox6" layoutX="525.0" layoutY="391.0" mnemonicParsing="false" />
                 <Label layoutX="418.0" layoutY="393.0" text="Rpm" />
                 <Label layoutX="421.0" layoutY="366.0" text="Vib" />
                 <Label layoutX="598.0" layoutY="285.0" text="Graph8" />
@@ -128,13 +128,13 @@
                 <Label layoutX="604.0" layoutY="345.0" text="CH" />
                 <CheckBox fx:id="ch1VibChkBox7" layoutX="646.0" layoutY="363.0" mnemonicParsing="false" />
                 <Label layoutX="651.0" layoutY="345.0" text="1" />
-                <CheckBox fx:id="ch2VibChkBox7" layoutX="687.0" layoutY="363.0" mnemonicParsing="false" />
-                <Label layoutX="692.0" layoutY="345.0" text="2" />
-                <CheckBox fx:id="ch3VibChkBox7" layoutX="726.0" layoutY="363.0" mnemonicParsing="false" />
-                <Label layoutX="731.0" layoutY="345.0" text="3" />
+                <CheckBox fx:id="ch2VibChkBox7" layoutX="677.0" layoutY="363.0" mnemonicParsing="false" />
+                <Label layoutX="682.0" layoutY="345.0" text="2" />
+                <CheckBox fx:id="ch3VibChkBox7" layoutX="708.0" layoutY="363.0" mnemonicParsing="false" />
+                <Label layoutX="713.0" layoutY="345.0" text="3" />
                 <CheckBox fx:id="ch1RpmChkBox7" layoutX="646.0" layoutY="391.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch2RpmChkBox7" layoutX="687.0" layoutY="391.0" mnemonicParsing="false" />
-                <CheckBox fx:id="ch3RpmChkBox7" layoutX="726.0" layoutY="391.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch2RpmChkBox7" layoutX="677.0" layoutY="391.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch3RpmChkBox7" layoutX="708.0" layoutY="391.0" mnemonicParsing="false" />
                 <Label layoutX="601.0" layoutY="393.0" text="Rpm" />
                 <Label layoutX="604.0" layoutY="366.0" text="Vib" />
                 <Label layoutX="16.0" layoutY="211.0" text="Max Rpm" />
@@ -185,6 +185,30 @@
                 <TextField fx:id="maxVib7" layoutX="641.0" layoutY="461.0" prefHeight="27.0" prefWidth="48.0" />
                 <CheckBox fx:id="rpmAutoChkBox7" layoutX="698.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleRpmAutoChkBox" text="Auto" />
                 <CheckBox fx:id="vibAutoChkBox7" layoutX="698.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleVibAutoChkBox" text="Auto" />
+                <CheckBox fx:id="ch4VibChkBox0" layoutX="170.0" layoutY="139.0" mnemonicParsing="false" />
+                <Label layoutX="175.0" layoutY="121.0" text="4" />
+                <CheckBox fx:id="ch4RpmChkBox0" layoutX="170.0" layoutY="167.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch4VibChkBox1" layoutX="358.0" layoutY="137.0" mnemonicParsing="false" />
+                <Label layoutX="363.0" layoutY="119.0" text="4" />
+                <CheckBox fx:id="ch4RpmChkBox1" layoutX="358.0" layoutY="165.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch4VibChkBox2" layoutX="553.0" layoutY="137.0" mnemonicParsing="false" />
+                <Label layoutX="558.0" layoutY="119.0" text="4" />
+                <CheckBox fx:id="ch4RpmChkBox2" layoutX="553.0" layoutY="165.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch4VibChkBox3" layoutX="736.0" layoutY="137.0" mnemonicParsing="false" />
+                <Label layoutX="741.0" layoutY="119.0" text="4" />
+                <CheckBox fx:id="ch4RpmChkBox3" layoutX="736.0" layoutY="165.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch4VibChkBox4" layoutX="173.0" layoutY="365.0" mnemonicParsing="false" />
+                <Label layoutX="178.0" layoutY="347.0" text="4" />
+                <CheckBox fx:id="ch4RpmChkBox4" layoutX="173.0" layoutY="393.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch4VibChkBox5" layoutX="361.0" layoutY="363.0" mnemonicParsing="false" />
+                <Label layoutX="366.0" layoutY="345.0" text="4" />
+                <CheckBox fx:id="ch4RpmChkBox5" layoutX="361.0" layoutY="391.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch4VibChkBox6" layoutX="556.0" layoutY="363.0" mnemonicParsing="false" />
+                <Label layoutX="561.0" layoutY="345.0" text="4" />
+                <CheckBox fx:id="ch4RpmChkBox6" layoutX="556.0" layoutY="391.0" mnemonicParsing="false" />
+                <CheckBox fx:id="ch4VibChkBox7" layoutX="739.0" layoutY="363.0" mnemonicParsing="false" />
+                <Label layoutX="744.0" layoutY="345.0" text="4" />
+                <CheckBox fx:id="ch4RpmChkBox7" layoutX="739.0" layoutY="391.0" mnemonicParsing="false" />
             </children>
         </Pane>
     </children>

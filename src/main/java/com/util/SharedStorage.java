@@ -28,7 +28,7 @@ public class SharedStorage {
     public final int MAX_DEVICE_NUMBER = 20;
     public final int MAX_GRAPH_NUMBER = 8;
     public final static String BASE_URL = "https://ddms-api.samsunghrm.com/v2/ddms/service/";
-    public final static String BASE_IP_ADDRESS = "192.168.2.";
+    public final static String BASE_IP_ADDRESS = "192.168.4.";
     public final static String APPLICATION_JSON = "application/json";
     public final static String AUTHORIZATION = "Authorization";
     public final static String ID = "id";
@@ -295,15 +295,19 @@ public class SharedStorage {
             boolean rpm1 = graphSelectCheckboxMap.get(chartNumber).get("rpm1").isSelected();
             boolean rpm2 = graphSelectCheckboxMap.get(chartNumber).get("rpm2").isSelected();
             boolean rpm3 = graphSelectCheckboxMap.get(chartNumber).get("rpm3").isSelected();
+            boolean rpm4 = graphSelectCheckboxMap.get(chartNumber).get("rpm4").isSelected();
             boolean vib1 = graphSelectCheckboxMap.get(chartNumber).get("vib1").isSelected();
             boolean vib2 = graphSelectCheckboxMap.get(chartNumber).get("vib2").isSelected();
             boolean vib3 = graphSelectCheckboxMap.get(chartNumber).get("vib3").isSelected();
+            boolean vib4 = graphSelectCheckboxMap.get(chartNumber).get("vib4").isSelected();
             chartConfigMap.get(deviceNumber).set(0, rpm1);
             chartConfigMap.get(deviceNumber).set(1, rpm2);
             chartConfigMap.get(deviceNumber).set(2, rpm3);
-            chartConfigMap.get(deviceNumber).set(3, vib1);
-            chartConfigMap.get(deviceNumber).set(4, vib2);
-            chartConfigMap.get(deviceNumber).set(5, vib3);
+            chartConfigMap.get(deviceNumber).set(3, rpm4);
+            chartConfigMap.get(deviceNumber).set(4, vib1);
+            chartConfigMap.get(deviceNumber).set(5, vib2);
+            chartConfigMap.get(deviceNumber).set(6, vib3);
+            chartConfigMap.get(deviceNumber).set(7, vib4);
             vibUnitLabelMap.get(chartNumber).setText(vibUnitMap.get(deviceNumber));
             graphLabels.get(chartNumber).setText(deviceNames.get(deviceNumber).getText());
             graphPanelLabels.get(chartNumber).setText(deviceNames.get(deviceNumber).getText());
@@ -338,34 +342,46 @@ public class SharedStorage {
                 chartDataMap.get(deviceNumber).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.SLATEGRAY) + ", 1.0);");
             }
             if (!chartConfigMap.get(deviceNumber).get(3)) {
+                lineCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("rpm4"));
+            } else if (chartConfigMap.get(deviceNumber).get(3) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("rpm4"))) {
+                lineCharts.get(chartNumber).getData().add(chartDataMap.get(deviceNumber).get("rpm4"));
+                chartDataMap.get(deviceNumber).get("rpm4").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.LIGHTGREEN) + ", 1.0);");
+            }
+            if (!chartConfigMap.get(deviceNumber).get(4)) {
                 lineRightCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("vib1"));
-            } else if (chartConfigMap.get(deviceNumber).get(3) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("vib1"))) {
+            } else if (chartConfigMap.get(deviceNumber).get(4) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("vib1"))) {
                 lineRightCharts.get(chartNumber).getData().add(chartDataMap.get(deviceNumber).get("vib1"));
                 chartDataMap.get(deviceNumber).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
             }
-            if (!chartConfigMap.get(deviceNumber).get(4)) {
+            if (!chartConfigMap.get(deviceNumber).get(5)) {
                 lineRightCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("vib2"));
-            } else if (chartConfigMap.get(deviceNumber).get(4) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("vib2"))) {
+            } else if (chartConfigMap.get(deviceNumber).get(5) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("vib2"))) {
                 lineRightCharts.get(chartNumber).getData().add(chartDataMap.get(deviceNumber).get("vib2"));
                 chartDataMap.get(deviceNumber).get("vib2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
             }
-            if (!chartConfigMap.get(deviceNumber).get(5)) {
+            if (!chartConfigMap.get(deviceNumber).get(6)) {
                 lineRightCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("vib3"));
-            } else if (chartConfigMap.get(deviceNumber).get(5) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("vib3"))) {
+            } else if (chartConfigMap.get(deviceNumber).get(6) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("vib3"))) {
                 lineRightCharts.get(chartNumber).getData().add(chartDataMap.get(deviceNumber).get("vib3"));
                 chartDataMap.get(deviceNumber).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
             }
-            if (!chartConfigMap.get(deviceNumber).get(0) && !chartConfigMap.get(deviceNumber).get(1) && !chartConfigMap.get(deviceNumber).get(2)) {
+            if (!chartConfigMap.get(deviceNumber).get(7)) {
+                lineRightCharts.get(chartNumber).getData().remove(chartDataMap.get(deviceNumber).get("vib4"));
+            } else if (chartConfigMap.get(deviceNumber).get(7) && !lineCharts.get(chartNumber).getData().contains(chartDataMap.get(deviceNumber).get("vib4"))) {
+                lineRightCharts.get(chartNumber).getData().add(chartDataMap.get(deviceNumber).get("vib4"));
+                chartDataMap.get(deviceNumber).get("vib4").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.GREENYELLOW) + ", 1.0);");
+            }
+            if (!chartConfigMap.get(deviceNumber).get(0) && !chartConfigMap.get(deviceNumber).get(1) && !chartConfigMap.get(deviceNumber).get(2) && !chartConfigMap.get(deviceNumber).get(3)) {
                 lineRightCharts.get(chartNumber).getYAxis().setLabel(vibUnitMap.get(deviceNumber));
                 lineRightCharts.get(chartNumber).setVisible(true);
                 lineCharts.get(chartNumber).setVisible(false);
             }
-            if (!chartConfigMap.get(deviceNumber).get(3) && !chartConfigMap.get(deviceNumber).get(4) && !chartConfigMap.get(deviceNumber).get(5)) {
+            if (!chartConfigMap.get(deviceNumber).get(4) && !chartConfigMap.get(deviceNumber).get(5) && !chartConfigMap.get(deviceNumber).get(6) && !chartConfigMap.get(deviceNumber).get(7)) {
                 lineCharts.get(chartNumber).getYAxis().setLabel("Rpm");
                 lineRightCharts.get(chartNumber).setVisible(false);
                 lineCharts.get(chartNumber).setVisible(true);
             }
-            if ((chartConfigMap.get(deviceNumber).get(0) || chartConfigMap.get(deviceNumber).get(1) || chartConfigMap.get(deviceNumber).get(2)) && (chartConfigMap.get(deviceNumber).get(3) || chartConfigMap.get(deviceNumber).get(4) || chartConfigMap.get(deviceNumber).get(5))) {
+            if ((chartConfigMap.get(deviceNumber).get(0) || chartConfigMap.get(deviceNumber).get(1) || chartConfigMap.get(deviceNumber).get(2) || chartConfigMap.get(deviceNumber).get(3)) && (chartConfigMap.get(deviceNumber).get(4) || chartConfigMap.get(deviceNumber).get(5) || chartConfigMap.get(deviceNumber).get(6) || chartConfigMap.get(deviceNumber).get(7))) {
                 lineCharts.get(chartNumber).getYAxis().setLabel("Rpm");
                 lineRightCharts.get(chartNumber).getYAxis().setLabel(vibUnitMap.get(deviceNumber));
                 lineCharts.get(chartNumber).setVisible(true);

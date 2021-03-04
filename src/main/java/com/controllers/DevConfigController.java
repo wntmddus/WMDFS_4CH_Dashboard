@@ -95,9 +95,12 @@ public class DevConfigController extends SharedStorage implements Initializable 
                 realTimeData.get(chartNumber).get(3).setText("0");
                 realTimeData.get(chartNumber).get(4).setText("0");
                 realTimeData.get(chartNumber).get(5).setText("0");
+                realTimeData.get(chartNumber).get(6).setText("0");
+                realTimeData.get(chartNumber).get(7).setText("0");
                 chartLabelMap.get(chartNumber).get(0).setText("");
                 chartLabelMap.get(chartNumber).get(1).setText("");
                 chartLabelMap.get(chartNumber).get(2).setText("");
+                chartLabelMap.get(chartNumber).get(3).setText("");
                 vibUnitLabelMap.get(chartNumber).setText("Disp.Peak");
                 lineMap.get(chartNumber).setVisible(false);
                 chartRectangleMap.get(chartNumber).setVisible(false);
@@ -162,9 +165,11 @@ public class DevConfigController extends SharedStorage implements Initializable 
         currentLabelObject.get(0).setText(realTimeLine.get(2));
         currentLabelObject.get(1).setText(realTimeLine.get(4));
         currentLabelObject.get(2).setText(realTimeLine.get(6));
-        currentLabelObject.get(3).setText(realTimeLine.get(1));
-        currentLabelObject.get(4).setText(realTimeLine.get(3));
-        currentLabelObject.get(5).setText(realTimeLine.get(5));
+        currentLabelObject.get(3).setText(realTimeLine.get(8));
+        currentLabelObject.get(4).setText(realTimeLine.get(1));
+        currentLabelObject.get(5).setText(realTimeLine.get(3));
+        currentLabelObject.get(6).setText(realTimeLine.get(5));
+        currentLabelObject.get(7).setText(realTimeLine.get(7));
     }
 
 
@@ -245,6 +250,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         add(0.0);
                                         add(0);
                                         add(0.0);
+                                        add(0);
+                                        add(0.0);
                                     }
                                 });
                                 while (clientConn.get(i).isConnected()) {
@@ -298,7 +305,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         }
                                     }
                                     int finalCounter = counter;
-                                    if (arr.size() == 7) {
+                                    if (arr.size() == 9) {
                                         Platform.runLater(() -> {
                                             if(chartAllocation.containsKey(i)) {
                                                 updateRealtimeDataUpdatePanel(arr, chartAllocation.get(i));
@@ -311,9 +318,11 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         chartDataMap.get(i).remove("rpm1");
                                         chartDataMap.get(i).remove("rpm2");
                                         chartDataMap.get(i).remove("rpm3");
+                                        chartDataMap.get(i).remove("rpm4");
                                         chartDataMap.get(i).remove("vib1");
                                         chartDataMap.get(i).remove("vib2");
                                         chartDataMap.get(i).remove("vib3");
+                                        chartDataMap.get(i).remove("vib4");
                                         deviceData.get(i).clear();
                                         totalCountMap.put(i, 0);
                                         Platform.runLater(() -> {
@@ -330,8 +339,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                                     "}");
                                             JSONObject requestBody2 = new JSONObject("{\n" +
                                                     "    \"extDeviceId\": \"" + devName + "\",\n" +
-                                                    "    \"channelCount\": 7,\n" +
-                                                    "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
+                                                    "    \"channelCount\": 9,\n" +
+                                                    "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\", \"vib4(" + vibUnitMap.get(i) + ")\", \"Rpm4\"]\n" +
                                                     "}");
                                             if (!macAddressesMap.get(i).equals("")) {
                                                 requestBody2.put("connectionMac", macAddressesMap.get(i));
@@ -350,13 +359,9 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                             }
                                             str.append(BASE_URL + "extInit").append("\n")
                                                     .append(res1).append("\n")
-//                                                    .append(res1.headers().toString()).append("\n")
-//                                                    .append(res1.body().toString()).append("\n")
                                                     .append("-------------------------------------------").append("\n");
                                             str.append(BASE_URL + "extRegistration").append("\n")
                                                     .append(res2).append("\n")
-//                                                    .append(res2.headers().toString()).append("\n")
-//                                                    .append(res2.body().toString()).append("\n")
                                                     .append("-------------------------------------------").append("\n");
                                             logStringBuilder.append(str);
                                             Platform.runLater(() -> {
@@ -401,9 +406,11 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm1").setSelected(false);
                                         graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm2").setSelected(false);
                                         graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm3").setSelected(false);
+                                        graphSelectCheckboxMap.get(chartAllocation.get(i)).get("rpm4").setSelected(false);
                                         graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib1").setSelected(false);
                                         graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib2").setSelected(false);
                                         graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib3").setSelected(false);
+                                        graphSelectCheckboxMap.get(chartAllocation.get(i)).get("vib4").setSelected(false);
                                         maxRpmMap.get(chartAllocation.get(i)).setText("");
                                         maxVibMap.get(chartAllocation.get(i)).setText("");
                                         deviceNumPickerMap.get(chartAllocation.get(i)).setValue(null);
@@ -476,6 +483,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
                     add(true);
                     add(true);
                     add(true);
+                    add(true);
+                    add(true);
                 }
             });
         }
@@ -516,9 +525,11 @@ public class DevConfigController extends SharedStorage implements Initializable 
                 chartDataMap.get(i).remove("rpm1");
                 chartDataMap.get(i).remove("rpm2");
                 chartDataMap.get(i).remove("rpm3");
+                chartDataMap.get(i).remove("rpm4");
                 chartDataMap.get(i).remove("vib1");
                 chartDataMap.get(i).remove("vib2");
                 chartDataMap.get(i).remove("vib3");
+                chartDataMap.get(i).remove("vib4");
                 deviceData.get(i).clear();
                 Platform.runLater(() -> {
                     if (chartAllocation.containsKey(i)) {
@@ -536,8 +547,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
                             "}");
                     JSONObject requestBody2 = new JSONObject("{\n" +
                             "    \"extDeviceId\": \"" + devName + "\",\n" +
-                            "    \"channelCount\": 7,\n" +
-                            "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\"]\n" +
+                            "    \"channelCount\": 9,\n" +
+                            "    \"channelName\": [\"dd:hh:mm:ss\", \"vib1(" + vibUnitMap.get(i) + ")\", \"Rpm1\", \"vib2(" + vibUnitMap.get(i) + ")\", \"Rpm2\", \"vib3(" + vibUnitMap.get(i) + ")\", \"Rpm3\", \"vib4(" + vibUnitMap.get(i) + ")\", \"Rpm4\"]\n" +
                             "}");
                     if (!macAddressesMap.get(i).equals("")) {
                         requestBody2.put("connectionMac", macAddressesMap.get(i));
@@ -573,24 +584,32 @@ public class DevConfigController extends SharedStorage implements Initializable 
         tempArr.set(4, Math.max((Double) tempArr.get(4), Float.parseFloat(arr.get(4))));
         tempArr.set(5, Math.max((Integer) tempArr.get(5), Integer.parseInt(arr.get(5))));
         tempArr.set(6, Math.max((Double) tempArr.get(6), Float.parseFloat(arr.get(6))));
+        tempArr.set(7, Math.max((Integer) tempArr.get(7), Integer.parseInt(arr.get(7))));
+        tempArr.set(8, Math.max((Double) tempArr.get(8), Float.parseFloat(arr.get(8))));
         if (counter != 0 && counter % 6  == 0) {
             if (chartDataMap.get(i).get("rpm1").getData().size() > 600) {
                 chartDataMap.get(i).get("rpm1").getData().remove(0);
                 chartDataMap.get(i).get("rpm2").getData().remove(0);
                 chartDataMap.get(i).get("rpm3").getData().remove(0);
+                chartDataMap.get(i).get("rpm4").getData().remove(0);
                 chartDataMap.get(i).get("vib1").getData().remove(0);
                 chartDataMap.get(i).get("vib2").getData().remove(0);
                 chartDataMap.get(i).get("vib3").getData().remove(0);
+                chartDataMap.get(i).get("vib4").getData().remove(0);
             }
             chartDataMap.get(i).get("rpm1").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(1)));
             chartDataMap.get(i).get("rpm2").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(3)));
             chartDataMap.get(i).get("rpm3").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(5)));
+            chartDataMap.get(i).get("rpm4").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(7)));
             chartDataMap.get(i).get("vib1").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(2)));
             chartDataMap.get(i).get("vib2").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(4)));
             chartDataMap.get(i).get("vib3").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(6)));
+            chartDataMap.get(i).get("vib4").getData().add(new XYChart.Data<>(arr.get(0), tempArr.get(8)));
             return new ArrayList<Number>() {
                 {
                     add(0);
+                    add(0);
+                    add(0.0);
                     add(0);
                     add(0.0);
                     add(0);
@@ -619,7 +638,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
         fileWriters.get(index).write("\r\n");
         fileWriters.get(index).write("Vibration: " + vibUnitMap.get(index) + "\r\n");
         fileWriters.get(index).write("\r\n");
-        fileWriters.get(index).write("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3\r\n");
+        fileWriters.get(index).write("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3     RPM#4     Vib#4\r\n");
         fileWriters.get(index).flush();
     }
 
@@ -628,15 +647,19 @@ public class DevConfigController extends SharedStorage implements Initializable 
         chartDataMap.get(index).put("rpm1", new XYChart.Series<>());
         chartDataMap.get(index).put("rpm2", new XYChart.Series<>());
         chartDataMap.get(index).put("rpm3", new XYChart.Series<>());
+        chartDataMap.get(index).put("rpm4", new XYChart.Series<>());
         chartDataMap.get(index).put("vib1", new XYChart.Series<>());
         chartDataMap.get(index).put("vib2", new XYChart.Series<>());
         chartDataMap.get(index).put("vib3", new XYChart.Series<>());
+        chartDataMap.get(index).put("vib4", new XYChart.Series<>());
         chartDataMap.get(index).get("rpm1").setName("rpm1");
         chartDataMap.get(index).get("rpm2").setName("rpm2");
         chartDataMap.get(index).get("rpm3").setName("rpm3");
+        chartDataMap.get(index).get("rpm4").setName("rpm4");
         chartDataMap.get(index).get("vib1").setName("vib1");
         chartDataMap.get(index).get("vib2").setName("vib2");
         chartDataMap.get(index).get("vib3").setName("vib3");
+        chartDataMap.get(index).get("vib4").setName("vib4");
         if (chartAllocation.containsKey(index)) {
             if (maxRpmValueMap.containsKey(index)) {
                 lineCharts.get(chartAllocation.get(index)).getYAxis().setAutoRanging(false);
@@ -660,24 +683,32 @@ public class DevConfigController extends SharedStorage implements Initializable 
                 chartDataMap.get(index).get("rpm3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.SLATEGRAY) + ", 1.0);");
             }
             if (chartConfigMap.get(index).get(3)) {
+                lineCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("rpm4"));
+                chartDataMap.get(index).get("rpm4").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.LIGHTGREEN) + ", 1.0);");
+            }
+            if (chartConfigMap.get(index).get(4)) {
                 lineRightCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib1"));
                 chartDataMap.get(index).get("vib1").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLUE) + ", 1.0);");
             }
-            if (chartConfigMap.get(index).get(4)) {
+            if (chartConfigMap.get(index).get(5)) {
                 lineRightCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib2"));
                 chartDataMap.get(index).get("vib2").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.RED) + ", 1.0);");
             }
-            if (chartConfigMap.get(index).get(5)) {
+            if (chartConfigMap.get(index).get(6)) {
                 lineRightCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib3"));
                 chartDataMap.get(index).get("vib3").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.BLACK) + ", 1.0);");
             }
-            if (!chartConfigMap.get(index).get(0) && !chartConfigMap.get(index).get(1) && !chartConfigMap.get(index).get(2)) {
+            if (chartConfigMap.get(index).get(7)) {
+                lineRightCharts.get(chartAllocation.get(index)).getData().add(chartDataMap.get(index).get("vib4"));
+                chartDataMap.get(index).get("vib4").getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(" + rgbFormatter(Color.GREENYELLOW) + ", 1.0);");
+            }
+            if (!chartConfigMap.get(index).get(0) && !chartConfigMap.get(index).get(1) && !chartConfigMap.get(index).get(2) && !chartConfigMap.get(index).get(3)) {
                 lineRightCharts.get(chartAllocation.get(index)).getYAxis().setLabel(vibUnitMap.get(index));
             }
-            if (!chartConfigMap.get(index).get(3) && !chartConfigMap.get(index).get(4) && !chartConfigMap.get(index).get(5)) {
+            if (!chartConfigMap.get(index).get(4) && !chartConfigMap.get(index).get(5) && !chartConfigMap.get(index).get(6) && !chartConfigMap.get(index).get(7)) {
                 lineCharts.get(chartAllocation.get(index)).getYAxis().setLabel("Rpm");
             }
-            if ((chartConfigMap.get(index).get(0) || chartConfigMap.get(index).get(1) || chartConfigMap.get(index).get(2)) && (chartConfigMap.get(index).get(3) || chartConfigMap.get(index).get(4) || chartConfigMap.get(index).get(5))) {
+            if ((chartConfigMap.get(index).get(0) || chartConfigMap.get(index).get(1) || chartConfigMap.get(index).get(2) || chartConfigMap.get(index).get(3)) && (chartConfigMap.get(index).get(4) || chartConfigMap.get(index).get(5) || chartConfigMap.get(index).get(6) || chartConfigMap.get(index).get(7))) {
                 lineCharts.get(chartAllocation.get(index)).getYAxis().setLabel("Rpm");
                 lineRightCharts.get(chartAllocation.get(index)).getYAxis().setLabel(vibUnitMap.get(index));
 
@@ -718,9 +749,11 @@ public class DevConfigController extends SharedStorage implements Initializable 
             chartDataMap.get(i).remove("rpm1");
             chartDataMap.get(i).remove("rpm2");
             chartDataMap.get(i).remove("rpm3");
+            chartDataMap.get(i).remove("rpm4");
             chartDataMap.get(i).remove("vib1");
             chartDataMap.get(i).remove("vib2");
             chartDataMap.get(i).remove("vib3");
+            chartDataMap.get(i).remove("vib4");
         }
         disconnectBtnMap.get(i).setDisable(true);
         connAddTextFieldMap.get(i).setDisable(false);
@@ -729,12 +762,15 @@ public class DevConfigController extends SharedStorage implements Initializable 
             chartLabelMap.get(chartIndex).get(0).setText("");
             chartLabelMap.get(chartIndex).get(1).setText("");
             chartLabelMap.get(chartIndex).get(2).setText("");
+            chartLabelMap.get(chartIndex).get(3).setText("");
             realTimeData.get(chartIndex).get(0).setText("0");
             realTimeData.get(chartIndex).get(1).setText("0");
             realTimeData.get(chartIndex).get(2).setText("0");
             realTimeData.get(chartIndex).get(3).setText("0");
             realTimeData.get(chartIndex).get(4).setText("0");
             realTimeData.get(chartIndex).get(5).setText("0");
+            realTimeData.get(chartIndex).get(6).setText("0");
+            realTimeData.get(chartIndex).get(7).setText("0");
             graphLabels.get(chartIndex).setText("Empty");
             graphPanelLabels.get(chartIndex).setText("Empty");
             chartRectangleMap.get(chartIndex).setVisible(false);
@@ -765,6 +801,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
         sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(4));
         sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(5));
         sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(6));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(7));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(8));
         sensorObject2.put("sensorData", sensorArray2);
 
         JSONObject sensorObject3 = new JSONObject();
@@ -776,6 +814,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
         sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(4));
         sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(5));
         sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(6));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(7));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(8));
         sensorObject3.put("sensorData", sensorArray3);
 
         JSONObject sensorObject4 = new JSONObject();
@@ -787,6 +827,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
         sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(4));
         sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(5));
         sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(6));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(7));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(8));
         sensorObject4.put("sensorData", sensorArray4);
 
         JSONObject sensorObject5 = new JSONObject();
@@ -798,6 +840,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
         sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(4));
         sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(5));
         sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(6));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(7));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(8));
         sensorObject5.put("sensorData", sensorArray5);
 
         JSONObject sensorObject6 = new JSONObject();
@@ -809,6 +853,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
         sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(4));
         sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(5));
         sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(6));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(7));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(8));
         sensorObject6.put("sensorData", sensorArray6);
 
         rawData.put(sensorObject2);
