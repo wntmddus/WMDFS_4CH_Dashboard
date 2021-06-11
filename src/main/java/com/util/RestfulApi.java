@@ -15,7 +15,7 @@ public class RestfulApi {
     public static String post(String path, JSONObject requestBody) throws IOException {
         System.out.println(requestBody.toString());
         PowerShellResponse response = null;
-        try (PowerShell powerShell = PowerShell.openSession()) {
+        try (PowerShell powerShell = PowerShell.openSession("pwsh")) {
             //Increase timeout to give enough time to the script to finish
             Map<String, String> config = new HashMap<String, String>();
             //Execute script

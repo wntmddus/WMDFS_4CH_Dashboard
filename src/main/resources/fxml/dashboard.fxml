@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" onKeyPressed="#handleOnKeyPressed" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
+<VBox fx:id="vbox" onKeyPressed="#handleOnKeyPressed" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.controllers.DashboardController">
     <MenuBar VBox.vgrow="NEVER">
         <Menu fx:id="logMenu" disable="true" mnemonicParsing="false" text="View">
             <MenuItem fx:id="logMenuSub" mnemonicParsing="false" onAction="#handleViewLogs" text="View Logs" />
@@ -631,7 +631,7 @@
                     <Rectangle fx:id="rectangle1" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line1" visible="false" />
                     <Label fx:id="graphLabel1" layoutX="404.0" layoutY="18.0" text="Empty" />
-               <Label fx:id="graph1Label3" layoutY="36.0" textFill="#008204">
+               <Label fx:id="graph1Label3" layoutX="2.0" layoutY="36.0" textFill="#008204">
                   <font>
                      <Font size="10.0" />
                   </font></Label>
@@ -670,7 +670,7 @@
                     <Rectangle fx:id="rectangle2" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line2" visible="false" />
                     <Label fx:id="graphLabel2" layoutX="404.0" layoutY="18.0" text="Empty" />
-               <Label fx:id="graph2Label3" layoutY="36.0" textFill="#008204">
+               <Label fx:id="graph2Label3" layoutX="2.0" layoutY="36.0" textFill="#008204">
                   <font>
                      <Font size="10.0" />
                   </font></Label>
@@ -709,7 +709,7 @@
                     <Rectangle fx:id="rectangle3" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line3" visible="false" />
                     <Label fx:id="graphLabel3" layoutX="404.0" layoutY="18.0" text="Empty" />
-               <Label fx:id="graph3Label3" layoutY="36.0" textFill="#008204">
+               <Label fx:id="graph3Label3" layoutX="2.0" layoutY="36.0" textFill="#008204">
                   <font>
                      <Font size="10.0" />
                   </font></Label>
@@ -748,7 +748,7 @@
                     <Rectangle fx:id="rectangle4" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line4" visible="false" />
                     <Label fx:id="graphLabel4" layoutX="404.0" layoutY="18.0" text="Empty" />
-               <Label fx:id="graph4Label3" layoutY="36.0" textFill="#008204">
+               <Label fx:id="graph4Label3" layoutX="2.0" layoutY="36.0" textFill="#008204">
                   <font>
                      <Font size="10.0" />
                   </font></Label>
@@ -787,7 +787,7 @@
                     <Rectangle fx:id="rectangle5" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line5" visible="false" />
                     <Label fx:id="graphLabel5" layoutX="404.0" layoutY="18.0" text="Empty" />
-               <Label fx:id="graph5Label3" layoutY="36.0" textFill="#008204">
+               <Label fx:id="graph5Label3" layoutX="2.0" layoutY="36.0" textFill="#008204">
                   <font>
                      <Font size="10.0" />
                   </font></Label>
@@ -826,7 +826,7 @@
                     <Rectangle fx:id="rectangle6" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line6" visible="false" />
                     <Label fx:id="graphLabel6" layoutX="404.0" layoutY="18.0" text="Empty" />
-               <Label fx:id="graph6Label3" layoutY="36.0" textFill="#008204">
+               <Label fx:id="graph6Label3" layoutX="2.0" layoutY="36.0" textFill="#008204">
                   <font>
                      <Font size="10.0" />
                   </font></Label>
@@ -865,7 +865,7 @@
                     <Rectangle fx:id="rectangle7" managed="false" mouseTransparent="true" visible="false" />
                     <Line fx:id="line7" visible="false" />
                     <Label fx:id="graphLabel7" layoutX="404.0" layoutY="18.0" text="Empty" />
-               <Label fx:id="graph7Label3" layoutY="36.0" textFill="#008204">
+               <Label fx:id="graph7Label3" layoutX="2.0" layoutY="36.0" textFill="#008204">
                   <font>
                      <Font size="10.0" />
                   </font></Label>
