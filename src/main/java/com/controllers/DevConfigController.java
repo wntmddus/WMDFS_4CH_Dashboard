@@ -42,6 +42,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -180,7 +181,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(!clientConn.containsKey(i) && connChkBoxMap.get(i).isSelected()) {
+            if (!clientConn.containsKey(i) && connChkBoxMap.get(i).isSelected()) {
                 Runnable task = () -> {
                     try {
                         // create and store Socket
@@ -241,7 +242,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                 });
                                 int counter = 0;
                                 AtomicReference<List<Number>> tempArr = new AtomicReference<>();
-                                tempArr.set(new ArrayList<Number>(){
+                                tempArr.set(new ArrayList<Number>() {
                                     {
                                         add(0);
                                         add(0);
@@ -266,20 +267,30 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                     List<String> arr = Arrays.asList(line.split("\\s+"));
                                     if (deviceData.get(i).size() > 3600) deviceData.get(i).remove(0);
                                     deviceData.get(i).add(arr);
-                                    if (fileWriters.containsKey(i) && recCheckboxArray.get(i).isSelected()) {
+                                    if (fileWriters.containsKey(i) && recCheckboxArray.get(i).isSelected() && (line.contains("00:00:00:01") || flags.get(i))) {
+                                        if (line.contains("00:00:00:01")) {
+                                            deviceData.get(i).clear();
+                                            deviceData.get(i).add(arr);
+                                            flags.put(i, true);
+                                        }
                                         totalCountMap.put(i, totalCountMap.get(i) + 1);
                                         if (line.contains(":24:00:00")) {
                                             createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss", false), false);
                                         }
                                         fileWriters.get(i).write(line + "\r\n");
-                                        fileWriters.get(i).flush();
-                                        if (totalCountMap.get(i) != 0 && totalCountMap.get(i) % 5 == 0) {
+                                        if (totalCountMap.get(i) % 60 == 0) {
+                                            fileWriters.get(i).flush();
+                                        }
+                                        if (!macAddressesMap.get(i).equals("") && totalCountMap.get(i) != 0 && totalCountMap.get(i) % 60 == 0) {
                                             Runnable postCallThread = () -> {
                                                 StringBuilder str = new StringBuilder();
-                                                JSONObject body = buildSensorDataObject(i, devName);
+                                                List<JSONObject> list = new ArrayList<>();
+                                                for (int a = 11; a >= 0; a--) {
+                                                    list.add(buildSensorDataObject(i, devName, a));
+                                                }
                                                 String res = null;
                                                 try {
-                                                    res = RestfulApi.post("extLogs", body);
+                                                    res = RestfulApi.postBatch("extLogs", list);
                                                 } catch (Exception e) {
                                                     log.error(e);
                                                     System.err.println(e);
@@ -291,8 +302,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                                 Platform.runLater(() -> {
                                                     if (logView != null) {
                                                         logView.appendText(str.toString());
-                                                        if (logView.getText().length() > 30000) {
-                                                            logView.deleteText(0, 1153);
+                                                        if (logView.getText().length() > 10000) {
+                                                            logView.deleteText(0, str.length() + 1);
                                                         }
                                                     }
                                                 });
@@ -303,11 +314,13 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                                 backgroundThread.start();
                                             }
                                         }
+                                    } else {
+                                        flags.put(i, false);
                                     }
                                     int finalCounter = counter;
                                     if (arr.size() == 9) {
                                         Platform.runLater(() -> {
-                                            if(chartAllocation.containsKey(i)) {
+                                            if (chartAllocation.containsKey(i)) {
                                                 updateRealtimeDataUpdatePanel(arr, chartAllocation.get(i));
                                             }
                                             tempArr.set(sliceChartData(tempArr.get(), arr, i, finalCounter));
@@ -344,31 +357,31 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                                     "}");
                                             if (!macAddressesMap.get(i).equals("")) {
                                                 requestBody2.put("connectionMac", macAddressesMap.get(i));
-                                            }
-                                            String res1 = null;
-                                            try {
-                                                res1 = RestfulApi.post("extInit", requestBody1);
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-                                            String res2 = null;
-                                            try {
-                                                res2 = RestfulApi.post("extRegistration", requestBody2);
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-                                            str.append(BASE_URL + "extInit").append("\n")
-                                                    .append(res1).append("\n")
-                                                    .append("-------------------------------------------").append("\n");
-                                            str.append(BASE_URL + "extRegistration").append("\n")
-                                                    .append(res2).append("\n")
-                                                    .append("-------------------------------------------").append("\n");
-                                            logStringBuilder.append(str);
-                                            Platform.runLater(() -> {
-                                                if (logView != null) {
-                                                    logView.appendText(logStringBuilder.toString());
+                                                String res1 = null;
+                                                try {
+                                                    res1 = RestfulApi.post("extInit", requestBody1);
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
                                                 }
-                                            });
+                                                String res2 = null;
+                                                try {
+                                                    res2 = RestfulApi.post("extRegistration", requestBody2);
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+//                                                str.append(BASE_URL + "extInit").append("\n")
+//                                                        .append(res1).append("\n")
+//                                                        .append("-------------------------------------------").append("\n");
+//                                                str.append(BASE_URL + "extRegistration").append("\n")
+//                                                        .append(res2).append("\n")
+//                                                        .append("-------------------------------------------").append("\n");
+//                                                logStringBuilder.append(str);
+//                                                Platform.runLater(() -> {
+//                                                    if (logView != null) {
+//                                                        logView.appendText(logStringBuilder.toString());
+//                                                    }
+//                                                });
+                                            }
                                         };
                                         if (isSendingData) {
                                             Thread backgroundThread = new Thread(postCallThread);
@@ -384,7 +397,9 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                     } else {
                                         outputList.get(i).writeBytes("1\0");
                                     }
-                                    TimeUnit.MILLISECONDS.sleep(600);
+                                    Long timeNow = System.currentTimeMillis();
+                                    TimeUnit.MILLISECONDS.sleep(100);
+                                    waitUntil(timeNow);
                                     counter++;
                                 }
                             } catch (IOException | InterruptedException e) {
@@ -441,6 +456,17 @@ public class DevConfigController extends SharedStorage implements Initializable 
         });
     }
 
+    public static void waitUntil(long timestamp) {
+        long millis = 1000 + timestamp - System.currentTimeMillis() - 4;
+        // return immediately if time is already in the past
+        if (millis <= 0)
+            return;
+        try {
+            TimeUnit.MILLISECONDS.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
     @FXML
     private void handleOnDisconnectAll() throws InterruptedException {
         Platform.runLater(() -> {
@@ -489,6 +515,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
             });
         }
     }
+
     private String reconnectOnSocketFailure(int i, String devName) throws IOException, InterruptedException {
         String line = "";
         int timeCounter = 0;
@@ -586,7 +613,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
         tempArr.set(6, Math.max((Double) tempArr.get(6), Float.parseFloat(arr.get(6))));
         tempArr.set(7, Math.max((Integer) tempArr.get(7), Integer.parseInt(arr.get(7))));
         tempArr.set(8, Math.max((Double) tempArr.get(8), Float.parseFloat(arr.get(8))));
-        if (counter != 0 && counter % 6  == 0) {
+        if (counter != 0 && counter % 6 == 0) {
             if (chartDataMap.get(i).get("rpm1").getData().size() > 600) {
                 chartDataMap.get(i).get("rpm1").getData().remove(0);
                 chartDataMap.get(i).get("rpm2").getData().remove(0);
@@ -715,12 +742,14 @@ public class DevConfigController extends SharedStorage implements Initializable 
             }
         }
     }
+
     public String rgbFormatter(Color color) {
         return String.format("%d, %d, %d",
                 (int) (color.getRed() * 255),
                 (int) (color.getGreen() * 255),
                 (int) (color.getBlue() * 255));
     }
+
     private void removingDeviceDataOnDisconnect(int i) {
         clientConn.remove(i);
         addresses.remove(i);
@@ -733,6 +762,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
         fileWriters.remove(i);
         totalCountMap.put(i, 0);
     }
+
     private void removeChartData(int i) {
         if (!disconnectBtnMap.get(i).isDisable()) {
             boxes.get(i).setOpacity(0.3);
@@ -782,7 +812,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
         }
     }
 
-    private JSONObject buildSensorDataObject(int i, String devName) {
+    private JSONObject buildSensorDataObject(int i, String devName, int index) {
         JSONObject body = new JSONObject("{\n" +
                 "    \"extDeviceId\": \"" + devName + "\",\n" +
                 "    \"dateTime\": \"" + getCurrentDateTime("yyyy-MM-dd HH:mm:ss", true) + "\",\n" +
@@ -794,67 +824,67 @@ public class DevConfigController extends SharedStorage implements Initializable 
 
         JSONObject sensorObject2 = new JSONObject();
         JSONArray sensorArray2 = new JSONArray();
-        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(0).replaceAll(":", ""));
-        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(1));
-        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(2));
-        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(3));
-        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(4));
-        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(5));
-        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(6));
-        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(7));
-        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5).get(8));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5 - (5 * index)).get(0).replaceAll(":", ""));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5 - (5 * index)).get(1));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5 - (5 * index)).get(2));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5 - (5 * index)).get(3));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5 - (5 * index)).get(4));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5 - (5 * index)).get(5));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5 - (5 * index)).get(6));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5 - (5 * index)).get(7));
+        sensorArray2.put(deviceData.get(i).get(deviceData.get(i).size() - 5 - (5 * index)).get(8));
         sensorObject2.put("sensorData", sensorArray2);
 
         JSONObject sensorObject3 = new JSONObject();
         JSONArray sensorArray3 = new JSONArray();
-        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(0).replaceAll(":", ""));
-        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(1));
-        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(2));
-        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(3));
-        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(4));
-        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(5));
-        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(6));
-        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(7));
-        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4).get(8));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4 - (5 * index)).get(0).replaceAll(":", ""));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4 - (5 * index)).get(1));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4 - (5 * index)).get(2));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4 - (5 * index)).get(3));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4 - (5 * index)).get(4));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4 - (5 * index)).get(5));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4 - (5 * index)).get(6));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4 - (5 * index)).get(7));
+        sensorArray3.put(deviceData.get(i).get(deviceData.get(i).size() - 4 - (5 * index)).get(8));
         sensorObject3.put("sensorData", sensorArray3);
 
         JSONObject sensorObject4 = new JSONObject();
         JSONArray sensorArray4 = new JSONArray();
-        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(0).replaceAll(":", ""));
-        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(1));
-        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(2));
-        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(3));
-        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(4));
-        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(5));
-        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(6));
-        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(7));
-        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3).get(8));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3 - (5 * index)).get(0).replaceAll(":", ""));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3 - (5 * index)).get(1));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3 - (5 * index)).get(2));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3 - (5 * index)).get(3));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3 - (5 * index)).get(4));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3 - (5 * index)).get(5));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3 - (5 * index)).get(6));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3 - (5 * index)).get(7));
+        sensorArray4.put(deviceData.get(i).get(deviceData.get(i).size() - 3 - (5 * index)).get(8));
         sensorObject4.put("sensorData", sensorArray4);
 
         JSONObject sensorObject5 = new JSONObject();
         JSONArray sensorArray5 = new JSONArray();
-        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(0).replaceAll(":", ""));
-        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(1));
-        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(2));
-        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(3));
-        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(4));
-        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(5));
-        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(6));
-        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(7));
-        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2).get(8));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2 - (5 * index)).get(0).replaceAll(":", ""));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2 - (5 * index)).get(1));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2 - (5 * index)).get(2));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2 - (5 * index)).get(3));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2 - (5 * index)).get(4));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2 - (5 * index)).get(5));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2 - (5 * index)).get(6));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2 - (5 * index)).get(7));
+        sensorArray5.put(deviceData.get(i).get(deviceData.get(i).size() - 2 - (5 * index)).get(8));
         sensorObject5.put("sensorData", sensorArray5);
 
         JSONObject sensorObject6 = new JSONObject();
         JSONArray sensorArray6 = new JSONArray();
-        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(0).replaceAll(":", ""));
-        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(1));
-        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(2));
-        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(3));
-        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(4));
-        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(5));
-        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(6));
-        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(7));
-        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1).get(8));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1 - (5 * index)).get(0).replaceAll(":", ""));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1 - (5 * index)).get(1));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1 - (5 * index)).get(2));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1 - (5 * index)).get(3));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1 - (5 * index)).get(4));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1 - (5 * index)).get(5));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1 - (5 * index)).get(6));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1 - (5 * index)).get(7));
+        sensorArray6.put(deviceData.get(i).get(deviceData.get(i).size() - 1 - (5 * index)).get(8));
         sensorObject6.put("sensorData", sensorArray6);
 
         rawData.put(sensorObject2);
@@ -866,5 +896,4 @@ public class DevConfigController extends SharedStorage implements Initializable 
         body.put("rawData", rawData);
         return body;
     }
-
 }

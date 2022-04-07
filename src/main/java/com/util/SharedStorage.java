@@ -28,7 +28,7 @@ public class SharedStorage {
     public final int MAX_DEVICE_NUMBER = 20;
     public final int MAX_GRAPH_NUMBER = 8;
     public final static String BASE_URL = "https://ddms-api.samsunghrm.com/v2/ddms/service/";
-    public final static String BASE_IP_ADDRESS = "192.168.4.";
+    public final static String BASE_IP_ADDRESS = "192.168.0.";
     public final static String APPLICATION_JSON = "application/json";
     public final static String AUTHORIZATION = "Authorization";
     public final static String ID = "id";
@@ -41,6 +41,21 @@ public class SharedStorage {
     public static Map<Integer, String> addresses = new HashMap<>();
     public static Map<Integer, Label> deviceIdMap = new HashMap<>();
     public static Map<Integer, TextField> macIdTextFieldMap = new HashMap<>();
+    public Map<Integer, Boolean> flags = new HashMap<Integer, Boolean>() {
+        {
+            put(0, false);
+            put(1, false);
+            put(2, false);
+            put(3, false);
+            put(4, false);
+            put(5, false);
+            put(6, false);
+            put(7, false);
+            put(8, false);
+            put(9, false);
+
+        }
+    };
     public static Map<Integer, String> macAddressesMap = new HashMap<Integer, String>(){
         {
             put(0, "");
