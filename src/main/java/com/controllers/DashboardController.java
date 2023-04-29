@@ -1489,10 +1489,16 @@ public class DashboardController extends SharedStorage implements Initializable 
             Platform.runLater(() -> {
                 for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
                     if (clientConn.containsKey(i)) {
+                        try {
+                            fileWriters.get(i).flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         fileWriters.remove(i);
                         recCheckboxArray.get(i).setDisable(false);
                         boxes.get(i).setFill(Color.GREEN);
                         boxes.get(i).setOpacity(0.3);
+
                     }
                 }
                 recordDot.setVisible(true);
