@@ -11,7 +11,7 @@
       <ImageView layoutX="29.0" layoutY="46.0">
          <Image url="@../image/sv_logo.jpg"/>
       </ImageView>
-      <Label layoutX="107.0" layoutY="46.0" text="WMDFS-4_Dashboard, Version IP10 v2.2 Beta2"/>
+      <Label layoutX="107.0" layoutY="46.0" text="WMDFS-4_Dashboard, Version IP9 v2.2 Beta3"/>
       <Label layoutX="107.0" layoutY="77.0" text="Copyright (C) 2020"/>
    </Pane>
 </VBox>
