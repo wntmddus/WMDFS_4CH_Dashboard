@@ -20,6 +20,11 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -267,7 +272,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                     List<String> arr = Arrays.asList(line.split("\\s+"));
                                     if (deviceData.get(i).size() > 3600) deviceData.get(i).remove(0);
                                     deviceData.get(i).add(arr);
-                                    if (fileWriters.containsKey(i) && recCheckboxArray.get(i).isSelected() && (line.contains("00:00:00:01") || flags.get(i))) {
+                                    if (filePathMap.containsKey(i) && recCheckboxArray.get(i).isSelected() && (line.contains("00:00:00:01") || flags.get(i))) {
                                         if (line.contains("00:00:00:01")) {
                                             deviceData.get(i).clear();
                                             deviceData.get(i).add(arr);
@@ -277,9 +282,10 @@ public class DevConfigController extends SharedStorage implements Initializable 
                                         if (line.contains(":24:00:00")) {
                                             createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss", false), false);
                                         }
-                                        fileWriters.get(i).write(line + "\r\n");
-                                        if (totalCountMap.get(i) % 60 == 0) {
-                                            fileWriters.get(i).flush();
+                                        try {
+                                            writeToFile(filePathMap.get(i), line + "\r\n");
+                                        } catch (IOException e) {
+                                            e.printStackTrace(); // Handle the exception as needed
                                         }
                                         if (!macAddressesMap.get(i).equals("") && totalCountMap.get(i) != 0 && totalCountMap.get(i) % 60 == 0) {
                                             Runnable postCallThread = () -> {
@@ -525,11 +531,11 @@ public class DevConfigController extends SharedStorage implements Initializable 
                 throw new IOException("Device is disconnected by user");
             }
             clientConn.get(i).close();
-            Thread.sleep(10000);
+            Thread.sleep(5000);
             Socket newSock = new Socket();
             try {
                 String address = BASE_IP_ADDRESS + addresses.get(i);
-                newSock.connect(new InetSocketAddress(address, Integer.parseInt(ports.get(i))), 1000);
+                newSock.connect(new InetSocketAddress(address, Integer.parseInt(ports.get(i))), 5000);
                 newSock.setSoTimeout(5000);
             } catch (IOException e) {
                 line = "";
@@ -546,9 +552,9 @@ public class DevConfigController extends SharedStorage implements Initializable 
                 } catch (IOException e) {
                     line = "";
                 }
-                if (recordAllBtnGlobal.getText().equals("Stop")) {
-                    createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss", false), true);
-                }
+//                if (recordAllBtnGlobal.getText().equals("Stop")) {
+//                    createNewFileWriter(i, getCurrentDateTime("yyyy-MM-dd-HH.mm.ss", false), true);
+//                }
                 chartDataMap.get(i).remove("rpm1");
                 chartDataMap.get(i).remove("rpm2");
                 chartDataMap.get(i).remove("rpm3");
@@ -567,7 +573,7 @@ public class DevConfigController extends SharedStorage implements Initializable 
                 });
             }
 
-            if (!line.equals("")) {
+            if (!macAddressesMap.get(i).equals("") && !line.equals("")) {
                 Runnable postCallThread = () -> {
                     JSONObject requestBody1 = new JSONObject("{\n" +
                             "    \"extDeviceId\": \"" + devName + "\"\n" +
@@ -595,10 +601,10 @@ public class DevConfigController extends SharedStorage implements Initializable 
                     Thread backgroundThread = new Thread(postCallThread);
                     backgroundThread.setDaemon(true);
                     backgroundThread.start();
-                    backgroundThread.join();
+//                    backgroundThread.join();
                 }
-                return line;
             }
+            if (!line.equals("")) return line;
             timeCounter++;
         }
         throw new IOException("Device is disconnected After 10 minutes of Retry");
@@ -650,23 +656,52 @@ public class DevConfigController extends SharedStorage implements Initializable 
         }
     }
 
+    public void initializeFileMap(int index, String deviceName, String address, String port, String currentDate, boolean isReconnected) throws IOException {
+        String reconnected = isReconnected ? "-Reconnected" : "";
+        String directoryPath = "./SavedData/"
+                + deviceName + "-"
+                + address + "-"
+                + port;
+        Files.createDirectories(Paths.get(directoryPath));
+
+        String pathString = directoryPath + "/"
+                + deviceName + "-"
+                + currentDate + reconnected + ".txt";
+        Path path = Paths.get(pathString);
+        filePathMap.put(index, path);
+    }
+
+    public static void writeToFile(Path path, String data) throws IOException {
+        // Ensure parent directories exist
+        Files.createDirectories(path.getParent());
+
+        // Use try-with-resources to ensure the writer is closed properly
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND)) {
+            writer.write(data);
+        }
+    }
+
     public void createNewFileWriter(int index, String currentDate, boolean isReconnected) throws IOException {
         dateTimeOnFileNameMap.put(index, getCurrentDateTime("yyyy/MM/dd", false));
-        String reconnected = "";
-        if (isReconnected) {
-            reconnected = "-Reconnected";
+        initializeFileMap(index, deviceNames.get(index).getText(), addresses.get(index), ports.get(index), currentDate, isReconnected);
+        // Build the content to write
+        StringBuilder content = new StringBuilder();
+        content.append("Date: ").append(getCurrentDateTime("yyyy/MM/dd", false)).append("\r\n");
+        content.append("Time: ").append(getCurrentDateTime("HH:mm:ss", false)).append("\r\n");
+        content.append("\r\n");
+        content.append("Vibration: ").append(vibUnitMap.get(index)).append("\r\n");
+        content.append("\r\n");
+        content.append("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3     RPM#4     Vib#4\r\n");
+
+        // Write to the file using the utility method
+        try {
+            writeToFile(filePathMap.get(index), content.toString());
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception as needed
         }
-        String path = "./SavedData/" + deviceNames.get(index).getText() + "-" + addresses.get(index) + "-" + ports.get(index) + "/" + deviceNames.get(index).getText() + "-" + currentDate + reconnected + ".txt";
-        File file = new File(path);
-        file.getParentFile().mkdirs();
-        fileWriters.put(index, new FileWriter(file));
-        fileWriters.get(index).write("Date: " + getCurrentDateTime("yyyy/MM/dd", false) + "\r\n");
-        fileWriters.get(index).write("Time: " + getCurrentDateTime("HH:mm:ss", false) + "\r\n");
-        fileWriters.get(index).write("\r\n");
-        fileWriters.get(index).write("Vibration: " + vibUnitMap.get(index) + "\r\n");
-        fileWriters.get(index).write("\r\n");
-        fileWriters.get(index).write("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3     RPM#4     Vib#4\r\n");
-        fileWriters.get(index).flush();
+
     }
 
     private void initializeChartData(int index) {
@@ -758,8 +793,8 @@ public class DevConfigController extends SharedStorage implements Initializable 
         vibUnitMap.remove(i);
         vibUnitDetailedMap.remove(i);
         chartConfigMap.remove(i);
-        fileWriters.remove(i);
-        fileWriters.remove(i);
+        filePathMap.remove(i);
+        filePathMap.remove(i);
         totalCountMap.put(i, 0);
     }
 

@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.prefs.Preferences;
@@ -28,7 +29,7 @@ public class SharedStorage {
     public final int MAX_DEVICE_NUMBER = 20;
     public final int MAX_GRAPH_NUMBER = 8;
     public final static String BASE_URL = "https://ddms-api.samsunghrm.com/v2/ddms/service/";
-    public final static String BASE_IP_ADDRESS = "192.168.7.";
+    public final static String BASE_IP_ADDRESS = "127.0.0.";
     public final static String APPLICATION_JSON = "application/json";
     public final static String AUTHORIZATION = "Authorization";
     public final static String ID = "id";
@@ -114,7 +115,7 @@ public class SharedStorage {
     public static Map<Integer, Label> vibUnitLabelMap = new HashMap<>();
     public static List<CheckBox> recCheckboxArray = new ArrayList<>();
     public static List<Label> deviceNames = new ArrayList<>();
-    public static Map<Integer, FileWriter> fileWriters = new HashMap<>();
+    public static Map<Integer, Path> filePathMap = new HashMap<>();
     public static Map<Integer, Label> addressLabels = new HashMap<>();
     public static Map<Integer, List<List<String>>> deviceData = new HashMap<>();
     public static Map<Integer, Label> graphLabels = new HashMap<>();

@@ -1257,7 +1257,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         if (chartAllocation.containsKey(fromIndex)) chartAllocation.put(toIndex, chartAllocation.get(fromIndex));
         if (recCheckboxArray.get(fromIndex).isSelected()) {
             dateTimeOnFileNameMap.put(toIndex, dateTimeOnFileNameMap.get(fromIndex));
-            fileWriters.put(toIndex, fileWriters.get(fromIndex));
+            filePathMap.put(toIndex, filePathMap.get(fromIndex));
         }
         clientConn.remove(fromIndex);
         addresses.remove(fromIndex);
@@ -1266,7 +1266,7 @@ public class DashboardController extends SharedStorage implements Initializable 
         inputList.remove(fromIndex);
         chartAllocation.remove(fromIndex);
         dateTimeOnFileNameMap.remove(fromIndex);
-        fileWriters.remove(fromIndex);
+        filePathMap.remove(fromIndex);
         chartDataMap.remove(fromIndex);
         chartConfigMap.remove(fromIndex);
         deviceNames.get(toIndex).setText(deviceNames.get(fromIndex).getText());
@@ -1489,12 +1489,7 @@ public class DashboardController extends SharedStorage implements Initializable 
             Platform.runLater(() -> {
                 for (int i = 0; i < MAX_DEVICE_NUMBER; i++) {
                     if (clientConn.containsKey(i)) {
-                        try {
-                            fileWriters.get(i).flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        fileWriters.remove(i);
+                        filePathMap.remove(i);
                         recCheckboxArray.get(i).setDisable(false);
                         boxes.get(i).setFill(Color.GREEN);
                         boxes.get(i).setOpacity(0.3);
@@ -1512,26 +1507,6 @@ public class DashboardController extends SharedStorage implements Initializable 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
-    }
-
-
-    public void createNewFileWriter(int index, String currentDate, boolean isReconnected) throws IOException {
-        dateTimeOnFileNameMap.put(index, getCurrentDateTime("yyyy/MM/dd"));
-        String reconnected = "";
-        if (isReconnected) {
-            reconnected = "-Reconnected";
-        }
-        String path = "./SavedData/" + deviceNames.get(index).getText() + "-" + addresses.get(index) + "-" + ports.get(index) + "/" + deviceNames.get(index).getText() + "-" + currentDate + reconnected + ".txt";
-        File file = new File(path);
-        file.getParentFile().mkdirs();
-        fileWriters.put(index, new FileWriter(file));
-        fileWriters.get(index).write("Date: " + getCurrentDateTime("yyyy/MM/dd") + "\r\n");
-        fileWriters.get(index).write("Time: " + getCurrentDateTime("HH:mm:ss") + "\r\n");
-        fileWriters.get(index).write("\r\n");
-        fileWriters.get(index).write("Vibration: " + vibUnitMap.get(index) + "\r\n");
-        fileWriters.get(index).write("\r\n");
-        fileWriters.get(index).write("dd:hh:mm:ss     RPM#1     Vib#1     RPM#2     Vib#2     RPM#3     Vib#3     RPM#4     Vib#4\r\n");
-        fileWriters.get(index).flush();
     }
 
     @FXML
